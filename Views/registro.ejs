@@ -9,40 +9,44 @@
     <title>Registro</title>
 </head>
 <body>
-
-    <div class="caixa__login">
-        <h2>Cadastro</h2>
-        <form>
-            <div class="caixa__login-input">
-                <input type="text" required />
-                <label>Nome</label>
-            </div>
-            <div class="caixa__login-input">
-                <input type="text" required />
-                <label>Email</label>
-            </div>
-            <div class="caixa__login-input">
-                <input type="text" required />
-                <label>Nascimento</label>
-            </div>
-            <div class="caixa__login-input">
-                <input type="password" required />
-                <label>Senha</label>
-            </div>
-            <div class="caixa__login-input">
-                <input type="password" required />
-                <label>Confirmar senha</label>
-            </div>
-            <a id="acesso">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                Cadastrar
-                <!-- <input class="p-button" type="submit"> -->
-            </a>
-        </form>
-    </div>
-
+    <section class= "registro">
+        <div class="caixa__login">
+            <h2>Cadastro</h2>
+            <form action="/registro" method="post">
+                <div class="caixa__login-input">
+                    <input name="nome" type="text" required />
+                    <label>Nome</label>
+                </div>
+                <div class="caixa__login-input">
+                    <input name = "Email"type="text" required />
+                    <label>Email</label>
+                </div>
+                <div class="caixa__login-input">
+                    <input name="Idade" type="text" required />
+                    <label>Nascimento</label>
+                </div>
+                <div class="caixa__login-input">
+                    <input name="senha" type="password" required />
+                    <label>Senha</label>
+                </div>
+                <div class="caixa__login-input">
+                    <input name="Confirmasenha" type="password" required />
+                    <label>Confirmar senha</label>
+                </div>
+                <a id="acesso">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Cadastrar
+                    
+                </a>
+                <input class="p-button" type="submit">
+                <script>
+                    console.log("teste");
+                </script>
+            </form>
+        </div>
+    </section>
 </body>
 </html>

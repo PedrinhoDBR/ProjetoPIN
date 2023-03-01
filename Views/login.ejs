@@ -8,30 +8,24 @@
     <title>Login</title>
 </head>
 <body>
+    <section class="login">
+        <div class="caixa__login">
+            <h2>Login</h2>
+            <a id="esqueciasenha" href="registro">Esqueci a senha</a>
+            <form action="/login" method="post">
+                <div class="caixa__login-input">
+                    <input name= "nome"type="text" required />
+                    <label>Email</label>
+                </div>
+                <div class="caixa__login-input">
+                    <input name="senha" type="password" required />
+                    <label>Senha</label>
+                </div>
 
-    <div class="caixa__login">
-        <h2>Login</h2>
-        <a id="esqueciasenha" href="registro">Esqueci a senha</a>
-        <form>
-            <div class="caixa__login-input">
-                <input type="text" required />
-                <label>Email</label>
-            </div>
-            <div class="caixa__login-input">
-                <input type="password" required />
-                <label>Senha</label>
-            </div>
+                <input id="acesso" class="p-button" type="submit">
                 
-            <a id="acesso">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                Acessar
-                <!-- <input class="p-button" type="submit"> -->
-            </a>
-        </form>
-    </div>
-    
+            </form>
+        </div>
+    </section>
 </body>
 </html>

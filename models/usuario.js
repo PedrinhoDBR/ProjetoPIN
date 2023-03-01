@@ -14,7 +14,7 @@ const User = database.define('user', {
     },
     email:{
         type: Sequelize.STRING,
-        //allowNull: false
+        allowNull: false
     },
     senha:{
         type: Sequelize.STRING,
@@ -22,7 +22,7 @@ const User = database.define('user', {
     },
     idade:{
         type: Sequelize.INTEGER,
-        //allowNull: false
+        allowNull: false
 
     },
     tipo:{
