@@ -1,37 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="Images/logo/logobrancocirculo.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/stylelogin.css">
-    <title>Login</title>
+    <title>Registro</title>
 </head>
 <body>
 
     <div class="caixa__login">
-        <h2>Login</h2>
-        <a id="esqueciasenha" href="registro">Esqueci a senha</a>
+        <h2>Cadastro</h2>
         <form>
+            <div class="caixa__login-input">
+                <input type="text" required />
+                <label>Nome</label>
+            </div>
             <div class="caixa__login-input">
                 <input type="text" required />
                 <label>Email</label>
             </div>
             <div class="caixa__login-input">
+                <input type="text" required />
+                <label>Nascimento</label>
+            </div>
+            <div class="caixa__login-input">
                 <input type="password" required />
                 <label>Senha</label>
             </div>
-                
+            <div class="caixa__login-input">
+                <input type="password" required />
+                <label>Confirmar senha</label>
+            </div>
             <a id="acesso">
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
-                Acessar
+                Cadastrar
                 <!-- <input class="p-button" type="submit"> -->
             </a>
         </form>
     </div>
-    
+
 </body>
 </html>

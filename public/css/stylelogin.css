@@ -9,6 +9,7 @@
 html {
   height: 100%;
 }
+
 body {
   margin: 0;
   padding: 0;
@@ -74,7 +75,7 @@ h2 {
   font-size: 12px;
 }
 
-.caixa__login form a {
+.caixa__login form #acesso {
   position: relative;
   display: inline-block;
   padding: 10px 20px;
@@ -90,19 +91,19 @@ h2 {
   letter-spacing: 10px;
 }
 
-.caixa__login a:hover {
+.caixa__login #acesso:hover {
   background: #8b80f9;
   color: #fff;
   box-shadow: 0 0 5px #8b80f9, 0 0 25px #8b80f9, 0 0 50px #8b80f9,
     0 0 100px #8b80f9;
 }
 
-.caixa__login a span {
+.caixa__login #acesso span {
   position: absolute;
   display: block;
 }
 
-.caixa__login a span:nth-child(1) {
+.caixa__login #acesso span:nth-child(1) {
   top: 0;
   left: -100%;
   width: 100%;
@@ -121,7 +122,7 @@ h2 {
   }
 }
 
-.caixa__login a span:nth-child(2) {
+.caixa__login #acesso span:nth-child(2) {
   top: -100%;
   right: 0;
   width: 1px;
@@ -141,7 +142,7 @@ h2 {
   }
 }
 
-.caixa__login a span:nth-child(3) {
+.caixa__login #acesso span:nth-child(3) {
   bottom: 0;
   right: -100%;
   width: 100%;
@@ -161,7 +162,7 @@ h2 {
   }
 }
 
-.caixa__login a span:nth-child(4) {
+.caixa__login #acesso span:nth-child(4) {
   bottom: -100%;
   left: 0;
   width: 1px;
@@ -181,7 +182,9 @@ h2 {
   }
 }
 
-
-
-
+#esqueciasenha {
+  text-decoration: none;
+  color: #fff;
+  font-size: 80%;
+}
 

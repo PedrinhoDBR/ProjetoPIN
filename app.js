@@ -15,6 +15,10 @@ app.get('/',(req,res)=>{
 
 })
 
+app.get('/registro',(req,res)=>{
+    res.render("registro");
+
+})
 app.get('/login',(req,res)=>{
     res.render("login");
 
