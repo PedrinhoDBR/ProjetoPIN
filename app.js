@@ -62,14 +62,14 @@ app.post('/registro', async(req,res)=>{
         res.redirect("registro")
     }else{
         console.log("teste")
-        const nuser = await User.create({
+        const newuser = await User.create({
             nome: nome,
-            email: 'a@gmail.com',
-            idade: '12',
+            email: email,//'a@gmail.com',
+            idade: idade,
             senha: senha,
-            tipo:   'admin'
+            tipo:   'user'
         })
-        res.redirect('home')
+        res.redirect('login')
     }
 })
 
