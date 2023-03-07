@@ -21,7 +21,7 @@ const User = database.define('user', {
         allowNull: false
     },
     idade:{
-        type: Sequelize.INTEGER,
+        type: Sequelize.DATE,
         allowNull: false
 
     },
