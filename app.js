@@ -47,14 +47,13 @@ app.get('/login',(req,res)=>{
 
 })
 
-app.get('/steam',(req,res)=>{
-    const pythonProcess = spawn('python', ['./steam.py','730']);
-    pythonProcess.stdout.on('data', (data) => {
-        let result = data.toString();
-        console.log(result)
+app.get('/steam', async (req,res)=>{
+    const pythonProcess = await spawn('python', ['./Apis/steam.py','578080']);
+    let result = null
+    await pythonProcess.stdout.on('data', (data) => {
+        result = data.toString();
+        res.render('steam', { result : result});
     });
-    console.log('aaa')
-    res.render('steam', { result });
 })
 
 app.post('/registro', async(req,res)=>{
