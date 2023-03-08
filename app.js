@@ -14,7 +14,7 @@ await database.sync()
 const { Op } = require("sequelize");
 const User = require('./models/Usuario')
 
-
+const { spawn } = require('child_process');
 const express = require('express');
 const session = require('express-session');
 const methodOverride = require('method-override')
@@ -47,6 +47,15 @@ app.get('/login',(req,res)=>{
 
 })
 
+app.get('/steam',(req,res)=>{
+    const pythonProcess = spawn('python', ['./steam.py','730']);
+    pythonProcess.stdout.on('data', (data) => {
+        let result = data.toString();
+        console.log(result)
+    });
+    console.log('aaa')
+    res.render('steam', { result });
+})
 
 app.post('/registro', async(req,res)=>{
     const {nome, email, idade, senha, Confirmasenha } = req.body //confirmar senha tbm
