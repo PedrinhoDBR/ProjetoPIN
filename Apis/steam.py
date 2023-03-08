@@ -7,8 +7,9 @@ response = requests.get(api_url)
 data = response.json()
 
 # Get the minimum and recommended system requirements
-min_reqs = data[str(app_id)]['data']['pc_requirements']
+NomeDoJogo = data[str(app_id)]['data']['name']
 rec_reqs = data[str(app_id)]['data']['pc_requirements']
+fulldata = data[str(app_id)]['data']
 
-print(f'Minimum Requirements: {min_reqs}')
-print(f'Recommended Requirements: {rec_reqs}')
+print(NomeDoJogo)
+#print(f'Recommended Requirements: {rec_reqs}')
