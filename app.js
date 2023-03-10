@@ -47,8 +47,9 @@ app.get('/login',(req,res)=>{
 
 })
 
-app.get('/steam', async (req,res)=>{
-    const pythonProcess = await spawn('python', ['./Apis/steam.py','578080']);
+app.get('/steam/:steamID', async (req,res)=>{
+    const steamID = req.params.steamID
+    const pythonProcess = await spawn('python', ['./Apis/steam.py',steamID.toString()]);
     let result = null
     await pythonProcess.stdout.on('data', (data) => {
         result = data.toString();
