@@ -14,25 +14,26 @@
             <h2>Cadastro</h2>
             <form action="/registro" method="post">
                 <div class="caixa__login-input">
-                    <input name="nome" type="text" required />
+                    <input name="nome" type="text" autocomplete="off" required />
                     <label>Nome</label>
                 </div>
                 <div class="caixa__login-input">
-                    <input name = "email"type="email" required />
+                    <input name = "email"type="email" autocomplete="off" required />
                     <label>Email</label>
                 </div>
                 <div class="caixa__login-input">
-                    <input name= "idade" type="date" required />
+                    <input name= "idade" type="date" autocomplete="off" required />
                     <label>Nascimento </label>
                 </div>
                 <div class="caixa__login-input">
-                    <input name="senha" type="password" required />
+                    <input name="senha" type="password" autocomplete="off" required />
                     <label>Senha</label>
                 </div>
                 <div class="caixa__login-input">
                     <input name="Confirmasenha" type="password" required />
                     <label>Confirmar senha</label>
                 </div>
+                <a id="esqueciasenha" href="login">Já possui uma conta?</a>
                 <input id="acesso" class="p-button" type="submit">
                 <script>
                     console.log("teste");
