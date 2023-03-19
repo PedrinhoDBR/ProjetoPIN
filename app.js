@@ -10,12 +10,10 @@ await database.sync()
     //     tipo:   'admin'
     // })
     // await Games.create({
-    //     id: '105600',
-    //     nome: 'Terraria',
-    //     imagem: 'https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/105600\/header.jpg?t=1666290860'
+    //     id: '552520',
+    //     nome: 'Far Cry® 5',
+    //     imagem: 'https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/552520\/header.jpg?t=1678986050'
     // })
-
-
 })();
 
 const { Op } = require("sequelize");
@@ -42,8 +40,9 @@ app.get('/',(req,res)=>{
     res.render("registro");
 })
 
-app.get('/home',(req,res)=>{
-    res.render("home")
+app.get('/home', async (req,res)=>{
+    const jogos = await Games.findAll()
+    res.render("home",{jogos})
 })
 
 app.get('/registro',(req,res)=>{

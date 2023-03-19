@@ -13,6 +13,10 @@ const games = database.define('games',{
     imagem:{
         type: Sequelize.STRING,   
         allowNull: false
+    },
+    descricao:{
+        type: Sequelize.STRING,   
+        allowNull: false
     }
 })
 

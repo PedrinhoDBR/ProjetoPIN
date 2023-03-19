@@ -5,6 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
+    <script>
+        function chamartela(idjogo){
+            console.log(idjogo)
+            window.location.href = "/steam/"+ idjogo
+        }
+    </script>
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="/css/carrosel.css" />
+</head>
 <body>
 
     <header>
@@ -57,25 +66,42 @@
             <!-- <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto ullam provident harum animi natus odit repudiandae quae, labore fugiat possimus expedita inventore nam, quas, rerum magni aspernatur dolorem corrupti velit.</p> -->
         </div>
-        <div id="textdiv">
-            <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet quas aspernatur veritatis aperiam nostrum ratione, ex atque sequi explicabo cumque non recusandae dolore impedit sit nihil numquam ad error quam.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, amet? Est quia earum inventore vitae similique facere suscipit ipsum id eum repellendus eveniet sequi porro, voluptas maxime dolorem dolor asperiores.</p>
-            
+
+
+        <div >
             <div class="jogos">
-                <!-- <div class="card1">
-                    <img id="minecraft" src="Images/minecraft.jpeg">
-                    <p>texto</p>
+                <div class="slider-container swiper">
+                    <div class="slider-content">
+                        <div class="card-wrapper swiper-wrapper">
+                    <% for(let jogo of jogos ) { %>
+                    
+                    <div class="card swiper-slide">
+                        <div class="image-content">
+                            <span class="overlay"></span>
+                            <div class="card-image">
+                                    <img src="<%= jogo.imagem %>" alt=""></a></li>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                        <h2 class="name"><%= jogo.nome %></h2>
+                        <p class="description">
+                            <!-- <%= jogo.descricao %> -->
+                        </p>
+                        <button class="button" onclick="chamartela('<%= jogo.id %>')">Read More</button>
+                        </div>
+                    </div>
+                
+                    <% } %>
+                        </div>
+                    </div>
+                    <div class="swiper-button-next swiper-navBtn"></div>
+                    <div class="swiper-button-prev swiper-navBtn"></div>
+                    <div class="swiper-pagination"></div>
                 </div>
-                <div class="card1">
-                    <p>texto2</p>
-                </div>
-                <div class="card1">
-                    <p>texto3</p>
-                </div> -->
             </div>
         </div>
-
     </div>
+    <script src="/scripts/swiper-bundle.min.js"></script>
+    <script src="/scripts/carrosel.js"></script>
 </body>
 </html>
