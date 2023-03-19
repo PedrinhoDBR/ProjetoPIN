@@ -1,6 +1,7 @@
 (async()=>{
 const database = require('./db')
 const User = require('./models/Usuario')
+const games = require('./models/games')
 await database.sync()
     // await User.create({
     //     nome: 'admin',
@@ -8,11 +9,18 @@ await database.sync()
     //     senha: 'admin123',
     //     tipo:   'admin'
     // })
-    
+    // await Games.create({
+    //     id: '105600',
+    //     nome: 'Terraria',
+    //     imagem: 'https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/105600\/header.jpg?t=1666290860'
+    // })
+
+
 })();
 
 const { Op } = require("sequelize");
 const User = require('./models/Usuario')
+const Games = require('./models/games')
 
 const { spawn } = require('child_process');
 const express = require('express');

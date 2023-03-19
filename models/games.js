@@ -4,7 +4,6 @@ const Sequelize = require('sequelize')
 const games = database.define('games',{
     id:{
         type: Sequelize.INTEGER,
-        autoIncrement: true,
         primaryKey: true
     },
     nome:{
@@ -16,3 +15,5 @@ const games = database.define('games',{
         allowNull: false
     }
 })
+
+module.exports = games
