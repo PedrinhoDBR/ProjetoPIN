@@ -1,6 +1,7 @@
 (async()=>{
 const database = require('./db')
 const User = require('./models/Usuario')
+const games = require('./models/games')
 await database.sync()
     // await User.create({
     //     nome: 'admin',
@@ -8,13 +9,18 @@ await database.sync()
     //     senha: 'admin123',
     //     tipo:   'admin'
     // })
-    
+    // await Games.create({
+    //     id: '552520',
+    //     nome: 'Far Cry® 5',
+    //     imagem: 'https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/552520\/header.jpg?t=1678986050'
+    // })
 })();
 
 const { Op } = require("sequelize");
 const User = require('./models/Usuario')
+const Games = require('./models/games')
 
-
+const { spawn } = require('child_process');
 const express = require('express');
 const session = require('express-session');
 const methodOverride = require('method-override')
@@ -34,8 +40,9 @@ app.get('/',(req,res)=>{
     res.render("registro");
 })
 
-app.get('/home',(req,res)=>{
-    res.render("home")
+app.get('/home', async (req,res)=>{
+    const jogos = await Games.findAll()
+    res.render("home",{jogos})
 })
 
 app.get('/registro',(req,res)=>{
@@ -47,6 +54,15 @@ app.get('/login',(req,res)=>{
 
 })
 
+app.get('/steam/:steamID', async (req,res)=>{
+    const steamID = req.params.steamID
+    const pythonProcess = await spawn('python', ['./Apis/steam.py',steamID.toString()]);
+    let result = null
+    await pythonProcess.stdout.on('data', (data) => {
+        result = data.toString();
+        res.render('steam', { result : result});
+    });
+})
 
 app.post('/registro', async(req,res)=>{
     const {nome, email, idade, senha, Confirmasenha } = req.body //confirmar senha tbm
