@@ -1,0 +1,51 @@
+
+from sqlalchemy import Boolean, ForeignKey
+from sqlalchemy.orm import declarative_base, sessionmaker,relationship
+from sqlalchemy import Column, Integer, String, create_engine, DATE
+# <dbms>[+<driver>]://<user>:<pass>@<host>[:<port>][/<database>]
+URL="mysql+mysqlconnector://sql10606809:KwDTBiIpUT@sql10.freesqldatabase.com/sql10606809"
+engine = create_engine(url=URL)
+Base = declarative_base()
+
+Session = sessionmaker(engine)
+
+
+
+class Games(Base):
+    __tablename__ = "games"
+    id= Column(Integer,primary_key=True)
+    nome = Column(String(150),nullable=False)
+    imagem = Column(String(400),nullable=False)
+    idade = Column(Integer,nullable=False)
+    pago = Column(Boolean,nullable=False)
+    descricao = Column(String(10000))
+    pc_req = Column(String(10000))
+    createdAt = Column(DATE)
+    updatedAt = Column(DATE)
+
+Base.metadata.drop_all(engine)
+Base.metadata.create_all(engine)
+
+import sys
+import requests
+
+# app_id = 570 # Dota 2's app ID on Steam
+app_id = [570,550]#[782330, 1097150, 1172470, 359550, 546560, 72850, 4000, 252950, 275850, 550, 381210, 620, 252490, 289070, 264710, 374320, 346110, 582010, 413150, 242760, 105600, 870780, 208650, 221100, 20920, 22380, 379720, 814380, 1145360, 812140, 632470, 356190, 1222140, 230410, 268500, 504230, 552520, 418370, 412020, 1057090, 8870, 212680, 250900, 219150, 219740, 646570, 221910, 239030, 282070, 323190, 524220, 22300, 304430, 322500, 866800, 213670, 257510, 237930, 460950, 367520, 501300, 666140, 383870, 588650, 457140, 238320, 460930, 730, 280790, 570]
+for x in app_id:
+
+    api_url = f'https://store.steampowered.com/api/appdetails?appids={x}&l=brazilian'
+
+    response = requests.get(api_url)
+    data = response.json()
+
+    # Get the minimum and recommended system requirements
+    nome = data[str(app_id)]['name']
+    header_image = data[str(app_id)]['data']['header_image']
+    pago = data[str(app_id)]['is_free']
+    idade = data[str(app_id)]['required_age']
+    pc_reqs = data[str(app_id)]['data']['pc_requirements']
+    desc = data[str(app_id)]['data']['detailed_description']
+    
+    insert = Games(nome=nome, imagem=header_image, idade=idade, pago=pago, descricao=desc, pc_req=pc_reqs)
+    Session.add(insert)
+    Session.commit()
