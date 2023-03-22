@@ -25,6 +25,7 @@ const express = require('express');
 const session = require('express-session');
 const methodOverride = require('method-override')
 const { resolve } = require('path');
+const { type } = require('os');
 
 const app = express();
 const port = 3000
@@ -41,7 +42,7 @@ app.get('/',(req,res)=>{
 })
 
 app.get('/home', async (req,res)=>{
-    const jogos = await Games.findAll()
+    const jogos = await Games.findAll({})
     res.render("home",{jogos})
 })
 
@@ -55,8 +56,14 @@ app.get('/login',(req,res)=>{
 })
 
 
-app.get('/jogo', async (req,res)=>{
-    res.render("jogo");
+app.get('/jogo/:steamID', async (req,res)=>{
+    let steamID = req.params.steamID
+    const jogo = await Games.findAll({
+        where:{id: steamID},
+        raw: true
+    })
+
+    res.render('jogo', {JogoItens: jogo[0]});
 })
 
 app.get('/steam/:steamID', async (req,res)=>{

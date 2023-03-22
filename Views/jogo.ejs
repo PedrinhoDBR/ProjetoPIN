@@ -5,22 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
-    <title>Jogo</title>
+    <title>teste</title>
   </head>
   <body>
     <table>
-      <%= let jogo{%>
       <p style="visibility: hidden;" id="textofodase">teste</p>
       <div class="caixa1" style="margin-top: 3%;">
         <header>
-          <h1 style="margin-left: 10%;"><%= jogo.nome %></h1>
+          <h1 style="margin-left: 10%;"><%= JogoItens.nome %></h1>
           <br>
         </header>
         <p id="demo"></p>
-        <img style="padding-left: 30px;" id="imagemid" src="" alt="">
+        <img style="padding-left: 30px;" id="imagemid" src="<%= JogoItens.imagem %>" alt="">
+        <h2 id="Desc"><%= JogoItens.descricao %></h1>
+        <h2 id="req"><%= JogoItens.pc_req %></h2>
       </div>
-      <% } %>
     </table>
+    
   </body>
+  <script>
+    const desc = document.getElementById("Desc").textContent
+    document.getElementById("Desc").innerHTML = desc
+    const req = document.getElementById("req").textContent
+    document.getElementById("req").innerHTML = req
+  </script>
   
 </html>
