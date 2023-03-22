@@ -2,6 +2,7 @@ const database = require('../db')
 const Sequelize = require('sequelize')
 
 const games = database.define('games',{
+    timestamps: false,
     id:{
         type: Sequelize.INTEGER,
         primaryKey: true
