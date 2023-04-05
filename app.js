@@ -41,6 +41,10 @@ app.get('/',(req,res)=>{
     res.render("registro");
 })
 
+app.get('/esqueciasenha', (req,res)=>{
+    res.render("esqueciasenha")
+})
+
 app.get('/home', async (req,res)=>{
     const jogos = await Games.findAll({})
     res.render("home",{jogos})

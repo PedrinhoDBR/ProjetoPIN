@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize')
 
-const sequelize = new Sequelize('sql10606809','sql10606809','KwDTBiIpUT',
+const sequelize = new Sequelize('ProjetoPIN','root','root123',
     {
-    host: 'sql10.freesqldatabase.com',
+    host: 'localhost',
     dialect: 'mysql'
     }
 );

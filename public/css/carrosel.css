@@ -136,17 +136,17 @@ body {
 }
 
 .button:hover {
-  background-color: #8400ff;
+  background-color: #ad55ff;
 }
 
 .swiper-navBtn {
   /* background-color: black; */
-  color: #ac53ff;
+  color: #8683e2;
   transition: all 0.3s ease;
 }
 
 .swiper-navBtn:hover {
-  color: #8400ff;
+  color: #7555ff;
 }
 
 .swiper-navBtn::before,
@@ -163,7 +163,7 @@ body {
 }
 
 .swiper-pagination-bullet {
-  background-color: #ac53ff;
+  background-color: #8683e2;
   opacity: 1;
 }
 
@@ -181,3 +181,5 @@ body {
     display: none;
   }
 }
+
+/* #9418c6 #b341cd #8683e2 #7555ff*/

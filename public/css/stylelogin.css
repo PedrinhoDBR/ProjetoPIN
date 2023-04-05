@@ -16,7 +16,7 @@ body {
   font-family: Verdana;
   background-image: url(/images/background/Picsart_23-02-21_07-58-49-020.jpg);
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 1000px;
   background-attachment: fixed;
 }
 
@@ -91,12 +91,13 @@ h2 {
   overflow: hidden;
   transition: 0.5s;
   margin-top: 40px;
+  margin-left: 7em;
   padding-left: 25px;
   /* padding-right: 50%; */
   /* margin-left: 50%; */
   /* margin-right: 50%; */
-  letter-spacing: 10px;
-  
+  letter-spacing: 5px;
+  height: 50%;
 }
 
 .caixa__login #acesso:hover {
@@ -203,6 +204,10 @@ h2 {
 color: #8b80f9;
 }
 
-input {
-
+  
+@media only screen and (min-width: 400px) {
+    body {
+        background-size: 100%;
+    }
 }
+
