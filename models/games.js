@@ -1,7 +1,7 @@
 const database = require('../db')
 const Sequelize = require('sequelize')
 
-const games = database.define('games2s',{
+const games = database.define('games',{
     id:{
         type: Sequelize.INTEGER,
         primaryKey: true
