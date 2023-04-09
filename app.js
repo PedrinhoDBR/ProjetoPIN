@@ -9,11 +9,6 @@ await database.sync()
     //     senha: 'admin123',
     //     tipo:   'admin'
     // })
-    // await Games.create({
-    //     id: '552520',
-    //     nome: 'Far Cry® 5',
-    //     imagem: 'https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/552520\/header.jpg?t=1678986050'
-    // })
 })();
 
 const { Op } = require("sequelize");
@@ -106,10 +101,10 @@ app.post('/registro', async(req,res)=>{
 })
 
 app.post('/login', async(req,res)=>{
-    const {nome,senha} = req.body
+    const {email,senha} = req.body
     console.log("Login")
     const user = await User.findOne({where:
-        [{nome:nome}]
+        [{email:email}]
     })
     if(!user){
         console.log("Usuario nao existe")
@@ -120,6 +115,32 @@ app.post('/login', async(req,res)=>{
     }else{
         res.redirect('home')
     }
+})
+
+app.post("/esqueciasenha", async(req,res)=>{
+    const {email,novaSenha,confirmarNovaSenha} = req.body
+    const user = await User.findOne({where:
+        [{email:email}]
+    })
+    if(!user){
+        console.log("Usuario não encontrado")
+        res.render("esqueciasenha")
+    }else if (novaSenha != confirmarNovaSenha){
+        console.log("Senhas não batem")
+        res.render("esqueciasenha")
+    }else{
+        await User.update(
+            {
+                senha:novaSenha,
+            },
+            {
+                where: {email:email},
+            }
+        )
+        console.log("Senha alterada")
+        res.redirect('login')
+    }
+    
 })
 
 
