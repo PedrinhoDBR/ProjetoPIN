@@ -21,6 +21,7 @@ const session = require('express-session');
 const methodOverride = require('method-override')
 const { resolve } = require('path');
 const { type } = require('os');
+const { json } = require('express/lib/response');
 
 
 const app = express();
@@ -42,7 +43,15 @@ app.get('/esqueciasenha', (req,res)=>{
 })
 
 app.get('/home', async (req,res)=>{
-    const jogos = await Games.findAll({})
+    const jogos = await Games.findAll({
+        order:[['nome','ASC']] //ordena por ordem alfabetica
+        // where:{   possui 2 no nome
+        //     nome: {   
+        //         [Op.like]: '%2%'   
+        //     }
+        // }
+    })
+    
     res.render("home",{jogos})
 })
 
