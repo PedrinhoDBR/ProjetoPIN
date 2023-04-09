@@ -22,6 +22,7 @@ const methodOverride = require('method-override')
 const { resolve } = require('path');
 const { type } = require('os');
 
+
 const app = express();
 const port = 3000
 
@@ -54,14 +55,12 @@ app.get('/login',(req,res)=>{
 
 })
 
-
 app.get('/jogo/:steamID', async (req,res)=>{
     let steamID = req.params.steamID
     const jogo = await Games.findAll({
         where:{id: steamID},
         raw: true
     })
-
     res.render('jogo', {JogoItens: jogo[0]});
 })
 
@@ -78,11 +77,12 @@ app.get('/steam/:steamID', async (req,res)=>{
 app.post('/registro', async(req,res)=>{
     const {nome, email, idade, senha, Confirmasenha } = req.body //confirmar senha tbm
     console.log("registro");
-    const user = await User.findOne({where:
-        [{nome: nome}]
+    const user = await User.findOne({where: {
+        [Op.or]: [{email: email},{nome:nome}]
+        }
     })
     if(user){
-        console.log("Usuario ja existe");
+        console.log("usuario/email ja usado");
         res.redirect("registro")
     }else if(senha != Confirmasenha){
         console.log("Senhas não conhecidem");
