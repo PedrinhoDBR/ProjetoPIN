@@ -22,11 +22,23 @@ const games = database.define('games',{
         type: Sequelize.STRING,   
         allowNull: false
     },
+    pago:{
+        type: Sequelize.STRING,   
+        allowNull: true
+    },
     descricao:{
         type: Sequelize.STRING,   
         allowNull: false
     },
     pc_req:{
+        type: Sequelize.STRING,   
+        allowNull: false
+    },
+    categories:{
+        type: Sequelize.STRING,   
+        allowNull: false
+    },
+    genero:{
         type: Sequelize.STRING,   
         allowNull: false
     },
