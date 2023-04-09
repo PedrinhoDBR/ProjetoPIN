@@ -44,10 +44,14 @@ app.get('/esqueciasenha', (req,res)=>{
 
 app.get('/home', async (req,res)=>{
     const jogos = await Games.findAll({
-        order:[['nome','ASC']] //ordena por ordem alfabetica
-        // where:{   possui 2 no nome
-        //     nome: {   
-        //         [Op.like]: '%2%'   
+        order:[['nome','ASC']], //ordena por ordem alfabetica
+        // where:{   
+        //     // nome: {   
+        //     //     [Op.like]: '%2%'   //possui 2 no nome
+        //     // }
+        //     idade: {
+        //         //[Op.gte]: 10  //maior que
+        //         [Op.lte]: 10  //menor que
         //     }
         // }
     })
