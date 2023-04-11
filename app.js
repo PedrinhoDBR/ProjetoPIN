@@ -11,6 +11,7 @@ await database.sync()
     // })
 })();
 
+
 const { Op } = require("sequelize");
 const User = require('./models/Usuario')
 const Games = require('./models/games')
@@ -27,12 +28,44 @@ const { json } = require('express/lib/response');
 const app = express();
 const port = 3000
 
+app.use(session({secret: "mysecretkey"}))
+var ContaUsuario
+
 app.set('views', resolve('./views'))
 app.set('view engine', 'ejs')
 
 app.use(express.static('public'))
 app.use(express.urlencoded({'extended':true}))
 app.use(methodOverride('_method'))
+
+app.post('/registro', async(req,res)=>{
+    const {nome, email, idade, senha, Confirmasenha } = req.body //confirmar senha tbm
+    console.log("registro");
+    const user = await User.findOne({where: {
+        [Op.or]: [{email: email},{nome:nome}]
+        }
+    })
+    if(user){
+        console.log("usuario/email ja usado");
+        res.redirect("registro")
+    }else if(senha != Confirmasenha){
+        console.log("Senhas não conhecidem");
+        res.redirect("registro")
+    }else{
+        console.log("teste")
+        const newuser = await User.create({
+            nome: nome,
+            email: email,//'a@gmail.com',
+            idade: idade,
+            senha: senha,
+            tipo:   'user'
+        })
+        res.redirect('login')
+    }
+})
+
+
+
 
 app.get('/',(req,res)=>{
     res.render("registro");
@@ -55,8 +88,12 @@ app.get('/home', async (req,res)=>{
         //     }
         // }
     })
-    
-    res.render("home",{jogos})
+    if (req.session.ContaUsuario){
+        res.render("home",{jogos});
+        console.log(req.session.ContaUsuario)
+    }else{
+        res.redirect("registro");
+    }
 })
 
 app.get('/registro',(req,res)=>{
@@ -87,31 +124,7 @@ app.get('/steam/:steamID', async (req,res)=>{
     });
 })
 
-app.post('/registro', async(req,res)=>{
-    const {nome, email, idade, senha, Confirmasenha } = req.body //confirmar senha tbm
-    console.log("registro");
-    const user = await User.findOne({where: {
-        [Op.or]: [{email: email},{nome:nome}]
-        }
-    })
-    if(user){
-        console.log("usuario/email ja usado");
-        res.redirect("registro")
-    }else if(senha != Confirmasenha){
-        console.log("Senhas não conhecidem");
-        res.redirect("registro")
-    }else{
-        console.log("teste")
-        const newuser = await User.create({
-            nome: nome,
-            email: email,//'a@gmail.com',
-            idade: idade,
-            senha: senha,
-            tipo:   'user'
-        })
-        res.redirect('login')
-    }
-})
+
 
 app.post('/login', async(req,res)=>{
     const {email,senha} = req.body
@@ -126,6 +139,7 @@ app.post('/login', async(req,res)=>{
         console.log("Wrong pass");
         res.redirect('login')
     }else{
+        req.session.ContaUsuario = user
         res.redirect('home')
     }
 })

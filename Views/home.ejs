@@ -69,8 +69,17 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto ullam provident harum animi natus odit repudiandae quae, labore fugiat possimus expedita inventore nam, quas, rerum magni aspernatur dolorem corrupti velit.</p> -->
         </div>
 
+        
+        <div class="jogos">
+            <% for(let jogo of jogos ) { %>
+            <div class="jogos-item">
+                <img src="<%= jogo.imagem %>" alt=""></a></li>
+                <button class="button" onclick="chamartela('<%= jogo.id %>')">Read More</button>
+            </div>
+            <% } %>
+        </div>
 
-        <div >
+        <!-- <div >
             <div class="jogos">
                 <div class="slider-container swiper">
                     <div class="slider-content">
@@ -86,7 +95,6 @@
                         <div class="card-content">
                         <h2 class="name"><%= jogo.nome %></h2>
                         <p class="description">
-                            <!-- <%= jogo.descricao %> -->
                         </p>
                         <button class="button" onclick="chamartela('<%= jogo.id %>')">Read More</button>
                         </div>
@@ -100,7 +108,7 @@
                     <div class="swiper-pagination"></div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <script src="/scripts/swiper-bundle.min.js"></script>
     <script src="/scripts/carrosel.js"></script>
