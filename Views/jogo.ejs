@@ -9,23 +9,22 @@
   </head>
   <body>
     <table>
-      <p style="visibility: hidden;" id="textofodase">teste</p>
+      <!-- <p style="visibility: hidden;" id="textofodase">teste</p> -->
       <div class="caixa1" style="margin-top: 3%;">
         <header>
           <h1 style="margin-left: 10%;"><%= JogoItens.nome %></h1>
-          <br>
         </header>
         <p id="demo"></p>
-        <img style="padding-left: 30px;" id="imagemid" src="<%= JogoItens.imagem %>" alt="">
-        <h2 id="Desc"><%= JogoItens.descricao %></h1>
+        <img style="padding-left: 30px;" id="imagemid" src="<%= JogoItens.imagem %>">
+        <h2 id="desc"><%= JogoItens.descricao %></h1>
         <h2 id="req"><%= JogoItens.pc_req %></h2>
       </div>
     </table>
     
   </body>
   <script>
-    const desc = document.getElementById("Desc").textContent
-    document.getElementById("Desc").innerHTML = desc
+    const desc = document.getElementById("desc").textContent
+    document.getElementById("desc").innerHTML = desc
     const req = document.getElementById("req").textContent
     document.getElementById("req").innerHTML = req
   </script>

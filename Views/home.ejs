@@ -13,8 +13,7 @@
             window.location.href = tela
         }
     </script>
-    <link rel="stylesheet" href="/css/swiper-bundle.min.css"/>
-    <link rel="stylesheet" href="/css/carrosel.css" />
+
     <title>Home</title>
 </head>
 <body>
@@ -71,10 +70,16 @@
 
         
         <div class="jogos">
+            
             <% for(let jogo of jogos ) { %>
             <div class="jogos-item">
-                <img src="<%= jogo.imagem %>" alt=""></a></li>
-                <button class="button" onclick="chamartela('<%= jogo.id %>')">Read More</button>
+                <img src="<%= jogo.imagem %>" alt="">
+                <div class="jogos-content">
+                    <h2><%= jogo.nome %></h2>
+                    <button class="button" onclick="chamartela('<%= jogo.id %>')">Informações</button>
+
+                </div>
+                
             </div>
             <% } %>
         </div>
@@ -110,7 +115,7 @@
             </div>
         </div> -->
     </div>
-    <script src="/scripts/swiper-bundle.min.js"></script>
-    <script src="/scripts/carrosel.js"></script>
+    <!-- <script src="/scripts/swiper-bundle.min.js"></script>
+    <script src="/scripts/carrosel.js"></script> -->
 </body>
 </html>
