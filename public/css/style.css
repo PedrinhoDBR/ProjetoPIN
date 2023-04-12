@@ -127,10 +127,11 @@ body {
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
     padding: 20px;
+    width: 100%;
 }
   
 .jogos-item {
-    text-align: center;
+    /* text-align: center; */
     border-radius: 50px;
     background-color: #fff;
 }
@@ -139,19 +140,17 @@ body {
     /* background-color: rgba(0, 0, 0, 0.445); */
     background-image: linear-gradient(rgba(0, 0, 0, 0.363), rgba(0, 0, 0, 0.925));
     border-radius: 50px;
-    height: 100%; 
-    width: 100%;
+     /* height: 100%;  */
+    /* width: 100%;  */
     position: absolute;
-    /* top: 0; */
+    /* top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; */
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    /* padding: 10px 14px; */
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px 14px; */
     visibility: visible;
   }
 
@@ -159,12 +158,28 @@ body {
     visibility: visible;
   }
 
+.jogos-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    /* position: relative; */
+    /* row-gap: 5px; */
+    /* padding: 25px 0; */
+  }
 
-.jogos-item img{
+
+.jogos-image img{
     width: 100%;
     height: 100%;
     border-radius: 50px;
 }
+
+.name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
 
 
 .home1 {

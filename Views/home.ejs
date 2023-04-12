@@ -73,13 +73,13 @@
             
             <% for(let jogo of jogos ) { %>
             <div class="jogos-item">
-                <img src="<%= jogo.imagem %>" alt="">
-                <div class="jogos-content">
-                    <h2><%= jogo.nome %></h2>
-                    <button class="button" onclick="chamartela('<%= jogo.id %>')">Informações</button>
-
+                <div class="jogos-image">
+                    <img src="<%= jogo.imagem %>" alt="">
                 </div>
-                
+                <div class="jogos-content">
+                    <h2 class="name"><%= jogo.nome %></h2>
+                    <button class="button" onclick="chamartela('<%= jogo.id %>')">Informações</button>
+                </div>
             </div>
             <% } %>
         </div>
