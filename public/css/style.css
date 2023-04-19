@@ -16,7 +16,7 @@ body {
     font-family: "Ladybug";
     letter-spacing: 1px;
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 5000px;
     background-attachment: fixed;
 }
 
@@ -37,9 +37,20 @@ body {
 #caixa2 {
     background-color: rgba(255, 255, 255, 0.527);
     text-align: center;
-    padding: 20px;
     border-radius: 50px;
     width: 15%;
+    position: relative;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+}
+
+.caixa3 {
+    text-align: center;
+    border-radius: 50px;
+    width: 10%;
+    position: relative;
+    position: fixed;
 }
 
 #textdiv {
@@ -68,7 +79,7 @@ body {
     padding-left: 40px;
     padding-right: 40px;
     padding-bottom: 20px;
-    margin-top: -30px;
+    margin-top: 30px;
 }
 
 #infos {
@@ -136,27 +147,19 @@ body {
     background-color: #fff;
 }
 
-.jogos-content {
-    /* background-color: rgba(0, 0, 0, 0.445); */
+/* .jogos-content {
     background-image: linear-gradient(rgba(0, 0, 0, 0.363), rgba(0, 0, 0, 0.925));
     border-radius: 50px;
-     /* height: 100%;  */
-    /* width: 100%;  */
     position: absolute;
-    /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
-    display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     visibility: visible;
-  }
-
+  } */
+/* 
   .jogos-item:hover .jogos-content{
     visibility: visible;
-  }
+  } */
 
 .jogos-image {
     width: 100%;
@@ -164,8 +167,7 @@ body {
     border-radius: 50px;
     /* position: relative; */
     /* row-gap: 5px; */
-    /* padding: 25px 0; */
-  }
+}
 
 
 .jogos-image img{
@@ -395,4 +397,112 @@ input:checked + .slider:before {
 
 
 
-  
+/* responsividade */
+@media only screen and (max-width: 1200px) {
+    #caixa1 {
+        width: 100%;
+    }
+    
+    #caixa2 {
+        width: 0px;
+        padding: 0px;
+    }
+    .jogos {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /* grid-gap: 20px;
+        padding: 20px; */
+        width: 75%;
+    }
+    #icon {
+        width: 0px;
+        padding: 0px; 
+        visibility: hidden;
+    }
+
+    #nav {
+        width: 0px;
+        padding: 0px;
+        visibility: hidden;
+    }
+
+    .slider {
+        width: 0px;
+        padding: 0px;
+        visibility: hidden; 
+    }
+}
+
+@media only screen and (max-width: 1199px) {
+    #caixa1 {
+        width: 100%;
+    }
+    
+    #caixa2 {
+        width: 0px;
+        padding: 0px;
+    }
+
+    #icon {
+        width: 0px;
+        padding: 0px; 
+        visibility: hidden;
+    }
+
+    #nav {
+        width: 0px;
+        padding: 0px;
+        visibility: hidden;
+    }
+
+    #textdiv {
+        width: 100%;
+    }
+
+    .jogos {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* grid-gap: 20px;
+        padding: 20px; */
+        width: 100%;
+    }
+}
+
+@media only screen  and (max-width: 600px) {
+    body {
+        background-size: 100%;
+    }
+
+    #caixa1 {
+        width: 100%;
+    }
+    
+    #caixa2 {
+        width: 0px;
+        padding: 0px;
+    }
+
+    #icon {
+        width: 0px;
+        padding: 0px; 
+        visibility: hidden;
+    }
+
+    #nav {
+        width: 0px;
+        padding: 0px;
+        visibility: hidden;
+    }
+
+    #textdiv {
+        width: 100%;
+    }
+
+    .jogos {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        /* grid-gap: 20px;
+        padding: 20px; */
+        width: 100%;
+    }
+}

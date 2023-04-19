@@ -29,32 +29,26 @@
                 <!-- <a class="eta" href="#"><button>contact</button></a> -->
             </ul>
         </nav>
-        <!-- <a class="eta" href="#"><button>contact</button></a> -->
+
     </header>
-    <!-- <div class="head1" >
-        <ul class="head2">
-            <li class="voltar"><a href=""><img id="headicon" src="Images/icones/voltar.png" alt=""></a></li>
-            <li class="home1"><a href="home"><img id="headicon" src="Images/icones/home.png" alt=""></a></li>
-            <li class="login"><a href="login"><img id="headicon" src="Images/icones/user.png" alt=""></a></li>
-            <input type="search" class="search">
-        </ul>
-    </div> -->
     <div class="caixa1">
         <div id="caixa2">
-            <div >
-                <picture><img id="icon" src="Images/icon.png" alt=""></picture>  
-            </div>
-            
-            <label class="switch">
-                <input type="checkbox">
-                <span class="slider round"></span>
-            </label>
-            <div>
-                <ul id="nav">
-                    <button class = "fundo1" onclick="red('/home')"><img class="icones" src="Images/icones/home.png" alt="">home</button> 
-                    <button class = "fundo1" onclick="red('/registro')"><img class="icones" src="Images/icones/computador.png" alt="">jogos</button>
-                    <button class = "fundo1" onclick="red('/login')" ><img class="icones" src="Images/icones/fav.png" alt="">favoritos</button> 
-                </ul>
+            <div class="caixa3">
+                <div >
+                    <picture><img id="icon" src="Images/icon.png" alt=""></picture>
+                </div>
+                
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+                <div>
+                    <ul id="nav">
+                        <button class = "fundo1" onclick="red('/home')"><img class="icones" src="Images/icones/home.png" alt="">home</button>
+                        <button class = "fundo1" onclick="red('/registro')"><img class="icones" src="Images/icones/computador.png" alt="">jogos</button>
+                        <button class = "fundo1" onclick="red('/login')" ><img class="icones" src="Images/icones/fav.png" alt="">favoritos</button>
+                    </ul>
+                </div>
             </div>
             <!-- <div hidden="hidden">
                 <ul id="infos">
@@ -76,10 +70,10 @@
                 <div class="jogos-image">
                     <img src="<%= jogo.imagem %>" alt="">
                 </div>
-                <div class="jogos-content">
+                <!-- <div class="jogos-content">
                     <h2 class="name"><%= jogo.nome %></h2>
                     <button class="button" onclick="chamartela('<%= jogo.id %>')">Informações</button>
-                </div>
+                </div> -->
             </div>
             <% } %>
         </div>
