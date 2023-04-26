@@ -21,7 +21,8 @@ body {
 }
 
 .caixa1 {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.288), rgba(55, 0, 255, 0.315));
+    /* background-image: linear-gradient(rgba(255, 255, 255, 0.288), rgba(55, 0, 255, 0.315)); */
+    background-color: rgba(255, 255, 255, 0.288);
     display: flex;
     border-radius: 50px;
     color: white;
@@ -432,6 +433,7 @@ input:checked + .slider:before {
     position: relative;
     top: -110px;
     text-align: center;
+    /* text-shadow: 20px black;*/
 }
 
 /* .black {
