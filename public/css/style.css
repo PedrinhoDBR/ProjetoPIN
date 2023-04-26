@@ -345,7 +345,7 @@ nav {
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: 50px;
-    height: 20px;
+    /* height: 20px; */
 }
   
 .slider:before {
@@ -396,6 +396,52 @@ input:checked + .slider:before {
   }
 
 
+.botao {
+    position: relative;
+    top: -132px;
+    left: 35%;
+}
+
+.favorito {
+    width: 25px;
+    position: relative;
+    /* top: -58px; */
+    top: -120px;
+    background-color: #8683e2b7;
+    padding: 3px;
+    border-radius: 50px;
+}
+
+.favorito:hover{
+    background-color: #8683e2;
+}
+/* 
+.name {
+    position: relative;
+    top: -70px;
+} */
+
+/* .jogos-content {
+    background-color: rgba(0, 0, 0, 0.801);
+    position: relative;
+    top: -310px;
+    height: ;
+} */
+
+.name-jogo {
+    position: relative;
+    top: -110px;
+    text-align: center;
+}
+
+/* .black {
+    background-image: linear-gradient(rgba(0,rgb(0, 0, 0), 0), rgb(255, 0, 0));
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    position: relative;
+    top: -371px;
+} */
 
 /* responsividade */
 @media only screen and (max-width: 1200px) {

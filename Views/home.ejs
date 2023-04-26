@@ -69,11 +69,15 @@
             <div class="jogos-item">
                 <div class="jogos-image">
                     <img src="<%= jogo.imagem %>" alt="">
+                    <!-- <div class="black">.</div> -->
                 </div>
-                <!-- <div class="jogos-content">
-                    <h2 class="name"><%= jogo.nome %></h2>
-                    <button class="button" onclick="chamartela('<%= jogo.id %>')">Informações</button>
-                </div> -->
+                <h2 class="name-jogo"><%= jogo.nome %></h2>
+                <div class="jogos-content">
+
+                    <button class="botao" onclick="chamartela('<%= jogo.id %>')">Informações</button>
+                    <input type="image" class="botao favorito" src="Images/icones/estrelavazia.png" title="favoritar">
+                </div>
+                <!-- <div class="black">.</div> -->
             </div>
             <% } %>
         </div>
