@@ -8,18 +8,29 @@
     <title><%= JogoItens.nome %></title>
   </head>
   <body>
-    <table>
+    <header>
+      <!-- <img class="logo" src="../imagens/africa.png" alt=""> -->
+      <nav>
+          <ul class="navlinks">
+              <li class="voltar"><a href=""><img id="headicon" src="Images/icones/voltar.png" alt=""></a></li>
+              <li class="home1"><a href="home"><img id="headicon" src="Images/icones/home.png" alt=""></a></li>
+              <li class="login"><a href="login"><img id="headicon" src="Images/icones/user.png" alt=""></a></li>
+              <input type="search" id="hearicon-pesquisa" class="search">
+              <!-- <a class="eta" href="#"><button>contact</button></a> -->
+          </ul>
+      </nav>
+
+  </header>
       <!-- <p style="visibility: hidden;" id="textofodase">teste</p> -->
-      <div class="caixa1" style="margin-top: 3%;">
-        <header>
-          <h1 style="margin-left: 10%;"><%= JogoItens.nome %></h1>
-        </header>
-        <p id="demo"></p>
-        <img style="padding-left: 30px;" id="imagemid" src="<%= JogoItens.imagem %>">
-        <h2 id="desc"><%= JogoItens.descricao %></h1>
-        <h2 id="req"><%= JogoItens.pc_req %></h2>
+      <div class="caixa1">
+        <div class="informacao-jogos">
+          <h1 id="name"><%= JogoItens.nome %></h1>
+          <p id="demo"></p>
+          <img id="imagemid" src="<%= JogoItens.imagem %>">
+          <h2 id="desc"><%= JogoItens.descricao %></h1>
+          <h2 id="req"><%= JogoItens.pc_req %></h2>
+        </div>
       </div>
-    </table>
     
   </body>
   <script>
