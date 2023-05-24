@@ -26,9 +26,19 @@
         <div class="informacao-jogos">
           <h1 id="name"><%= JogoItens.nome %></h1>
           <p id="demo"></p>
-          <img id="imagemid" src="<%= JogoItens.imagem %>">
-          <h2 id="desc"><%= JogoItens.descricao %></h1>
-          <h2 id="req"><%= JogoItens.pc_req %></h2>
+          <div class="imagens"><img id="imagemid" src="<%= JogoItens.imagem %>"></div>
+          <div class="box2">
+            <!-- <p><a href="#">favoritar</a></p> -->
+            <!-- <a href="#"><img src="Images/icones/estrelavazia.png" alt=""></a> -->
+            <p class="categoria">Corrida</p>
+            <p class="categoria" >Equipe</p>
+            <p class="categoria">Sobrevivência</p>
+            <h2 id="desc"><%= JogoItens.descricao %></h1>
+          </div>
+          <div class="box3">
+            <h2 id="req"><%= JogoItens.pc_req %></h2>
+            <div id="comentarios"></div>
+          </div>
         </div>
       </div>
     
