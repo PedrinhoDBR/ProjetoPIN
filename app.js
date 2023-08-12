@@ -23,7 +23,7 @@ const methodOverride = require('method-override')
 const { resolve } = require('path');
 const { type } = require('os');
 const { json } = require('express/lib/response');
-
+const {comparar} = require('./Controller/Comparation');
 
 const app = express();
 const port = 3000
@@ -111,15 +111,7 @@ app.get('/jogo/:steamID', async (req,res)=>{
         where:{id: steamID},
         raw: true
     })
-    var requisito = JSON.stringify(jogo[0]['pc_req'])
-    requisito = requisito.substring(14)
-    requisito = requisito.replace("', 'recommended': '","")
-    requisito = requisito.replace("\'}\"","")
-    var canplay = false
-    if (steamID== 620){
-        canplay = true
-    }
-
+    const {requisito,canplay} = comparar(jogo[0])
     res.render('jogo', {JogoItens: jogo[0],requisitos:requisito,roda:canplay});
 })
 

@@ -18,6 +18,10 @@ const cpu = database.define('cpu',{
         type: Sequelize.INTEGER,   
         allowNull: false
     },
+    frequencia:{
+        type: Sequelize.STRING,   
+        allowNull: false
+    },
     ordem:{
         type: Sequelize.STRING,   
         allowNull: false
