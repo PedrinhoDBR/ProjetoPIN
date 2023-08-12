@@ -36,7 +36,11 @@
             <h2 id="desc"><%= JogoItens.descricao %></h1>
           </div>
           <div class="box3">
-            <h2 id="req"><%= JogoItens.pc_req %></h2>
+            <% if(roda){ %>
+              <h2 id="req" class="TextoVerde"><%= requisitos %></h2>
+            <% }else{ %>
+              <h2 id="req" class="TextoVermelho"><%= requisitos %></h2>
+            <% } %>  
             <div id="comentarios"></div>
           </div>
         </div>

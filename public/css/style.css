@@ -218,6 +218,21 @@ body {
     margin-right: 30px;
 }
 
+.TextoVermelho li{
+    color: red;
+}
+
+.TextoVermelho {
+    color: red;
+}
+
+.TextoVerde li{
+    color: greenyellow;
+}
+
+.TextoVerde {
+    color: greenyellow;
+}
 
 .switch {
     position: relative;
@@ -681,3 +696,4 @@ input:checked + .slider:before {
     }
 
 }
+

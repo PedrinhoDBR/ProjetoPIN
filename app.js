@@ -111,7 +111,16 @@ app.get('/jogo/:steamID', async (req,res)=>{
         where:{id: steamID},
         raw: true
     })
-    res.render('jogo', {JogoItens: jogo[0]});
+    var requisito = JSON.stringify(jogo[0]['pc_req'])
+    requisito = requisito.substring(14)
+    requisito = requisito.replace("', 'recommended': '","")
+    requisito = requisito.replace("\'}\"","")
+    var canplay = false
+    if (steamID== 620){
+        canplay = true
+    }
+
+    res.render('jogo', {JogoItens: jogo[0],requisitos:requisito,roda:canplay});
 })
 
 app.get('/steam/:steamID', async (req,res)=>{
