@@ -129,9 +129,8 @@ app.get('/steam/:steamID', async (req,res)=>{
 app.post('/login', async(req,res)=>{
     const {email,senha} = req.body
     console.log("Login")
-    const user = await User.findOne({where:
-        [{email:email}]
-    })
+    const user = await User.findOne({where: {
+        [Op.or]: [{ email: email }, { nome: email }]}})
     if(!user){
         console.log("Usuario nao existe")
         res.redirect('login')

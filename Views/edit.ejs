@@ -6,22 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="Images/logo/logobrancocirculo.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/stylelogin.css">
-    <title>Login</title>
+    <title>Registro</title>
 </head>
 <body>
-    <section class="login">
+    <section class= "registro">
         <div class="caixa__login">
-            <h2>Login</h2>
-            <form action="/login" method="post">
+            <h2>Cadastro</h2>
+            <form action="/edit" method="post">
                 <div class="caixa__login-input">
-                    <input name= "email"type="text" autocomplete="off" required />
-                    <label>Nome/Email</label>
+                    <input name="nome" type="text" autocomplete="off" required />
+                    <label>Nome</label>
+                </div>
+                <div class="caixa__login-input">
+                    <input name = "email"type="email" autocomplete="off" required />
+                    <label>Email</label>
+                </div>
+                <div class="caixa__login-input">
+                    <input name= "idade" type="date" autocomplete="off" required />
+                    <label>Nascimento </label>
                 </div>
                 <div class="caixa__login-input">
                     <input name="senha" type="password" autocomplete="off" required />
                     <label>Senha</label>
                 </div>
-                <a id="esqueciasenha" href="esqueciasenha">Esqueci a senha</a>
+                <a id="esqueciasenha" href="login">Já possui uma conta?</a>
                 <input id="acesso" class="p-button" type="submit">
             </form>
         </div>
