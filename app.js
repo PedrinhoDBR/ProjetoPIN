@@ -12,6 +12,7 @@ await database.sync()
 })();
 
 
+
 const { Op } = require("sequelize");
 const User = require('./models/Usuario')
 const Games = require('./models/games')
@@ -37,6 +38,8 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.urlencoded({'extended':true}))
 app.use(methodOverride('_method'))
+
+
 
 app.post('/registro', async(req,res)=>{
     const {nome, email, idade, senha, Confirmasenha } = req.body //confirmar senha tbm
@@ -106,13 +109,20 @@ app.get('/login',(req,res)=>{
 })
 
 app.get('/jogo/:steamID', async (req,res)=>{
-    let steamID = req.params.steamID
-    const jogo = await Games.findAll({
-        where:{id: steamID},
-        raw: true
-    })
-    const {requisito,canplay} = comparar(jogo[0])
-    res.render('jogo', {JogoItens: jogo[0],requisitos:requisito,roda:canplay});
+    // const user = await User.findOne({where:
+    //     [{nome:'admin'}]
+    // })
+    // req.session.ContaUsuario = user
+    if(req.session.ContaUsuario){
+        let steamID = req.params.steamID
+        const jogo = await Games.findAll({ where:{id: steamID},raw: true})
+        const pcuser = 4
+        const valido = true
+        const {requisito,canplay} = comparar(jogo[0],pcuser)
+        res.render('jogo', {JogoItens: jogo[0],requisitos:requisito,roda:canplay,isvalido:valido});
+    }else{
+        res.render('login')
+    }
 })
 
 app.get('/steam/:steamID', async (req,res)=>{
