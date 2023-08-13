@@ -2,6 +2,9 @@
 const database = require('./db')
 const User = require('./models/Usuario')
 const games = require('./models/games')
+const GPU = require('./models/GPU')
+const CPU = require('./models/CPU')
+const Computer = require('./models/Computer')
 await database.sync()
     // await User.create({
     //     nome: 'admin',
@@ -16,6 +19,8 @@ await database.sync()
 const { Op } = require("sequelize");
 const User = require('./models/Usuario')
 const Games = require('./models/games')
+const GPU = require('./models/GPU')
+const Computer = require('./models/Computer')
 
 const { spawn } = require('child_process');
 const express = require('express');
