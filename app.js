@@ -18,6 +18,7 @@ await database.sync()
 const { Op } = require("sequelize");
 const User = require('./models/Usuario')
 const Games = require('./models/games')
+const CPU = require('./models/CPU')
 const GPU = require('./models/GPU')
 const Computer = require('./models/Computer')
 
@@ -93,8 +94,27 @@ app.get('/home', async (req,res)=>{
         //     }
         // }
     })
+
+    const GPUs          = await GPU.findAll()
+    const processadores = await CPU.findAll()
+
+
     if (req.session.ContaUsuario){
-        res.render("home",{jogos});
+
+        const pc_usuario = await Computer.findOne({where: {
+            UsuarioID: req.session.ContaUsuario.id
+        }})
+
+        res.render("home",{jogos,pc_usuario, GPUs, processadores});
+        console.log(req.session.ContaUsuario)
+    }else{
+        res.redirect("registro");
+    }
+})
+
+app.get('/computer', async (req,res)=>{
+    if (req.session.ContaUsuario){
+        res.render("computador");
         console.log(req.session.ContaUsuario)
     }else{
         res.redirect("registro");
@@ -130,7 +150,24 @@ app.get('/steam/:steamID', async (req,res)=>{
     });
 })
 
+app.post('/home',async(req,res)=>{
+    const {cpu_input, gpu_input, ram_input, armazenamento_input} = req.body
 
+    const ComputadorUsuario = await Computer.findOne({where: {
+        UsuarioID: req.session.ContaUsuario.id
+    }})
+
+    await ComputadorUsuario.update({
+        UsuarioID:   req.session.ContaUsuario.id,
+        CPUID: cpu_input,
+        GPUID: gpu_input,//'a@gmail.com',
+        RAM: ram_input,
+        Armazenamento: armazenamento_input,
+    })
+
+    res.redirect('home')
+
+})
 
 app.post('/login', async(req,res)=>{
     const {email,senha} = req.body

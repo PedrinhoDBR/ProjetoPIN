@@ -8,23 +8,23 @@ const cpu = database.define('Computer',{
     },
     UsuarioID:{
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     CPUID:{
         type: Sequelize.INTEGER,   
-        allowNull: false
+        allowNull: true
     },
     GPUID:{
         type: Sequelize.INTEGER,   
-        allowNull: false
+        allowNull: true
     },
     RAM:{
         type: Sequelize.INTEGER,   
-        allowNull: false
+        allowNull: true
     },
     Armazenamento:{
         type: Sequelize.INTEGER,   
-        allowNull: false
+        allowNull: true
     }
 })
 

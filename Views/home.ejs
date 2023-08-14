@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="/css/style.css">
    
     <script>
+        // console.log(pc_usuario)
+        // if (pc_usuario){
+        //     document.getElementById('cpu_input').value              = pc_usuario.CPUID
+        //     document.getElementById('gpu_input').value              = pc_usuario.GPUID
+        //     document.getElementById('ram_input').value              = pc_usuario.RAM 
+        //     document.getElementById('armazenamento_input').value    = pc_usuario.Armazenamento
+        // }
+
         function chamartela(idjogo){
             window.location.href = "/jogo/"+ idjogo
         }
@@ -14,7 +22,7 @@
             window.location.href = tela
         }
         function flip(){
-            
+            console.log('foda')
         }
 
     </script>
@@ -53,6 +61,32 @@
                         <button class = "fundo1" onclick="red('/registro')"><img class="icones" src="Images/icones/computador.png" alt="">jogos</button>
                         <button class = "fundo1" onclick="red('/login')" ><img class="icones" src="Images/icones/fav.png" alt="">favoritos</button>
                     </ul>
+
+                    <form action="/home" method="post">
+
+                        <label for="cpu_input" >Processador</label>
+                        <input list="cpu_inputs" name="cpu_input" id="cpu_input">
+                        <datalist id="cpu_inputs">
+                            <% processadores.forEach(item => { %>
+                              <option value="<%= item.id %>"><%= item.nome %></option>
+                            <% }); %>
+                        </datalist><br>
+
+                        <label for="gpu_input" >Placa de vídeo</label>
+                        <input list="gpu_inputs" name="gpu_input" id="gpu_input">
+                        <datalist id="gpu_inputs">
+                            <% GPUs.forEach(item => { %>
+                              <option value="<%= item.id %>"><%= item.nome %></option>
+                            <% }); %>
+                        </datalist><br>
+
+                        <label for="inputRAM" >Memória RAM</label>
+                        <input name= "ram_input" autocomplete="off" id="inputRAM" type="text" placeholder="GB"><br>
+                        <label for="inputArmazenamento" >Armazenamento</label>
+                        <input name= "armazenamento_input" autocomplete="off" id="inputArmazenamento" type="text" placeholder="GB"><br><br>
+                        <input id="acesso" type="submit">
+                    </form>
+
                 </div>
             </div>
             <!-- <div hidden="hidden">
