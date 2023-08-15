@@ -8,23 +8,23 @@ const cpu = database.define('cpu',{
     },
     nome:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     tipo:{
         type: Sequelize.STRING,   
-        allowNull: false
+        allowNull: true
     },
     geracao:{
         type: Sequelize.INTEGER,   
-        allowNull: false
+        allowNull: true
     },
     frequencia:{
         type: Sequelize.STRING,   
-        allowNull: false
+        allowNull: true
     },
     ordem:{
         type: Sequelize.STRING,   
-        allowNull: false
+        allowNull: true
     }
 })
 
