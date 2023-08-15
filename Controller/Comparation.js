@@ -15,6 +15,7 @@ const comparar = {
 
         //verificar a linguagem
         linguagem(requisito,pcuser)
+        console.log(canplay)
         return {requisito,canplay}
     }
 }
@@ -39,8 +40,9 @@ function memoriaEN(req,pcuser){
     var str = req.substring(req.indexOf("Memory"));
     const valor = memoriaMatch(str)
 
-    if (pcuser < valor){
+    if (pcuser.RAM < valor){
         canplay = false
+
         return
     }else{
         // canplay = true
@@ -52,7 +54,7 @@ function memoriaBR(req,pcuser){
     var str = req.substring(req.indexOf("Memória"));
     const valor = memoriaMatch(str)
 
-    if (pcuser < valor){
+    if (pcuser.RAM < valor && canplay){
         canplay = false
         return
     }else{

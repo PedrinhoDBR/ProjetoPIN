@@ -31,6 +31,8 @@ const { resolve } = require('path');
 const { type } = require('os');
 const { json } = require('express/lib/response');
 const {comparar} = require('./Controller/Comparation');
+const {getgeneros} = require('./Controller/genero');
+
 
 const app = express();
 const port = 3000
@@ -134,17 +136,19 @@ app.get('/login',(req,res)=>{
 })
 
 app.get('/jogo/:steamID', async (req,res)=>{
-    // const user = await User.findOne({where:
-    //     [{nome:'admin'}]
-    // })
-    // req.session.ContaUsuario = user
+    const user = await User.findOne({where:
+        [{nome:'admin'}]
+    })
+    req.session.ContaUsuario = user
     if(req.session.ContaUsuario){
         let steamID = req.params.steamID
         const jogo = await Games.findAll({ where:{id: steamID},raw: true})
-        const pcuser = 4
-        const valido = true
-        const {requisito,canplay} = comparar(jogo[0],pcuser)
-        res.render('jogo', {JogoItens: jogo[0],requisitos:requisito,roda:canplay,isvalido:valido});
+        const pc_usuario = await Computer.findOne({where: {UsuarioID: req.session.ContaUsuario.id}})
+        const valido = true    
+        const generos = getgeneros(jogo[0]['genero'])
+
+        const {requisito,canplay} = comparar(jogo[0],pc_usuario)
+        res.render('jogo', {JogoItens: jogo[0],requisitos:requisito,roda:canplay,isvalido:valido,generos});
     }else{
         res.render('login')
     }
