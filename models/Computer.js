@@ -4,6 +4,7 @@ const Sequelize = require('sequelize')
 const cpu = database.define('Computer',{
     id:{
         type: Sequelize.INTEGER,
+        autoIncrement: true,
         primaryKey: true
     },
     UsuarioID:{

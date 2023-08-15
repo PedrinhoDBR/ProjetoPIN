@@ -5,28 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
-   
-    <script>
-        // console.log(pc_usuario)
-        // if (pc_usuario){
-        //     document.getElementById('cpu_input').value              = pc_usuario.CPUID
-        //     document.getElementById('gpu_input').value              = pc_usuario.GPUID
-        //     document.getElementById('ram_input').value              = pc_usuario.RAM 
-        //     document.getElementById('armazenamento_input').value    = pc_usuario.Armazenamento
-        // }
-
-        function chamartela(idjogo){
-            window.location.href = "/jogo/"+ idjogo
-        }
-        function red(tela){
-            window.location.href = tela
-        }
-        function flip(){
-            console.log('foda')
-        }
-
-    </script>
-
     <title>Home</title>
 </head>
 <body>
@@ -55,50 +33,40 @@
                     <input type="checkbox" onclick="flip()">
                     <span class="slider round"></span>
                 </label>
-                <div>
+                <div id="MenuID">
                     <ul id="nav">
                         <button class = "fundo1" onclick="red('/home')"><img class="icones" src="Images/icones/home.png" alt="">home</button>
                         <button class = "fundo1" onclick="red('/registro')"><img class="icones" src="Images/icones/computador.png" alt="">jogos</button>
                         <button class = "fundo1" onclick="red('/login')" ><img class="icones" src="Images/icones/fav.png" alt="">favoritos</button>
                     </ul>
-
-                    <form action="/home" method="post">
-
-                        <label for="cpu_input" >Processador</label>
-                        <!-- <input list="cpu_inputs" name="cpu_input" id="cpu_input"> -->
-                        <select id="cpu_input">
-                            <% processadores.forEach(item => { %>
-                              <option value="<%= item.id %>"><%= item.nome %></option>
-                            <% }); %>
-                        </select><br>
-
-                        <label for="gpu_input" >Placa de vídeo</label>
-                        <!-- <input list="gpu_inputs" name="gpu_input" id="gpu_input"> -->
-                        <select id="gpu_input">
-                            <% GPUs.forEach(item => { %>
-                              <option value="<%= item.id %>"><%= item.nome %></option>
-                            <% }); %>
-                        </select><br>
-
-                        <label for="inputRAM" >Memória RAM</label>
-                        <input name= "ram_input" autocomplete="off" id="inputRAM" type="text" placeholder="GB"><br>
-                        <label for="inputArmazenamento" >Armazenamento</label>
-                        <input name= "armazenamento_input" autocomplete="off" id="inputArmazenamento" type="text" placeholder="GB"><br><br>
-                        <input id="acesso" type="submit">
-                    </form>
-
                 </div>
+                <form action="/home" method="post" id="FormID">
+
+                    <label for="cpu_input" >Processador</label>
+                    <!-- <input list="cpu_inputs" name="cpu_input" id="cpu_input"> -->
+                    <select id="cpu_input" name="cpu_input">
+                        <% processadores.forEach(item => { %>
+                          <option value="<%= item.id %>"><%= item.nome %></option>
+                        <% }); %>
+                    </select><br>
+
+                    <label for="gpu_input" >Placa de vídeo</label>
+                    <!-- <input list="gpu_inputs" name="gpu_input" id="gpu_input"> -->
+                    <select id="gpu_input" name="gpu_input">
+                        <% GPUs.forEach(item => { %>
+                          <option value="<%= item.id %>"><%= item.nome %></option>
+                        <% }); %>
+                    </select><br>
+
+                    <label for="inputRAM" >Memória RAM</label>
+                    <input name= "ram_input" autocomplete="off" id="inputRAM" type="number" placeholder="GB"><br>
+
+                    <label for="inputArmazenamento" >Armazenamento</label>
+                    <input name= "armazenamento_input" autocomplete="off" id="inputArmazenamento" type="number" placeholder="GB"><br><br>
+
+                    <input id="computadorsubmit" type="submit">
+                </form>
             </div>
-            <!-- <div hidden="hidden">
-                <ul id="infos">
-                    <li class="fundo1"><a class="linknav" href="/"><img class="icones" src="Images/icones/home.png" alt="">home</a></li>
-                    <li class="fundo1"><a class="linknav" href="#menu2"><img class="icones" src="Images/icones/computador.png" alt="">jogos</a></li>
-                    <li class="fundo1"><a class="linknav" href="#menu3"><img class="icones" src="Images/icones/fav.png" alt="">favoritos</a></li>
-                    <li class="fundo1"><a class="linknav" href="login"><img class="icones" src="Images/icones/user.png" alt="">sei lá</a></li>
-                </ul>
-            </div> -->
-            <!-- <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto ullam provident harum animi natus odit repudiandae quae, labore fugiat possimus expedita inventore nam, quas, rerum magni aspernatur dolorem corrupti velit.</p> -->
         </div>
 
         
@@ -123,39 +91,37 @@
             </div>
             <% } %>
         </div>
-
-        <!-- <div >
-            <div class="jogos">
-                <div class="slider-container swiper">
-                    <div class="slider-content">
-                        <div class="card-wrapper swiper-wrapper">
-                    <% for(let jogo of jogos ) { %>
-                    <div class="card swiper-slide">
-                        <div class="image-content">
-                            <span class="overlay"></span>
-                            <div class="card-image">
-                                    <img src="<%= jogo.imagem %>" alt=""></a></li>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                        <h2 class="name"><%= jogo.nome %></h2>
-                        <p class="description">
-                        </p>
-                        <button class="button" onclick="chamartela('<%= jogo.id %>')">Read More</button>
-                        </div>
-                    </div>
-                
-                    <% } %>
-                        </div>
-                    </div>
-                    <div class="swiper-button-next swiper-navBtn"></div>
-                    <div class="swiper-button-prev swiper-navBtn"></div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-        </div> -->
     </div>
     <!-- <script src="/scripts/swiper-bundle.min.js"></script>
     <script src="/scripts/carrosel.js"></script> -->
+    <script>
+    
+        let hasFLip = true
+        document.getElementById('FormID').style = 'display: none;'
+        document.getElementById('cpu_input').value              = '<%= pc_usuario.CPUID %>'
+        document.getElementById('gpu_input').value              = '<%= pc_usuario.GPUID %>'
+        document.getElementById('inputRAM').value              = '<%= pc_usuario.RAM %>'
+        document.getElementById('inputArmazenamento').value    = '<%= pc_usuario.Armazenamento %>'
+
+        function chamartela(idjogo){
+            window.location.href = "/jogo/"+ idjogo
+        }
+        function red(tela){
+            window.location.href = tela
+        }
+        function flip(){
+
+            if (hasFLip){
+                document.getElementById('FormID').style = 'display: block;'
+                document.getElementById('MenuID').style = 'display: none;'
+            }else{
+                document.getElementById('FormID').style = 'display: none;'
+                document.getElementById('MenuID').style = 'display: block;'
+            }
+
+            hasFLip = !hasFLip
+        }
+
+    </script>
 </body>
 </html>

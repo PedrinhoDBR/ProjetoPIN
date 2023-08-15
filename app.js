@@ -69,6 +69,14 @@ app.post('/registro', async(req,res)=>{
             senha: senha,
             tipo:   'user'
         })
+
+        const newuserid = newuser.id
+        console.log('User foda: ' + newuserid)
+
+        const newcomputer = await Computer.create({
+            UsuarioID: newuserid,
+        })
+
         res.redirect('login')
     }
 })
@@ -166,6 +174,8 @@ app.post('/home',async(req,res)=>{
     const ComputadorUsuario = await Computer.findOne({where: {
         UsuarioID: req.session.ContaUsuario.id
     }})
+
+    console.log(`CPU: ${cpu_input} --- GPU: ${gpu_input}`)
 
     await ComputadorUsuario.update({
         UsuarioID:   req.session.ContaUsuario.id,

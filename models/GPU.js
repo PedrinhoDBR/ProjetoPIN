@@ -8,27 +8,27 @@ const gpu = database.define('gpu',{
     },
     nome:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     tipo:{
         type: Sequelize.STRING,   
-        allowNull: false
+        allowNull: true
     },
     vram:{
         type: Sequelize.INTEGER,   
-        allowNull: false
+        allowNull: true
     },
     frequencia:{
         type: Sequelize.STRING,   
-        allowNull: false
+        allowNull: true
     },
     directx:{
         type: Sequelize.INTEGER,   
-        allowNull: false
+        allowNull: true
     },
     ordem:{
         type: Sequelize.STRING,   
-        allowNull: false
+        allowNull: true
     }
 })
 
