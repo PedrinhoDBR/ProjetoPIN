@@ -220,19 +220,19 @@ body {
 }
 
 .TextoVermelho li{
-    color: red;
+    color: rgb(255, 176, 176);
 }
 
 .TextoVermelho {
-    color: red;
+    color: rgb(255, 176, 176);
 }
 
 .TextoVerde li{
-    color: greenyellow;
+    color: rgb(176, 255, 176);
 }
 
 .TextoVerde {
-    color: greenyellow;
+    color: rgb(176, 255, 176);
 }
 
 .switch {
