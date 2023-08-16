@@ -148,33 +148,32 @@ app.get('/login',(req,res)=>{
 })
 
 app.get('/jogo/:steamID', async (req,res)=>{
-    // const user = await User.findOne({where:  //para nao precisar ficar logando toda hora
-    //     [{nome:'admin'}]
-    // })
-    // req.session.ContaUsuario = user
+    const user = await User.findOne({where:  //para nao precisar ficar logando toda hora
+        [{nome:'admin'}]
+    })
+    req.session.ContaUsuario = user
     if(req.session.ContaUsuario){
         let steamID = req.params.steamID
         const jogo = await Games.findAll({ where:{id: steamID},raw: true})
-        const pc_usuario = await Computer.findOne({where: {UsuarioID: req.session.ContaUsuario.id}})
-        const isvalido = true    
+        const pc_usuario = await Computer.findOne({where: {UsuarioID: req.session.ContaUsuario.id}}) 
         const generos = getgeneros(jogo[0]['genero'])
         
-        const {requisitomin,canplaymin,requisitomax,canplaymax} = comparar(jogo[0],pc_usuario)
-        res.render('jogo', {JogoItens: jogo[0],isvalido,generos,requisitomin,canplaymin,requisitomax,canplaymax});
+        const {requisitomin,canplaymin,requisitomax,canplaymax,isvalido,mensagem} = comparar(jogo[0],pc_usuario)
+        res.render('jogo', {JogoItens: jogo[0],isvalido,generos,requisitomin,canplaymin,requisitomax,canplaymax,mensagem});
     }else{
         res.render('login')
     }
 })
 
-app.get('/steam/:steamID', async (req,res)=>{
-    const steamID = req.params.steamID
-    const pythonProcess = await spawn('python', ['./Apis/steam.py',steamID.toString()]);
-    let result = null
-    await pythonProcess.stdout.on('data', (data) => {
-        result = data.toString();
-        res.render('steam', { result : result});
-    });
-})
+// app.get('/steam/:steamID', async (req,res)=>{
+//     const steamID = req.params.steamID
+//     const pythonProcess = await spawn('python', ['./Apis/steam.py',steamID.toString()]);
+//     let result = null
+//     await pythonProcess.stdout.on('data', (data) => {
+//         result = data.toString();
+//         res.render('steam', { result : result});
+//     });
+// })
 
 app.post('/home',async(req,res)=>{
     const {cpu_input, gpu_input, ram_input, armazenamento_input} = req.body
