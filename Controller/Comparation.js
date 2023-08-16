@@ -4,14 +4,19 @@ var canplaymax = true
 var requisitomin;
 var requisitomax;
 var index;
+var isvalido = true;
+var mensagem;
+var type;
 const comparar = {
     comparar(arquivo,pcuser) {
+        mensagem = ''
+        isvalido = true
+        validapc(pcuser)
         canplaymax = true
         canplaymin = true
         //remover caracteres especiais
         var requisito = JSON.stringify(arquivo['pc_req'])
         
-
         requisito = requisito.substring(14)
         requisito = requisito.replace("', 'recommended': '","")
         requisito = requisito.replace("\'}\"","")
@@ -27,12 +32,33 @@ const comparar = {
             requisitomin = requisito
             requisitomax = ''
         }
-        
-        
-        linguagem(1,requisitomin,pcuser)
-        linguagem(2,requisitomax,pcuser)
-    
-        return {requisitomin,canplaymin,requisitomax,canplaymax};
+        if (isvalido){   
+            mensagem += '<strong>Mínimos:</strong><br>'
+            linguagem(1,requisitomin,pcuser)
+            if (requisitomax != ''){
+                mensagem += '<strong>Recomendados:</strong><br>'
+            }
+            linguagem(2,requisitomax,pcuser)    
+        }
+        return {requisitomin,canplaymin,requisitomax,canplaymax,isvalido,mensagem};
+    }
+}
+
+function validapc(pcuser){
+    if (pcuser.CPUID == null){
+        isvalido = false
+        return
+    }else if(pcuser.GPUID == null){
+        isvalido = false
+        return
+    }else if(pcuser.RAM == null){
+        isvalido = false
+        return
+    }else if(pcuser.Armazenamento == null){
+        isvalido = false
+        return
+    }else{
+        return
     }
 }
 
@@ -45,10 +71,50 @@ function linguagem(ind,req,pcuser){
 
     if (a == -1){
         memoriaEN(ind,req,pcuser)
+        armazenamentoEN(ind,req,pcuser)
         procEN(req)
     }else{
         memoriaBR(ind,req,pcuser)
+        armazenamentoBR(ind,req,pcuser)
         procBR(req)
+    }
+}
+
+function armazenamentoEN(ind,req,pcuser){
+    var indexaux = req.indexOf("Hard Disk Space")
+
+    if (indexaux == -1){
+        indexaux = req.indexOf("Hard Drive")
+    } 
+    var str = req.substring(indexaux);
+    armazenamentoMatch(ind,str,pcuser)
+}
+
+function armazenamentoBR(ind,req,pcuser){
+    var str = req.substring(req.indexOf("Armazenamento"));
+    armazenamentoMatch(ind,str,pcuser)
+}
+
+function armazenamentoMatch(ind,str,pcuser){
+    str  = str.split('<br>')[0]
+    var indexstr = str.search('GB')
+    if (indexstr == -1){
+        indexstr = str.search('MB')
+        if (indexstr != -1){
+            type = 'MB'
+        }
+    }else{
+        type = 'GB'
+    }
+    var aux = str.substring(0,indexstr)
+    let matches = aux.match(/(\d+)/);
+    if (pcuser.Armazenamento >= matches[0]){
+        valida(ind,true)
+        return
+    }else{
+        mensagem += 'Armazenamento insuficiente' + '<br>'
+        valida(ind,false)
+        return
     }
 }
 
@@ -80,6 +146,7 @@ function memoriaEN(ind,req,pcuser){
         valida(ind,true)
         return
     }else{
+        mensagem += 'Memória RAM insuficiente' + '<br>'
         valida(ind,false)
         return
     }
@@ -92,10 +159,13 @@ function memoriaBR(ind,req,pcuser){
         valida(ind,true)
         return
     }else{
+        mensagem += 'Memória RAM insuficiente' + '<br>'
         valida(ind,false)
         return
     }
 }
+
+// function 
 
 function memoriaMatch(str){
     str  = str.split('<br>')[0]

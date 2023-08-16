@@ -54,19 +54,23 @@
               <h2 id="req"><%= requisitomin %></h2>
               <h2 id="req2"><%= requisitomax %></h2>
               <% } %>
-            <div id="comentarios"></div>
+            <div id="comentarios">
+              <h2 id='req3'><%= mensagem %></h2>
+            </div>
           </div>
         </div>
       </div>
     
   </body>
-  <script>
+  <script defer>
     const desc = document.getElementById("desc").textContent
     document.getElementById("desc").innerHTML = desc
     const req = document.getElementById("req").textContent
     document.getElementById("req").innerHTML = req
     const req2 = document.getElementById("req2").textContent
     document.getElementById("req2").innerHTML = req2
+    const req3 = document.getElementById("req3").textContent
+    document.getElementById("req3").innerHTML = req3
 
   </script>
   
