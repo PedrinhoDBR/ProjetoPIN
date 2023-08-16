@@ -437,7 +437,6 @@ input:checked + .slider:before {
     position: relative;
     top: -140px;
     left: 35%;
-    /* display: none; */
 }
 
 .favorito {
@@ -750,4 +749,15 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 13px;
     text-transform: uppercase;
     text-align: center;
+  }
+
+  .botao-foda {
+    display: flex;
+    align-items: center; /* Vertically align items */
+    gap: 10px; /* Adjust spacing between items */
+  }
+
+  #estrelaid {
+    margin-top: -20px;
+    margin-left: 10px;
   }

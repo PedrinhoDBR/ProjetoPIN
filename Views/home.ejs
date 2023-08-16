@@ -80,8 +80,14 @@
                 </div>
                 <div class="jogos-info">
                     <h2 class="name-jogo"><%= jogo.nome %></h2>
-                    <button class="botao" onclick="chamartela('<%= jogo.id %>')">Informações</button>
-                    <input type="image" class="botao favorito" src="Images/icones/estrelavazia.png" title="favoritar">
+                    <div class="botao-foda">
+                        <button class="botao" onclick="chamartela('<%= jogo.id %>')">Informações</button>
+                        <form action="/Favorito" method="post" id="estrelaid">
+                            <input type="text" value='<%= jogo.id %>' style="display:none;">
+                            <input type="text" value='<%= pc_usuario.UsuarioID %>' style="display:none;">
+                            <input type="image" alt="Submit" class="botao favorito" src="Images/icones/estrelavazia.png" title="favoritar">
+                        </form>
+                    </div>
                 </div>
                 <div class="jogos-content">
 

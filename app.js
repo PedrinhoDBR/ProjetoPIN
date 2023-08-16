@@ -5,6 +5,7 @@ const games = require('./models/games')
 const GPU = require('./models/GPU')
 const CPU = require('./models/CPU')
 const Computer = require('./models/Computer')
+const Favorito = require('./models/Favorito')
 await database.sync()
 // await Computer.create({
 //     UsuarioID: 1,
@@ -25,6 +26,7 @@ const Games = require('./models/games')
 const CPU = require('./models/CPU')
 const GPU = require('./models/GPU')
 const Computer = require('./models/Computer')
+const Favorito = require('./models/Favorito')
 
 const { spawn } = require('child_process');
 const express = require('express');
@@ -79,7 +81,6 @@ app.post('/registro', async(req,res)=>{
         const newuserid = newuser.id
         console.log(newuser.id)
         const newcomputer = await Computer.create({
-            id: newuser.id,
             UsuarioID: newuser.id
         })
 
@@ -240,6 +241,18 @@ app.post("/esqueciasenha", async(req,res)=>{
     
 })
 
+app.post('/Favorito', async(req, res)=>{
+    console.log('mto foda lek')
+    // const {userid, jogoid} = req.body
+
+    // await Favorito.create(
+    //     {
+    //         UsuarioID:userid,
+    //         GameID:jogoid
+    //     }
+    // )
+
+})
 
 app.listen(3000,function(){
     console.log('Ok');
