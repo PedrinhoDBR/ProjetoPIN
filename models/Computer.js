@@ -1,10 +1,9 @@
 const database = require('../db')
 const Sequelize = require('sequelize')
 
-const cpu = database.define('Computer',{
+const Computer = database.define('Computer',{
     id:{
         type: Sequelize.INTEGER,
-        autoIncrement: true,
         primaryKey: true
     },
     UsuarioID:{
@@ -29,4 +28,4 @@ const cpu = database.define('Computer',{
     }
 })
 
-module.exports = cpu
+module.exports = Computer

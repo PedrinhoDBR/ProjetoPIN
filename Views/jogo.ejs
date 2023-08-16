@@ -22,7 +22,7 @@
 
   </header>
       <!-- <p style="visibility: hidden;" id="textofodase">teste</p> -->
-      <div class="caixa1">
+      <div class="caixa1Jogo">
         <div class="informacao-jogos">
           <h1 id="name"><%= JogoItens.nome %></h1>
           <p id="demo"></p>
@@ -40,14 +40,20 @@
           </div>
           <div class="box3">
             <% if(isvalido){ %> 
-            <% if(roda){ %>
-              <h2 id="req" class="TextoVerde"><%= requisitos %></h2>
+            <% if(canplaymin){ %>
+              <h2 id="req" class="TextoVerde"><%= requisitomin %></h2>
             <% }else{ %>
-              <h2 id="req" class="TextoVermelho"><%= requisitos %></h2>
-            <% } %> 
+              <h2 id="req" class="TextoVermelho"><%= requisitomin %></h2>
+            <% } %>
+            <% if(canplaymax){ %>
+              <h1 id="req2" class="TextoVerde" ><%= requisitomax %></h1>
+            <% }else{ %>
+              <h2 id="req2" class="TextoVermelho"><%= requisitomax %></h2>
+            <% } %>
             <% }else{ %> 
-              <h2 id="req" ><%= requisitos %></h2>
-              <% } %> 
+              <h2 id="req"><%= requisitomin %></h2>
+              <h1 id="req2"><%= requisitomax %></h1>
+              <% } %>
             <div id="comentarios"></div>
           </div>
         </div>
@@ -59,6 +65,9 @@
     document.getElementById("desc").innerHTML = desc
     const req = document.getElementById("req").textContent
     document.getElementById("req").innerHTML = req
+    const req2 = document.getElementById("req2").textContent
+    document.getElementById("req2").innerHTML = req2
+
   </script>
   
 </html>

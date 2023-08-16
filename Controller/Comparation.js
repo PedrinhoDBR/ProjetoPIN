@@ -1,8 +1,13 @@
 //tem que separar o minimun do recomended
-var canplay = true
+var canplaymin = true
+var canplaymax = true
+var requisitomin;
+var requisitomax;
+var index;
 const comparar = {
     comparar(arquivo,pcuser) {
-        canplay = true
+        canplaymax = true
+        canplaymin = true
         //remover caracteres especiais
         var requisito = JSON.stringify(arquivo['pc_req'])
         
@@ -11,12 +16,23 @@ const comparar = {
         requisito = requisito.replace("', 'recommended': '","")
         requisito = requisito.replace("\'}\"","")
         requisito = requisito.replaceAll("\\\\t","")
-
-
-        //verificar a linguagem
-        linguagem(requisito,pcuser)
-        console.log(canplay)
-        return {requisito,canplay}
+        index = requisito.search('Recomendados:')
+        if (index == -1){
+            index = requisito.search('Recommended:')
+        }
+        if (index != -1){
+            requisitomin = requisito.substring(0,index)
+            requisitomax = '<Strong>'+requisito.substring(index,requisito.length)
+        }else{
+            requisitomin = requisito
+            requisitomax = ''
+        }
+        
+        
+        linguagem(1,requisitomin,pcuser)
+        linguagem(2,requisitomax,pcuser)
+    
+        return {requisitomin,canplaymin,requisitomax,canplaymax};
     }
 }
 
@@ -24,41 +40,59 @@ function checar(canplay){
 
 }
 
-function linguagem(req,pcuser){
+function linguagem(ind,req,pcuser){
     const a = req.search('Processador')
 
     if (a == -1){
-        memoriaEN(req,pcuser)
+        memoriaEN(ind,req,pcuser)
         procEN(req)
     }else{
-        memoriaBR(req,pcuser)
+        memoriaBR(ind,req,pcuser)
         procBR(req)
     }
 }
 
-function memoriaEN(req,pcuser){
+function valida(ind,tipo){
+    if (!tipo){
+        if (ind == 1){
+            canplaymin = false
+            return
+        }else{
+            canplaymax = false
+            return
+        }
+    }else{
+        if (ind == 1 && canplaymin){
+            canplaymin = true
+            return
+        }
+        if (ind == 2 && canplaymax){
+            canplaymax = true
+            return
+        }
+    }
+}
+
+function memoriaEN(ind,req,pcuser){
     var str = req.substring(req.indexOf("Memory"));
     const valor = memoriaMatch(str)
-
-    if (pcuser.RAM < valor){
-        canplay = false
-
+    if (pcuser.RAM >= valor){
+        valida(ind,true)
         return
     }else{
-        // canplay = true
+        valida(ind,false)
         return
     }
 }
 
-function memoriaBR(req,pcuser){
+function memoriaBR(ind,req,pcuser){
     var str = req.substring(req.indexOf("Memória"));
     const valor = memoriaMatch(str)
-
-    if (pcuser.RAM < valor && canplay){
-        canplay = false
+    if (pcuser.RAM >= valor){
+        valida(ind,true)
         return
     }else{
-        // canplay = true
+        valida(ind,false)
         return
     }
 }

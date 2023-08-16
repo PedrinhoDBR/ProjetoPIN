@@ -8,7 +8,6 @@ const getgeneros = {
         generos = []
         genero = JSON.stringify(texto)
 
-        // console.log(teste['1'])
         index = genero.search("'description':")
 
         while (index != -1){
@@ -17,9 +16,6 @@ const getgeneros = {
 
             index = genero.search("'description':")
         }
-        generos.forEach(item =>{
-            console.log(item)
-        })
         return generos;
     }
 }

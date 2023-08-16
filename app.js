@@ -6,6 +6,9 @@ const GPU = require('./models/GPU')
 const CPU = require('./models/CPU')
 const Computer = require('./models/Computer')
 await database.sync()
+// await Computer.create({
+//     UsuarioID: 1,
+// })
     // await User.create({
     //     nome: 'admin',
     //     email: 'admin@admin.com',
@@ -72,11 +75,12 @@ app.post('/registro', async(req,res)=>{
             tipo:   'user'
         })
 
-        const newuserid = newuser.id
-        console.log('User foda: ' + newuserid)
 
+        const newuserid = newuser.id
+        console.log(newuser.id)
         const newcomputer = await Computer.create({
-            UsuarioID: newuserid,
+            id: newuser.id,
+            UsuarioID: newuser.id
         })
 
         res.redirect('login')
@@ -144,19 +148,19 @@ app.get('/login',(req,res)=>{
 })
 
 app.get('/jogo/:steamID', async (req,res)=>{
-    const user = await User.findOne({where:
-        [{nome:'admin'}]
-    })
-    req.session.ContaUsuario = user
+    // const user = await User.findOne({where:  //para nao precisar ficar logando toda hora
+    //     [{nome:'admin'}]
+    // })
+    // req.session.ContaUsuario = user
     if(req.session.ContaUsuario){
         let steamID = req.params.steamID
         const jogo = await Games.findAll({ where:{id: steamID},raw: true})
         const pc_usuario = await Computer.findOne({where: {UsuarioID: req.session.ContaUsuario.id}})
-        const valido = true    
+        const isvalido = true    
         const generos = getgeneros(jogo[0]['genero'])
-
-        const {requisito,canplay} = comparar(jogo[0],pc_usuario)
-        res.render('jogo', {JogoItens: jogo[0],requisitos:requisito,roda:canplay,isvalido:valido,generos});
+        
+        const {requisitomin,canplaymin,requisitomax,canplaymax} = comparar(jogo[0],pc_usuario)
+        res.render('jogo', {JogoItens: jogo[0],isvalido,generos,requisitomin,canplaymin,requisitomax,canplaymax});
     }else{
         res.render('login')
     }
