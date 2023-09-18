@@ -36,7 +36,7 @@ const comparar = {
             mensagem += '<strong>Mínimos:</strong><br>'
             linguagem(1,requisitomin,pcuser)
             if (requisitomax != ''){
-                mensagem += '<strong>Recomendados:</strong><br>'
+                mensagem += ' <strong>Recomendados:</strong><br>'
             }
             linguagem(2,requisitomax,pcuser)    
         }
@@ -97,6 +97,7 @@ function armazenamentoBR(ind,req,pcuser){
 
 function armazenamentoMatch(ind,str,pcuser){
     str  = str.split('<br>')[0]
+    
     var indexstr = str.search('GB')
     if (indexstr == -1){
         indexstr = str.search('MB')
@@ -107,7 +108,11 @@ function armazenamentoMatch(ind,str,pcuser){
         type = 'GB'
     }
     var aux = str.substring(0,indexstr)
-    let matches = aux.match(/(\d+)/);
+    // let matches = aux.match(/(\d+)/);
+    let matches = aux.replace(/[^0-9]/g, "");
+    // [int(s) for s in txt.split() if s.isdigit()]
+    
+    
     if (pcuser.Armazenamento >= matches[0]){
         valida(ind,true)
         return

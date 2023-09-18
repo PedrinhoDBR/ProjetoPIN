@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title><%= JogoItens.nome %></title>
+  </head>
+  <body>
+    <header>
+      <!-- <img class="logo" src="../imagens/africa.png" alt=""> -->
+      <nav>
+          <ul class="navlinks">
+              <li class="voltar"><a href=""><img id="headicon" src="Images/icones/voltar.png" alt=""></a></li>
+              <li class="home1"><a href="home"><img id="headicon" src="Images/icones/home.png" alt=""></a></li>
+              <li class="login"><a href="login"><img id="headicon" src="Images/icones/user.png" alt=""></a></li>
+              <input type="search" id="hearicon-pesquisa" class="search">
+              <!-- <a class="eta" href="#"><button>contact</button></a> -->
+          </ul>
+      </nav>
+
+  </header>
+      <!-- <p style="visibility: hidden;" id="textofodase">teste</p> -->
+      <div class="caixa1Jogo">
+        <div class="informacao-jogos">
+          <h1 id="name"><%= JogoItens.nome %></h1>
+          <p id="demo"></p>
+          <div class="box3">
+            
+            <div id="comentarios">
+              
+              <h2 id='req3'><%= mensagem %></h2>
+            </div>
+            <div>
+            <% if(isvalido){ %> 
+            <% if(canplaymin){ %>
+              <h2 id="req" class="TextoVerde"><%= requisitomin %></h2>
+            <% }else{ %>
+              <h2 id="req" class="TextoVermelho"><%= requisitomin %></h2>
+            <% } %>
+            <% if(canplaymax){ %>
+              <h2 id="req2" class="TextoVerde" ><%= requisitomax %></h2>
+            <% }else{ %>
+              <h2 id="req2" class="TextoVermelho"><%= requisitomax %></h2>
+            <% } %>
+            <% }else{ %> 
+              <h2 id="req"><%= requisitomin %></h2>
+              <h2 id="req2"><%= requisitomax %></h2>
+              <% } %>
+            </div>
+             <div >
+              <div class="imagens"><img id="imagemid" src="<%= JogoItens.imagem %>"></div>
+             </div>
+          </div>
+          <!-- <div class="imagens"><img id="imagemid" src="<%= JogoItens.imagem %>"></div> -->
+          <div class="box2">
+            <!-- <p><a href="#">favoritar</a></p> -->
+            <!-- <a href="#"><img src="Images/icones/estrelavazia.png" alt=""></a> -->
+            <!-- <p class="categoria" title="ver mais jogos de corrida">Corrida</p> -->
+            <% generos.forEach(genero => {%>
+              <p class="categoria" ><%= genero %></p>
+            <% }) %>
+            <!-- <p class="categoria" >Equipe</p> -->
+            <!-- <p class="categoria">Sobrevivência</p> -->
+            <h2 id="desc"><%= JogoItens.descricao %></h1>
+          </div>
+        </div>
+      </div>
+    
+  </body>
+  <script defer>
+    const desc = document.getElementById("desc").textContent
+    document.getElementById("desc").innerHTML = desc
+    const req = document.getElementById("req").textContent
+    document.getElementById("req").innerHTML = req
+    const req2 = document.getElementById("req2").textContent
+    document.getElementById("req2").innerHTML = req2
+    const req3 = document.getElementById("req3").textContent
+    document.getElementById("req3").innerHTML = req3
+
+  </script>
+  
+</html>
