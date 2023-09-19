@@ -23,14 +23,14 @@ await database.sync()
     })
     await CPU.create({
         id: '1',
-        nome: 'teste'
+        nome: 'CPUBoa'
     })
     await GPU.destroy({
         where:{id:1},
     })
     await GPU.create({
         id: '1',
-        nome: 'teste'
+        nome: 'GPUBoa'
     })
     await Computer.destroy({
         where:{id:'1'},
