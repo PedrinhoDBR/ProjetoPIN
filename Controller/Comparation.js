@@ -45,6 +45,7 @@ const comparar = {
 }
 
 function validapc(pcuser){
+    console.log(pcuser)
     if (pcuser.CPUID == null){
         isvalido = false
         return
@@ -60,6 +61,7 @@ function validapc(pcuser){
     }else{
         return
     }
+    return
 }
 
 function checar(canplay){

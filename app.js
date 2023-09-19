@@ -7,15 +7,40 @@ const CPU = require('./models/CPU')
 const Computer = require('./models/Computer')
 const Favorito = require('./models/Favorito')
 await database.sync()
-// await Computer.create({
-//     UsuarioID: 1,
-// })
-    // await User.create({
-    //     nome: 'admin',
-    //     email: 'admin@admin.com',
-    //     senha: 'admin123',
-    //     tipo:   'admin'
-    // })
+    await User.destroy({
+        where:{id:'1'},
+    })
+    await User.create({
+        id: '1',
+        nome: 'admin',
+        email: 'admin@admin.com',
+        idade: '2004-07-14 00:00:00',
+        senha: 'admin123',
+        tipo:   'admin'
+    })
+    await CPU.destroy({
+        where:{id:1},
+    })
+    await CPU.create({
+        id: '1',
+        nome: 'CPUBoa'
+    })
+    await GPU.destroy({
+        where:{id:1},
+    })
+    await GPU.create({
+        id: '1',
+        nome: 'GPUBoa'
+    })
+    await Computer.destroy({
+        where:{id:'1'},
+    })
+    await Computer.create({
+        UsuarioID:'1',
+        CPUID: '1',
+        GPUID: '1'
+    })
+
 })();
 
 
