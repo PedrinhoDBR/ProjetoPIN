@@ -78,15 +78,23 @@
                     <img src="<%= jogo.imagem %>" alt="">
                     <!-- <div class="black">.</div> -->
                 </div>
+                <p style="display:none;">
+                    <%= botaoestrelaid = 'estrela-' + jogo.nome %>
+                </p>
                 <div class="jogos-info">
                     <h2 class="name-jogo"><%= jogo.nome %></h2>
                     <div class="botao-foda">
                         <button class="botao" onclick="chamartela('<%= jogo.id %>')">Informações</button>
-                        <form action="/Favorito" method="post" id="estrelaid">
+                        <!-- <form action="/Favorito" method="post" id="estrelaid">
                             <input type="text" value='<%= jogo.id %>' style="display:none;">
                             <input type="text" value='<%= pc_usuario.UsuarioID %>' style="display:none;">
                             <input type="image" alt="Submit" class="botao favorito" src="Images/icones/estrelavazia.png" title="favoritar">
-                        </form>
+                        </form> -->
+                        <div id="estrelaid">
+                            <input type="text" value='<%= jogo.id %>' style="display:none;">
+                            <input type="text" value='<%= pc_usuario.UsuarioID %>' style="display:none;">
+                            <input id="<%= botaoestrelaid %>" type="image" class="botao favorito" src="Images/icones/estrelavazia.png" title="favoritar" onclick="TrocarEstrela('<%= botaoestrelaid %>')">
+                        </div>
                     </div>
                 </div>
                 <div class="jogos-content">
@@ -102,7 +110,9 @@
     <script src="/scripts/carrosel.js"></script> -->
     <script>
 
+        let HasEstrelaChanged = true 
         let hasFLip = true
+        
         document.getElementById('FormID').style = 'display: none;'
         document.getElementById('cpu_input').value              = '<%= pc_usuario.CPUID %>'
         document.getElementById('gpu_input').value              = '<%= pc_usuario.GPUID %>'
@@ -126,6 +136,16 @@
             }
 
             hasFLip = !hasFLip
+        }
+
+        function TrocarEstrela(param){
+            console.log(document.getElementById(param).src)
+            if (document.getElementById(param).src.includes("Images/icones/estrelacheia.png")){
+                document.getElementById(param).src = "Images/icones/estrelavazia.png"
+            }else {
+                document.getElementById(param).src = "Images/icones/estrelacheia.png"
+            }
+            HasEstrelaChanged = !HasEstrelaChanged
         }
 
     </script>
