@@ -45,21 +45,23 @@ const comparar = {
 }
 
 function validapc(pcuser){
-    // if (pcuser.CPUID == null){
-    //     isvalido = false
-    //     return
-    // }else if(pcuser.GPUID == null){
-    //     isvalido = false
-    //     return
-    // }else if(pcuser.RAM == null){
-    //     isvalido = false
-    //     return
-    // }else if(pcuser.Armazenamento == null){
-    //     isvalido = false
-    //     return
-    // }else{
-    //     return
-    // }
+    console.log(pcuser)
+    if (pcuser.CPUID == null){
+        isvalido = false
+        return
+    }else if(pcuser.GPUID == null){
+        isvalido = false
+        return
+    }else if(pcuser.RAM == null){
+        isvalido = false
+        return
+    }else if(pcuser.Armazenamento == null){
+        isvalido = false
+        return
+    }else{
+        return
+    }
+    return
 }
 
 function checar(canplay){
