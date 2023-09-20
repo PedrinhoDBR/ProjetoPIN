@@ -23,7 +23,31 @@
   </header>
       <!-- <p style="visibility: hidden;" id="textofodase">teste</p> -->
       <div class="caixa1Jogo">
-        <div class="caixa3"></div>
+        <div class="caixa3">
+          <div id="comentarios">
+            <h2 id='req3'><%= mensagem %></h2>
+          </div>
+          <!-- <div class="box3"> -->
+            <% if(isvalido){ %> 
+            <% if(canplaymin){ %>
+              <h2 id="req" class="TextoVerde"><%= requisitomin %></h2>
+            <% }else{ %>
+              <h2 id="req" class="TextoVermelho"><%= requisitomin %></h2>
+            <% } %>
+            <% if(canplaymax){ %>
+              <h2 id="req2" class="TextoVerde" ><%= requisitomax %></h2>
+            <% }else{ %>
+              <h2 id="req2" class="TextoVermelho"><%= requisitomax %></h2>
+            <% } %>
+            <% }else{ %> 
+              <h2 id="req" class="requerimentos"><%= requisitomin %></h2>
+              <h2 id="req2" class="requerimentos"><%= requisitomax %></h2>
+              <% } %> ''
+            <!-- <div id="comentarios">
+              <h2 id='req3'><%= mensagem %></h2>
+            </div> -->
+          <!-- </div> -->
+        </div>
         <div class="informacao-jogos">
           <h1 id="name"><%= JogoItens.nome %></h1>
           <p id="demo"></p>
@@ -39,7 +63,7 @@
             <!-- <p class="categoria">Sobrevivência</p> -->
             <h2 id="desc"><%= JogoItens.descricao %></h1>
           </div>
-          <div class="box3">
+          <!-- <div class="box3">
             <% if(isvalido){ %> 
             <% if(canplaymin){ %>
               <h2 id="req" class="TextoVerde"><%= requisitomin %></h2>
@@ -58,7 +82,10 @@
             <div id="comentarios">
               <h2 id='req3'><%= mensagem %></h2>
             </div>
-          </div>
+          </div> -->
+          <!-- <div id="comentarios">
+            <h2 id='req3'><%= mensagem %></h2>
+          </div> -->
         </div>
       </div>
     

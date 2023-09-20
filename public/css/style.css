@@ -52,6 +52,8 @@ body {
     width: 95%;
     margin-left: auto;
     margin-right: auto;
+    display: flex;
+    flex-direction: row;
 }
 
 #caixa2 {
@@ -66,13 +68,16 @@ body {
 }
 
 .caixa3 {
+    background-color: rgba(255, 255, 255, 0.446);
+    color: #000000;
     text-align: center;
     border-radius: 50px;
-    width: 100%;
+    width: 30%;
     height: 10%;
     position: relative;
     /* position: fixed; */
 }
+
 
 #textdiv {
     width: 80%;
@@ -236,19 +241,22 @@ body {
 }
 
 .TextoVermelho li{
-    color: rgb(255, 176, 176);
+    color: rgb(255, 0, 0);
+    /* text-shadow: 1px 1px #000000; */
 }
 
 .TextoVermelho {
-    color: rgb(255, 176, 176);
+    color: rgb(255, 0, 0);
+    /* text-shadow: 1px 1px #000000; */
 }
 
 .TextoVerde li{
-    color: rgb(176, 255, 176);
+    color: rgb(17, 167, 17);
+    /* text-shadow: 1px 1px #000000; */
 }
 
 .TextoVerde {
-    color: rgb(176, 255, 176);
+    color: rgb(17, 167, 17);
 }
 
 .switch {
@@ -565,19 +573,25 @@ input:checked + .slider:before {
 
 #comentarios {
     background-image: linear-gradient(rgba(0, 0, 0, 0.700), rgb(0, 0, 0));
-    width: 50%;
-    height: 800px;
+    /* width: 100%; */
+    height:100%;
     border-radius: 50px;
-    padding-left: 25px;
+    /* padding-left: 25px; */
 }
 
 #req {
-    width: 50%;
+    width: 90%;
     padding-right: 25px;
 }
 
+#req, h2 {
+    padding: 10px;
+    margin-top: 0px;
+    color: white;
+}
+
 #req2 {
-    width: 50%;
+    width: 90%;
     padding-right: 25px;
 }
 /* ___________ */
