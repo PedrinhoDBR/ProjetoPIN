@@ -22,27 +22,27 @@ const games = database.define('games',{
         type: Sequelize.STRING,   
         allowNull: false
     },
-    pago:{
+    preco:{
         type: Sequelize.STRING,   
         allowNull: true
     },
     descricao:{
-        type: Sequelize.STRING,   
+        type: Sequelize.STRING(5000),   
         allowNull: false
     },
     pc_req:{
-        type: Sequelize.STRING,   
+        type: Sequelize.STRING(5000),   
         allowNull: false
     },
     categories:{
-        type: Sequelize.STRING,   
+        type: Sequelize.STRING(1000),   
         allowNull: false
     },
     genero:{
-        type: Sequelize.STRING,   
+        type: Sequelize.STRING(1000),   
         allowNull: false
     },
-    
+
 })
 
 module.exports = games
