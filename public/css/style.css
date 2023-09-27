@@ -11,6 +11,11 @@
     font-style: normal;
 }
 
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
     background-image: url(/images/background/Picsart_23-02-21_07-58-49-020.jpg);
@@ -72,9 +77,11 @@ body {
     color: #000000;
     text-align: center;
     border-radius: 50px;
-    width: 30%;
-    height: 10%;
+    /* width: 100%; */
+    height: 50%;
     position: relative;
+    display: flex;
+    flex-direction: column;
     /* position: fixed; */
 }
 
@@ -242,6 +249,7 @@ body {
 
 .TextoVermelho li{
     color: rgb(255, 0, 0);
+    list-style: none;
     /* text-shadow: 1px 1px #000000; */
 }
 
@@ -251,12 +259,16 @@ body {
 }
 
 .TextoVerde li{
-    color: rgb(17, 167, 17);
+    color: rgb(0, 0, 0);
+    list-style: none;
+    margin-bottom: 10px;
     /* text-shadow: 1px 1px #000000; */
+    
 }
 
 .TextoVerde {
-    color: rgb(17, 167, 17);
+    color: rgb(0, 0, 0);
+    margin-bottom: 10px;
 }
 
 .switch {
@@ -523,12 +535,19 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     margin: 70px;
 }
 
 #imagemid {
     width: 80%;
     box-shadow: black 0px 0px 20px;
+}
+
+.alinhamento {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
 }
 
 /* #imagemid:hover {
@@ -546,7 +565,8 @@ input:checked + .slider:before {
 #desc {
     position: relative;
     padding-left: 15px;
-    width: 25%;
+    width: 90%;
+    color: #000000;
 }
 
 #desc::before {
@@ -556,11 +576,16 @@ input:checked + .slider:before {
     left: 0;
     width: 2px;
     height: 100%;
-    background-color: white;
+    background-color: rgb(0, 0, 0);
 }
 
-.categoria:hover {
-    text-shadow: 1px 5px 5px #ffffff;
+.categoria {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    text-decoration: none;
+    padding-right: 25px;
 }
 
 
@@ -580,8 +605,10 @@ input:checked + .slider:before {
 }
 
 #req {
-    width: 90%;
-    padding-right: 25px;
+    width: 100%;
+    /* padding-right: 25px; */
+    text-align: left;
+    
 }
 
 #req, h2 {
@@ -592,7 +619,9 @@ input:checked + .slider:before {
 
 #req2 {
     width: 90%;
-    padding-right: 25px;
+    /* padding-right: 25px; */
+    text-align: left;
+    padding-left: 5%;
 }
 /* ___________ */
 
@@ -728,6 +757,7 @@ input:checked + .slider:before {
 
     #desc {
         width: 80%;
+        font-size: 15px;
     }
 
 }
