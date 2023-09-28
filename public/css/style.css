@@ -79,7 +79,7 @@ body {
     text-align: center;
     border-radius: 50px;
     /* width: 100%; */
-    height: 50%;
+    /* height: 50%; */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -602,9 +602,9 @@ input:checked + .slider:before {
 }
 
 #comentarios {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.700), rgb(0, 0, 0));
+    background-image: linear-gradient(rgba(255, 255, 255, 0.175), rgba(255, 255, 255, 0.29));
     /* width: 100%; */
-    height:100%;
+    /* height:100%; */
     border-radius: 50px;
     /* padding-left: 25px; */
 }
@@ -613,13 +613,18 @@ input:checked + .slider:before {
     width: 100%;
     /* padding-right: 25px; */
     text-align: left;
-    
+    padding-left: 5%;
+    /* color: white; */
 }
 
 #req, h2 {
-    padding: 10px;
-    margin-top: 0px;
-    color: white;
+    /* padding: 10px; */
+    margin-top: 10px;
+    /* color: white; */
+}
+
+#req, strong {
+    color: black;
 }
 
 #req2 {
@@ -627,6 +632,10 @@ input:checked + .slider:before {
     /* padding-right: 25px; */
     text-align: left;
     padding-left: 5%;
+}
+
+#req3, strong {
+    color: rgb(39, 39, 39);
 }
 /* ___________ */
 
