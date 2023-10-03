@@ -8,19 +8,19 @@ const games = database.define('games',{
     },
     nome:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     imagem:{
         type: Sequelize.STRING,   
-        allowNull: false
+        allowNull: true
     },
     idade:{
         type: Sequelize.INTEGER,   
-        allowNull: false
+        allowNull: true
     },
     pago:{
         type: Sequelize.STRING,   
-        allowNull: false
+        allowNull: true
     },
     preco:{
         type: Sequelize.STRING,   
@@ -28,19 +28,19 @@ const games = database.define('games',{
     },
     descricao:{
         type: Sequelize.STRING(5000),   
-        allowNull: false
+        allowNull: true
     },
     pc_req:{
         type: Sequelize.STRING(5000),   
-        allowNull: false
+        allowNull: true
     },
     categories:{
         type: Sequelize.STRING(1000),   
-        allowNull: false
+        allowNull: true
     },
     genero:{
         type: Sequelize.STRING(1000),   
-        allowNull: false
+        allowNull: true
     },
 
 })

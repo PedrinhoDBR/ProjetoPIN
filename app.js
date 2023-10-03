@@ -6,40 +6,41 @@ const GPU = require('./models/GPU')
 const CPU = require('./models/CPU')
 const Computer = require('./models/Computer')
 const Favorito = require('./models/Favorito')
+const Lista = require('./models/Lista')
 await database.sync()
-    await User.destroy({
-        where:{id:'1'},
-    })
-    await User.create({
-        id: '1',
-        nome: 'admin',
-        email: 'admin@admin.com',
-        idade: '2004-07-14 00:00:00',
-        senha: 'admin123',
-        tipo:   'admin'
-    })
-    await CPU.destroy({
-        where:{id:1},
-    })
-    await CPU.create({
-        id: '1',
-        nome: 'CPUBoa'
-    })
-    await GPU.destroy({
-        where:{id:1},
-    })
-    await GPU.create({
-        id: '1',
-        nome: 'GPUBoa'
-    })
-    await Computer.destroy({
-        where:{id:'1'},
-    })
-    await Computer.create({
-        UsuarioID:'1',
-        CPUID: '1',
-        GPUID: '1'
-    })
+    // await User.destroy({
+    //     where:{id:'1'},
+    // })
+    // await User.create({
+    //     id: '1',
+    //     nome: 'admin',
+    //     email: 'admin@admin.com',
+    //     idade: '2004-07-14 00:00:00',
+    //     senha: 'admin123',
+    //     tipo:   'admin'
+    // })
+    // await CPU.destroy({
+    //     where:{id:1},
+    // })
+    // await CPU.create({
+    //     id: '1',
+    //     nome: 'CPUBoa'
+    // })
+    // await GPU.destroy({
+    //     where:{id:1},
+    // })
+    // await GPU.create({
+    //     id: '1',
+    //     nome: 'GPUBoa'
+    // })
+    // await Computer.destroy({
+    //     where:{id:'1'},
+    // })
+    // await Computer.create({
+    //     UsuarioID:'1',
+    //     CPUID: '1',
+    //     GPUID: '1'
+    // })
 
 })();
 
@@ -62,6 +63,7 @@ const { type } = require('os');
 const { json } = require('express/lib/response');
 const {comparar} = require('./Controller/Comparation');
 const {getgeneros} = require('./Controller/genero');
+const Lista = require('./models/Lista');
 
 
 const app = express();
@@ -137,10 +139,15 @@ app.get('/home', async (req,res)=>{
         //     }
         // }
     })
-
-    const GPUs          = await GPU.findAll()
-    const processadores = await CPU.findAll()
-
+    // const listaitens    = await Lista.findAll()
+    const GPUs          = await Lista.findAll(
+        {where:{PecaTipo:'GPU'},order:[['PecaFrequencia','DESC']]})
+    const processadores = await Lista.findAll(
+        {where:{PecaTipo:'CPU'},order:[['PecaFrequencia','DESC']]})
+    // const listaitens    = await Lista.findAll()
+    // const listaitens = await lista.findOne({
+        // where:{PecaID:3871}
+    // })
 
     if (req.session.ContaUsuario){
 

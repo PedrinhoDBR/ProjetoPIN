@@ -10,24 +10,24 @@ const User = database.define('user', {
     },
     nome:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     email:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     senha:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     idade:{
         type: Sequelize.DATE,
-        allowNull: false
+        allowNull: true
 
     },
     tipo:{
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
         defaultValue: 'user'
     },
 })
