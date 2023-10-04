@@ -141,9 +141,9 @@ app.get('/home', async (req,res)=>{
     })
     // const listaitens    = await Lista.findAll()
     const GPUs          = await Lista.findAll(
-        {where:{PecaTipo:'GPU'},order:[['PecaFrequencia','DESC']]})
+        {where:{PecaTipo:'GPU'},order:[['PecaDescricao','DESC']]})
     const processadores = await Lista.findAll(
-        {where:{PecaTipo:'CPU'},order:[['PecaFrequencia','DESC']]})
+        {where:{PecaTipo:'CPU'},order:[['PecaDescricao','DESC']]})
     // const listaitens    = await Lista.findAll()
     // const listaitens = await lista.findOne({
         // where:{PecaID:3871}

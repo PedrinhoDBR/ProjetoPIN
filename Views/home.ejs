@@ -46,7 +46,7 @@
                     <!-- <input list="cpu_inputs" name="cpu_input" id="cpu_input"> -->
                     <select id="cpu_input" name="cpu_input">
                         <% processadores.forEach(item => { %>
-                          <option value="<%= item.id %>"><%= item.PecaDescricao %></option>
+                          <option value="<%= item.PecaID %>"><%= item.PecaDescricao %></option>
                         <% }); %>
                     </select><br>
 
@@ -54,14 +54,14 @@
                     <!-- <input list="gpu_inputs" name="gpu_input" id="gpu_input"> -->
                     <select id="gpu_input" name="gpu_input">
                         <% GPUs.forEach(item => { %>
-                          <option value="<%= item.id %>"><%= item.PecaDescricao %></option>
+                          <option value="<%= item.PecaID %>"><%= item.PecaDescricao %></option>
                         <% }); %>
                     </select><br>
 
                     <label for="inputRAM" >Memória RAM</label>
                     <input name= "ram_input" autocomplete="off" id="inputRAM" type="number" placeholder="GB"><br>
 
-                    <label for="inputArmazenamento" >Armazenamento</label>
+                    <label for="inputArmazenamento" >Armazenamento</label>´z
                     <input name= "armazenamento_input" autocomplete="off" id="inputArmazenamento" type="number" placeholder="GB"><br><br>
 
                     <input id="computadorsubmit" type="submit">
