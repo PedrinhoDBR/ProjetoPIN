@@ -14,7 +14,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Verdana;
-  background-image: url(/images/background/Picsart_23-02-21_07-58-49-020.jpg);
+  background: linear-gradient(180deg,rgb(30, 32, 49), rgb(29, 33, 75));
   background-repeat: no-repeat;
   background-size: 1000px;
   background-attachment: fixed;
@@ -27,7 +27,7 @@ body {
   width: 400px;
   padding: 40px;
   transform: translate(-50%, -50%);
-  background-image: linear-gradient(rgba(255, 255, 255, 0.288), rgba(55, 0, 255, 0.315));
+  background-color: rgba(93, 70, 194, 0.288);
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(139, 128, 249, 0.6);
   border-radius: 50px;
@@ -80,8 +80,9 @@ h2 {
 
   /* display: inline-block; */
   padding: 10px 20px;
-  color: #8b80f9;
-  background-color: rgba(255, 255, 255, 0.664);
+  color: #ffffff;
+  font-weight: bold;
+  background-color: #b097dd;
   border: none;
   border-radius: 20px;
   font-size: 13px;
