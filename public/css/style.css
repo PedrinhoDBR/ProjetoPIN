@@ -79,7 +79,7 @@ body {
 }
 
 .caixa3 {
-    background-color: rgba(123, 147, 255, 0.527);
+    background-color: rgb(191, 203, 255);
     color: #000000;
     text-align: center;
     border-radius: 50px;
@@ -257,7 +257,7 @@ body {
 }
 
 .TextoVermelho li{
-    color: #ce2c2c;
+    color: #ff0000;
     font-family: "Ladybug";
     font-weight: bold;
     list-style: none;
@@ -265,13 +265,13 @@ body {
 }
 
 .TextoVermelho {
-    color: #9E2B25;
+    color: #ff0000;
     font-weight: bold;
     /* text-shadow: 1px 1px #000000; */
 }
 
 .TextoVerde li{
-    color: #40F99B;
+    color: #31ad35;
     font-family: "Ladybug";
     font-weight: bold;
     list-style: none;
@@ -281,7 +281,7 @@ body {
 }
 
 .TextoVerde {
-    color: #40F99B;
+    color: #31ad35;
     font-weight: bold;
     margin-bottom: 10px;
 }
