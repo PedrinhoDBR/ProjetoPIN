@@ -24,7 +24,7 @@
 body {
     /*background-image: url(/images/background/Picsart_23-02-21_07-58-49-020.jpg);*/
     /* font-family: 'Fredoka One', cursive; */
-    background: linear-gradient(180deg,rgb(30, 32, 49), rgb(29, 33, 75));
+    background: linear-gradient(180deg,rgb(121, 92, 174), rgba(0, 0, 0, 0.566));
     font-family: "Ladybug";
     letter-spacing: 1px;
     background-repeat: no-repeat;
@@ -34,7 +34,7 @@ body {
 
 .caixa1 {
     /* background-image: linear-gradient(rgba(255, 255, 255, 0.288), rgba(55, 0, 255, 0.315)); */
-    background-color: rgba(93, 70, 194, 0.288);
+    background-color: rgba(0, 0, 0, 0.288);
     /* display: flex; */
     border-radius: 50px;
     color: white;
@@ -108,7 +108,7 @@ body {
     margin-right: 30px;
 }
 
-#nav {
+/* #nav {
     list-style: none;
     font-size: 17px;
     justify-content: center;
@@ -119,7 +119,9 @@ body {
     padding-right: 40px;
     padding-bottom: 20px;
     margin-top: 30px;
-}
+} */
+
+
 
 #infos {
     list-style: none;
@@ -301,46 +303,89 @@ body {
 }
 
 /* barra de pesquisa */
+.search-bar {
+    padding: 50px;
+}
 
-.search {
+#search-input {
     position: relative;
-    width: 20px;
-    height: 20px;
-    border-radius: 50px;
+    width: 150px;
+    height: 30px;
+    border-radius: 10px;
     padding: 10px;
+    text-align: center;
     transition-duration: 500ms;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 13px;
     border: 1px solid white;
-    overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.267);
-    /* background-image: url(Images/icones/lupa.png);
-    background-repeat: no-repeat; */
+    /* color: #000000; */
+    /* overflow: hidden; */
+    background-color: rgba(0, 0, 0, 0.381);
+    background-image: url(Images/icones/lupa.png);
+    /*background-repeat: no-repeat; */
     /* background-size: 22px;
     background-position: 45% 50%; */
-    
-
 }
 
-.search:hover {
+#search-input:hover {
     border: 1px solid white;
 }
 
-.search:focus {
-    width: 200px;
+#search-input:focus {
+    border-radius: 0px;
+    width: 300px;
     cursor: text;
-    padding-left: 10px;
     color: white;
     outline: none;
-    background-color: transparent;
+    background-color: #ffffff51;
     border: 1px solid #fff;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
     background: url(Images/icones/lupa.png);
-    background-size: 22px;
-    background-position: 10px 50%;
+    /* background-size: 22px;
+    background-position: 10px 50%; */
 }
 
+/* cadastro pc */
+
+#CadastroPC {
+    background-color: #0000004a;
+    backdrop-filter: blur(25px);
+    width: 70%;
+    height: 70%;
+    border-radius: 50px;
+    border: 1px solid white;
+    /* border: 1px solid white; */
+    /* display: flex; */
+    /* justify-content: center; */
+}
+
+.cadastroDoPc {
+    color: white;
+    font-size: 25px;
+    margin: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.enviarEfechar {
+    display: flex;
+    flex-direction: inherit;
+    /* padding: 50px; */
+}
+
+.botao {
+    width: 50px;
+}
+
+/* cadastro pc */
+
+
+
+
 /* navegação */
-/*fodinha*/
 li, a, button {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 16px;
@@ -707,6 +752,7 @@ input:checked + .slider:before {
 @media only screen and (max-width: 1199px) {
     #caixa1 {
         width: 100%;
+        
     }
     
     #caixa2 {
