@@ -1,0 +1,36 @@
+<div class="jogos" id="jogoslita">
+        
+            
+    <% for(let jogo of jogos ) { %>
+    <div class="jogos-item">
+        <div class="jogos-image">
+            <img src="<%= jogo.header_image %>" alt="">
+            <!-- <div class="black">.</div> -->
+        </div>
+        <p style="display:none;">
+            <%= botaoestrelaid = 'estrela-' + jogo.name %>
+        </p>
+        <div class="jogos-info">
+            <h2 class="name-jogo"><%= jogo.name %></h2>
+            <div class="botao-foda">
+                <button class="botao" onclick="chamartela('<%= jogo.appid %>')">Informações</button>
+                <!-- <form action="/Favorito" method="post" id="estrelaid">
+                    <input type="text" value='<%= jogo.id %>' style="display:none;">
+                    <input type="text" value='<%= pc_usuario.UsuarioID %>' style="display:none;">
+                    <input type="image" alt="Submit" class="botao favorito" src="Images/icones/estrelavazia.png" title="favoritar">
+                </form> -->
+                <div id="estrelaid">
+                    <input type="text" value='<%= jogo.appid %>' style="display:none;">
+                    <input type="text" value='<%= pc_usuario.UsuarioID %>' style="display:none;">
+                    <input id="<%= botaoestrelaid %>" type="image" class="botao favorito" src="Images/icones/estrelavazia.png" title="favoritar" onclick="TrocarEstrela('<%= botaoestrelaid %>')">
+                </div>
+            </div>
+        </div>
+        <div class="jogos-content">
+
+
+        </div>
+        <!-- <div class="black">.</div> -->
+    </div>
+    <% } %>
+</div>

@@ -7,6 +7,8 @@ const CPU = require('./models/CPU')
 const Computer = require('./models/Computer')
 const Favorito = require('./models/Favorito')
 const Lista = require('./models/Lista')
+const steamgames = require('./models/steamgames')
+// const steamimages = require('./models/steamimages')
 await database.sync()
     // await User.destroy({
     //     where:{id:'1'},
@@ -63,8 +65,10 @@ const { type } = require('os');
 const { json } = require('express/lib/response');
 const {comparar} = require('./Controller/Comparation');
 const {getgeneros} = require('./Controller/genero');
+const {getjogos} = require('./Controller/GetJogos');
 const Lista = require('./models/Lista');
-
+const steamgames = require('./models/steamgames')
+// const steamimages = require('./models/steamimages')
 
 const app = express();
 const port = 3000
@@ -106,9 +110,11 @@ app.post('/registro', async(req,res)=>{
 
 
         const newuserid = newuser.id
-        console.log(newuser.id)
+
         const newcomputer = await Computer.create({
-            UsuarioID: newuser.id
+            UsuarioID: newuser.id,
+            RAM: 0,
+            Armazenamento: 0
         })
 
         res.redirect('login')
@@ -116,6 +122,9 @@ app.post('/registro', async(req,res)=>{
 })
 
 
+app.get('/usuario',(req,res)=>{
+    res.render("usuario");
+})
 
 
 app.get('/',(req,res)=>{
@@ -126,50 +135,104 @@ app.get('/esqueciasenha', (req,res)=>{
     res.render("esqueciasenha")
 })
 
-app.get('/home', async (req,res)=>{
-    const jogos = await Games.findAll({
-        order:[['nome','ASC']], //ordena por ordem alfabetica
-        // where:{   
-        //     // nome: {   
-        //     //     [Op.like]: '%2%'   //possui 2 no nome
-        //     // }
-        //     idade: {
-        //         //[Op.gte]: 10  //maior que
-        //         [Op.lte]: 10  //menor que
-        //     }
-        // }
-    })
-    // const listaitens    = await Lista.findAll()
-    const GPUs          = await Lista.findAll(
-        {where:{PecaTipo:'GPU'},order:[['PecaDescricao','DESC']]})
-    const processadores = await Lista.findAll(
-        {where:{PecaTipo:'CPU'},order:[['PecaDescricao','DESC']]})
-    // const listaitens    = await Lista.findAll()
-    // const listaitens = await lista.findOne({
-        // where:{PecaID:3871}
-    // })
 
+
+app.get('/home', async (req,res)=>{
+    const user = await User.findOne({where:  //para nao precisar ficar logando toda hora
+    [{nome:'admin'}]
+    })
+    req.session.ContaUsuario = user
     if (req.session.ContaUsuario){
+
+        //pegar idade do usuario
+        let date = new Date().toJSON().slice(0, 10);
+        let dateuser =  req.session.ContaUsuario.idade
+        const dataSistema = new Date(date)
+        const dataUsuario = new Date(dateuser)
+        const diferencaEmMilissegundos = dataSistema - dataUsuario;
+        const idadeUsuario = Math.floor(diferencaEmMilissegundos / (1000 * 60 * 60 * 24 * 365.25));
+
+        
+        const jogos = await steamgames.findAll({
+            attributes:['appid','name','header_image'],
+            limit: 50 ,
+            order:[['positive_ratings','DESC']], //ordena por ordem alfabetica
+            where: {required_age:{[Op.lte]: idadeUsuario}}
+            
+        })
+
+        const GPUs          = await Lista.findAll(
+            {where:{PecaTipo:'GPU'},order:[['PecaDescricao','DESC']]})
+        const processadores = await Lista.findAll(
+            {where:{PecaTipo:'CPU'},order:[['PecaDescricao','DESC']]})
+
 
         const pc_usuario = await Computer.findOne({where: {
             UsuarioID: req.session.ContaUsuario.id
         }})
 
         res.render("home",{jogos,pc_usuario, GPUs, processadores});
-        console.log(req.session.ContaUsuario)
+
     }else{
-        res.redirect("registro");
+        res.redirect("login");
     }
 })
 
 app.get('/computer', async (req,res)=>{
     if (req.session.ContaUsuario){
         res.render("computador");
-        console.log(req.session.ContaUsuario)
+
     }else{
         res.redirect("registro");
     }
 })
+
+app.get('/getusuario',async (req,res)=>{
+    const usuario = req.session.ContaUsuario
+    res.json({ resultado: usuario });
+})
+
+
+
+app.get('/consultar', async (req, res) => {
+
+    let date = new Date().toJSON().slice(0, 10);
+    let dateuser =  req.session.ContaUsuario.idade
+    const dataSistema = new Date(date)
+    const dataUsuario = new Date(dateuser)
+    const diferencaEmMilissegundos = dataSistema - dataUsuario;
+    const idadeUsuario = Math.floor(diferencaEmMilissegundos / (1000 * 60 * 60 * 24 * 365.25));
+
+    try {
+      const textoInserido = req.query.texto; // Obtenha o valor do campo de texto do cliente
+  
+      // Realize uma consulta ao banco de dados usando o modelo Sequelize
+
+      const resultado = await steamgames.findAll({
+        where: {
+          [Op.and]: [
+            { header_image: { [Op.not]: null } },
+            { required_age: { [Op.lte]: idadeUsuario } },
+            { name: { [Op.substring]: textoInserido } }
+          ]
+        },
+        limit: 50,
+        order:[['positive_ratings','DESC']],
+        attributes: ['appid', 'name', 'header_image']
+      });
+
+      if (resultado) {
+        res.json({ resultado: resultado });
+      } else {
+
+        res.json({ resultado: 'Nenhum valor correspondente encontrado no banco de dados.' });
+      }
+    } catch (error) {
+        console.log(error)
+      res.status(500).json({ erro: 'Erro na consulta ao banco de dados.' });
+    }
+  });
+
 
 app.get('/registro',(req,res)=>{
     res.render("registro");
@@ -187,9 +250,12 @@ app.get('/jogo/:steamID', async (req,res)=>{
     req.session.ContaUsuario = user
     if(req.session.ContaUsuario){
         let steamID = req.params.steamID
-        const jogo = await Games.findAll({ where:{id: steamID},raw: true})
+        const jogo = await steamgames.findAll({ where:{appid: steamID},raw: true})
         const pc_usuario = await Computer.findOne({where: {UsuarioID: req.session.ContaUsuario.id}}) 
-        const generos = getgeneros(jogo[0]['genero'])
+        const generotxt = await steamgames.findAll({
+            attributes:['steamspy_tags'],
+            where:{appid: steamID}})
+        const generos = getgeneros(generotxt)
         
         const {requisitomin,canplaymin,requisitomax,canplaymax,isvalido,mensagem} = comparar(jogo[0],pc_usuario)
         res.render('jogo', {JogoItens: jogo[0],isvalido,generos,requisitomin,canplaymin,requisitomax,canplaymax,mensagem});

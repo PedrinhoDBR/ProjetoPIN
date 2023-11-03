@@ -8,21 +8,15 @@ const getgeneros = {
         generos = []
         genero = JSON.stringify(texto)
 
-        index = genero.search("'description':")
+        index = genero.search('py_tags":')
 
-        while (index != -1){
-            genero = genero.substring(index+16,genero.length)
-            pegargenero(genero)
+        genero = genero.substring(index+10,genero.length)
+        index = genero.search('"}]')
+        genero = genero.substring(0,index)
+        generos = genero.split(';')
 
-            index = genero.search("'description':")
-        }
         return generos;
     }
-}
-
-function pegargenero(){
-    indexaux = genero.search("'}")
-    generos.push(genero.substring(0,indexaux))
 }
 
 module.exports = getgeneros;

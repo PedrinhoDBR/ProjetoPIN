@@ -5,21 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
-    <title><%= JogoItens.nome %></title>
+    <link rel="stylesheet" href="/css/CssHome.css">
+    <title><%= JogoItens.name %></title>
   </head>
   <body>
-    <header>
 
-      <!-- <nav>
-          <ul class="navlinks">
-              <li class="voltar"><a href=""><img id="headicon" src="Images/icones/voltar.png" alt=""></a></li>
-              <li class="home1"><a href="home"><img id="headicon" src="Images/icones/home.png" alt=""></a></li>
-              <li class="login"><a href="login"><img id="headicon" src="Images/icones/user.png" alt=""></a></li>
-              <input type="search" id="hearicon-pesquisa" class="search">
-          </ul>
-      </nav> -->
+    <%- include('header.ejs') %>
 
-  </header>
       <!-- <p style="visibility: hidden;" id="textofodase">teste</p> -->
       <div class="caixa1Jogo">
         <div class="caixa3">
@@ -48,9 +40,9 @@
           <!-- </div> -->
         </div>
         <div class="informacao-jogos">
-          <h1 id="name"><%= JogoItens.nome %></h1>
+          <h1 id="name"><%= JogoItens.name %></h1>
           <p id="demo"></p>
-          <div class="imagens"><img id="imagemid" src="<%= JogoItens.imagem %>">
+          <div class="imagens"><img id="imagemid" src="<%= JogoItens.header_image %>">
           <div class="alinhamento">
               <% generos.forEach(genero => {%>
               <p class="categoria" ><%= genero %></p>
@@ -64,7 +56,7 @@
             <!-- <p class="categoria" title="ver mais jogos de corrida">Corrida</p> -->
             <!-- <p class="categoria" >Equipe</p> -->
             <!-- <p class="categoria">Sobrevivência</p> -->
-            <h2 id="desc"><%= JogoItens.descricao %></h1>
+            <h2 id="desc"><%= JogoItens.about_the_game %></h1>
           </div>
           <!-- <div class="box3">
             <% if(isvalido){ %> 

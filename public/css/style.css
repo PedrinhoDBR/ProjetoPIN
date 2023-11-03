@@ -35,7 +35,7 @@ body {
 .caixa1 {
     /* background-image: linear-gradient(rgba(255, 255, 255, 0.288), rgba(55, 0, 255, 0.315)); */
     background-color: rgba(93, 70, 194, 0.288);
-    display: flex;
+    /* display: flex; */
     border-radius: 50px;
     color: white;
     /* text-shadow: 5px 5px 5px #000000; */

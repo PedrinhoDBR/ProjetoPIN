@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/CssHome.css">
     <title>Home</title>
 </head>
 <body>
@@ -22,9 +23,44 @@
         </nav> -->
 
     </header>
-    <div class="caixa1">
-        <div id="caixa2">
-            <!-- <div class="caixa3"> -->
+    <dialog id = 'CadastroPC'>
+        <form action="/home" method="post">
+
+        <label for="cpu_input" >Processador</label>
+        <!-- <input list="cpu_inputs" name="cpu_input" id="cpu_input"> -->
+        <select id="cpu_input" name="cpu_input">
+            <% processadores.forEach(item => { %>
+                <option value="<%= item.PecaID %>"><%= item.PecaDescricao %></option>
+            <% }); %>
+        </select><br>
+
+        <label for="gpu_input" >Placa de vídeo</label>
+        <!-- <input list="gpu_inputs" name="gpu_input" id="gpu_input"> -->
+        <select id="gpu_input" name="gpu_input">
+            <% GPUs.forEach(item => { %>
+                <option value="<%= item.PecaID %>"><%= item.PecaDescricao %></option>
+            <% }); %>
+        </select><br>
+
+        <label for="inputRAM" >Memória RAM</label>
+        <input name= "ram_input" autocomplete="off" id="inputRAM" type="number" placeholder="GB"><br>
+
+        <label for="inputArmazenamento" >Armazenamento</label>
+        <input name= "armazenamento_input" autocomplete="off" id="inputArmazenamento" type="number" placeholder="GB"><br><br>
+
+        <input id="computadorsubmit" type="submit">
+        <button onclick="fecharDialog()">Fechar</button>
+        </form>
+    </dialog>
+
+
+    <%- include('header.ejs') %>
+
+
+    <div class="caixa1" id ='Geral'>
+        <!-- <div id="caixa2">
+             <div class="caixa3"> 
+
                 <div >
                     <picture><img id="icon" src="Images/icon.png" alt=""></picture>
                 </div>
@@ -36,84 +72,34 @@
                 <div id="MenuID">
                     <ul id="nav">
                         <button class = "fundo1" onclick="red('/home')"><img class="icones" src="Images/icones/home.png" alt="">home</button>
-                        <button class = "fundo1" onclick="red('/registro')"><img class="icones" src="Images/icones/computador.png" alt="">jogos</button>
+                        <button class = "fundo1" onclick="openDialog()"><img class="icones" src="Images/icones/computador.png" alt="">jogos</button>
                         <button class = "fundo1" onclick="red('/login')" ><img class="icones" src="Images/icones/fav.png" alt="">favoritos</button>
                     </ul>
                 </div>
-                <form action="/home" method="post" id="FormID">
 
-                    <label for="cpu_input" >Processador</label>
-                    <!-- <input list="cpu_inputs" name="cpu_input" id="cpu_input"> -->
-                    <select id="cpu_input" name="cpu_input">
-                        <% processadores.forEach(item => { %>
-                          <option value="<%= item.PecaID %>"><%= item.PecaDescricao %></option>
-                        <% }); %>
-                    </select><br>
-
-                    <label for="gpu_input" >Placa de vídeo</label>
-                    <!-- <input list="gpu_inputs" name="gpu_input" id="gpu_input"> -->
-                    <select id="gpu_input" name="gpu_input">
-                        <% GPUs.forEach(item => { %>
-                          <option value="<%= item.PecaID %>"><%= item.PecaDescricao %></option>
-                        <% }); %>
-                    </select><br>
-
-                    <label for="inputRAM" >Memória RAM</label>
-                    <input name= "ram_input" autocomplete="off" id="inputRAM" type="number" placeholder="GB"><br>
-
-                    <label for="inputArmazenamento" >Armazenamento</label>´z
-                    <input name= "armazenamento_input" autocomplete="off" id="inputArmazenamento" type="number" placeholder="GB"><br><br>
-
-                    <input id="computadorsubmit" type="submit">
-                </form>
-            <!-- </div> -->
+           </div> 
+        </div> -->
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Pesquisar jogos...">
+            <!-- <button id="search-button">Pesquisar</button> -->
         </div>
-
         
-        <div class="jogos">
-            
-            <% for(let jogo of jogos ) { %>
-            <div class="jogos-item">
-                <div class="jogos-image">
-                    <img src="<%= jogo.imagem %>" alt="">
-                    <!-- <div class="black">.</div> -->
-                </div>
-                <p style="display:none;">
-                    <%= botaoestrelaid = 'estrela-' + jogo.nome %>
-                </p>
-                <div class="jogos-info">
-                    <h2 class="name-jogo"><%= jogo.nome %></h2>
-                    <div class="botao-foda">
-                        <button class="botao" onclick="chamartela('<%= jogo.id %>')">Informações</button>
-                        <!-- <form action="/Favorito" method="post" id="estrelaid">
-                            <input type="text" value='<%= jogo.id %>' style="display:none;">
-                            <input type="text" value='<%= pc_usuario.UsuarioID %>' style="display:none;">
-                            <input type="image" alt="Submit" class="botao favorito" src="Images/icones/estrelavazia.png" title="favoritar">
-                        </form> -->
-                        <div id="estrelaid">
-                            <input type="text" value='<%= jogo.id %>' style="display:none;">
-                            <input type="text" value='<%= pc_usuario.UsuarioID %>' style="display:none;">
-                            <input id="<%= botaoestrelaid %>" type="image" class="botao favorito" src="Images/icones/estrelavazia.png" title="favoritar" onclick="TrocarEstrela('<%= botaoestrelaid %>')">
-                        </div>
-                    </div>
-                </div>
-                <div class="jogos-content">
-
-
-                </div>
-                <!-- <div class="black">.</div> -->
-            </div>
-            <% } %>
-        </div>
+        <%- include('listajogos.ejs') %>
     </div>
     <!-- <script src="/scripts/swiper-bundle.min.js"></script>
     <script src="/scripts/carrosel.js"></script> -->
+    <script src="../scripts/TelaHome.js" defer ></script>
     <script>
 
+        const overlay = document.getElementById('Geral');
+
+
+
+
         let HasEstrelaChanged = true 
-        let hasFLip = true
+        // let hasFLip = true
         
-        document.getElementById('FormID').style = 'display: none;'
+        // document.getElementById('FormID').style = 'display: none;'
         document.getElementById('cpu_input').value              = '<%= pc_usuario.CPUID %>'
         document.getElementById('gpu_input').value              = '<%= pc_usuario.GPUID %>'
         document.getElementById('inputRAM').value              = '<%= pc_usuario.RAM %>'
@@ -125,28 +111,19 @@
         function red(tela){
             window.location.href = tela
         }
-        function flip(){
+        // function flip(){
 
-            if (hasFLip){
-                document.getElementById('FormID').style = 'display: block;'
-                document.getElementById('MenuID').style = 'display: none;'
-            }else{
-                document.getElementById('FormID').style = 'display: none;'
-                document.getElementById('MenuID').style = 'display: block;'
-            }
+        //     if (hasFLip){
+        //         document.getElementById('FormID').style = 'display: block;'
+        //         document.getElementById('MenuID').style = 'display: none;'
+        //     }else{
+        //         document.getElementById('FormID').style = 'display: none;'
+        //         document.getElementById('MenuID').style = 'display: block;'
+        //     }
 
-            hasFLip = !hasFLip
-        }
+        //     hasFLip = !hasFLip
+        // }
 
-        function TrocarEstrela(param){
-            console.log(document.getElementById(param).src)
-            if (document.getElementById(param).src.includes("Images/icones/estrelacheia.png")){
-                document.getElementById(param).src = "Images/icones/estrelavazia.png"
-            }else {
-                document.getElementById(param).src = "Images/icones/estrelacheia.png"
-            }
-            HasEstrelaChanged = !HasEstrelaChanged
-        }
 
     </script>
 </body>

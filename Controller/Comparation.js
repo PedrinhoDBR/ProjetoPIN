@@ -15,7 +15,7 @@ const comparar = {
         canplaymax = true
         canplaymin = true
         //remover caracteres especiais
-        var requisito = JSON.stringify(arquivo['pc_req'])
+        var requisito = JSON.stringify(arquivo['pc_requirements'])
         
         requisito = requisito.substring(14)
         requisito = requisito.replace("', 'recommended': '","")
@@ -32,14 +32,16 @@ const comparar = {
             requisitomin = requisito
             requisitomax = ''
         }
-        if (isvalido){   
-            mensagem += '<strong>Mínimos:</strong><br>'
-            linguagem(1,requisitomin,pcuser)
-            if (requisitomax != ''){
-                mensagem += ' <strong>Recomendados:</strong><br>'
-            }
-            linguagem(2,requisitomax,pcuser)    
-        }
+        canplaymax = false
+        // if (isvalido){   
+        //     mensagem += '<strong>Mínimos:</strong><br>'
+        //     linguagem(1,requisitomin,pcuser)
+        //     if (requisitomax != ''){
+        //         mensagem += ' <strong>Recomendados:</strong><br>'
+        //     }
+        //     linguagem(2,requisitomax,pcuser)    
+        // }
+
         return {requisitomin,canplaymin,requisitomax,canplaymax,isvalido,mensagem};
     }
 }
