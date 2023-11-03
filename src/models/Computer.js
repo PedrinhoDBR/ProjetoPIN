@@ -1,35 +1,32 @@
-const database = require('../db')
+const database = require('../db/db')
 const Sequelize = require('sequelize')
 
-const gpu = database.define('gpu',{
+const Computer = database.define('Computer',{
     id:{
         type: Sequelize.INTEGER,
+        autoIncrement: true,
         primaryKey: true
     },
-    nome:{
-        type: Sequelize.STRING,
+    UsuarioID:{
+        type: Sequelize.INTEGER,
         allowNull: true
     },
-    tipo:{
-        type: Sequelize.STRING,   
-        allowNull: true
-    },
-    vram:{
+    CPUID:{
         type: Sequelize.INTEGER,   
         allowNull: true
     },
-    frequencia:{
-        type: Sequelize.STRING,   
-        allowNull: true
-    },
-    directx:{
+    GPUID:{
         type: Sequelize.INTEGER,   
         allowNull: true
     },
-    ordem:{
-        type: Sequelize.STRING,   
+    RAM:{
+        type: Sequelize.INTEGER,   
+        allowNull: true
+    },
+    Armazenamento:{
+        type: Sequelize.INTEGER,   
         allowNull: true
     }
 })
 
-module.exports = gpu
+module.exports = Computer

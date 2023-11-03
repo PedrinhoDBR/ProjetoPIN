@@ -1,4 +1,4 @@
-const database = require('../db')
+const database = require('../db/db')
 const Sequelize = require('sequelize')
 
 const Lista = database.define('listacpuegpu',{

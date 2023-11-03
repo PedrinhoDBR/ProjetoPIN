@@ -1,4 +1,4 @@
-const database = require('../db')
+const database = require('../db/db')
 const Sequelize = require('sequelize')
 
 const favorito = database.define('Favorito',{
@@ -15,6 +15,8 @@ const favorito = database.define('Favorito',{
         type: Sequelize.INTEGER,   
         allowNull: true
     }
+},{
+    timestamps: false,
 })
 
 module.exports = favorito

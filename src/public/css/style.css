@@ -24,7 +24,7 @@
 body {
     /*background-image: url(/images/background/Picsart_23-02-21_07-58-49-020.jpg);*/
     /* font-family: 'Fredoka One', cursive; */
-    background: linear-gradient(180deg,rgb(121, 92, 174), rgba(0, 0, 0, 0.566));
+    background: linear-gradient(180deg,rgb(30, 32, 49), rgb(29, 33, 75));
     font-family: "Ladybug";
     letter-spacing: 1px;
     background-repeat: no-repeat;
@@ -34,7 +34,7 @@ body {
 
 .caixa1 {
     /* background-image: linear-gradient(rgba(255, 255, 255, 0.288), rgba(55, 0, 255, 0.315)); */
-    background-color: rgba(0, 0, 0, 0.288);
+    background-color: rgba(93, 70, 194, 0.288);
     /* display: flex; */
     border-radius: 50px;
     color: white;

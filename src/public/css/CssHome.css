@@ -67,3 +67,16 @@ body {
 .search-results {
     margin: 20px;
 }
+
+
+#mensagemErro {
+    position: fixed;
+    top: 20px;
+    right: 20px; 
+    background-color: rgba(221, 24, 50, 0.336);
+    color: white;
+    padding: 10px;
+    font-size: 18px; /* Tamanho da fonte aumentado */
+    border-radius: 10px; /* Bordas arredondadas */
+    display: none;
+}
