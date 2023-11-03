@@ -258,7 +258,16 @@ app.get('/jogo/:steamID', async (req,res)=>{
         const generos = getgeneros(generotxt)
         
         const {requisitomin,canplaymin,requisitomax,canplaymax,isvalido,mensagem} = comparar(jogo[0],pc_usuario)
-        res.render('jogo', {JogoItens: jogo[0],isvalido,generos,requisitomin,canplaymin,requisitomax,canplaymax,mensagem});
+
+        const GPUs          = await Lista.findAll(
+            {where:{PecaTipo:'GPU'},order:[['PecaDescricao','DESC']]})
+        const processadores = await Lista.findAll(
+            {where:{PecaTipo:'CPU'},order:[['PecaDescricao','DESC']]})
+
+
+
+        console.log(pc_usuario)
+        res.render('jogo', {JogoItens: jogo[0],isvalido,generos,requisitomin,canplaymin,requisitomax,canplaymax,mensagem,pc_usuario,GPUs,processadores});
     }else{
         res.render('login')
     }

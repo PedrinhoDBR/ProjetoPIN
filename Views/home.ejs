@@ -23,35 +23,7 @@
         </nav> -->
 
     </header>
-    <dialog id = 'CadastroPC'>
-        <form action="/home" method="post">
 
-        <label for="cpu_input" >Processador</label>
-        <!-- <input list="cpu_inputs" name="cpu_input" id="cpu_input"> -->
-        <select id="cpu_input" name="cpu_input">
-            <% processadores.forEach(item => { %>
-                <option value="<%= item.PecaID %>"><%= item.PecaDescricao %></option>
-            <% }); %>
-        </select><br>
-
-        <label for="gpu_input" >Placa de vídeo</label>
-        <!-- <input list="gpu_inputs" name="gpu_input" id="gpu_input"> -->
-        <select id="gpu_input" name="gpu_input">
-            <% GPUs.forEach(item => { %>
-                <option value="<%= item.PecaID %>"><%= item.PecaDescricao %></option>
-            <% }); %>
-        </select><br>
-
-        <label for="inputRAM" >Memória RAM</label>
-        <input name= "ram_input" autocomplete="off" id="inputRAM" type="number" placeholder="GB"><br>
-
-        <label for="inputArmazenamento" >Armazenamento</label>
-        <input name= "armazenamento_input" autocomplete="off" id="inputArmazenamento" type="number" placeholder="GB"><br><br>
-
-        <input id="computadorsubmit" type="submit">
-        <button onclick="fecharDialog()">Fechar</button>
-        </form>
-    </dialog>
 
 
     <%- include('header.ejs') %>
@@ -100,10 +72,6 @@
         // let hasFLip = true
         
         // document.getElementById('FormID').style = 'display: none;'
-        document.getElementById('cpu_input').value              = '<%= pc_usuario.CPUID %>'
-        document.getElementById('gpu_input').value              = '<%= pc_usuario.GPUID %>'
-        document.getElementById('inputRAM').value              = '<%= pc_usuario.RAM %>'
-        document.getElementById('inputArmazenamento').value    = '<%= pc_usuario.Armazenamento %>'
 
         function chamartela(idjogo){
             window.location.href = "/jogo/"+ idjogo
