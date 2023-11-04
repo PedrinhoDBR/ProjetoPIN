@@ -3,7 +3,8 @@ const app = express();
 const router = express.Router();
 const Lista = require('../models/Lista');
 const Computer = require('../models/Computer');
-const steamgames = require('../models/steamgames');
+app.use(express.json())
+const Favorito = require('../models/Favorito');
 
 router.get('/', async (req,res)=>{
     if (req.session.ContaUsuario){
@@ -26,15 +27,34 @@ router.get('/', async (req,res)=>{
 })
 
 router.post('/', async(req, res)=>{
-    console.log('mto foda lek')
-    // const {userid, jogoid} = req.body
 
-    // await Favorito.create(
-    //     {
-    //         UsuarioID:userid,
-    //         GameID:jogoid
-    //     }
-    // )
+    const {idgame,flag} = req.body;
+    console.log(idgame+"  "+flag)
+    try {
+        // const idgame = req.query.gameid
+        if (!flag){
+            await Favorito.destroy(
+                {
+                    where: {
+                    UsuarioID: req.session.ContaUsuario.id,
+                    GameID:idgame
+                    }
+                }
+            )
+        }else{
+            await Favorito.create(
+                {
+                    UsuarioID: req.session.ContaUsuario.id,
+                    GameID:idgame
+                }
+            )
+        }
+
+    } catch (error) {
+        // sessionStorage.setItem("error","Erro na consulta ao banco de dados.")
+        res.status(500).json({ erro: 'Erro na consulta ao banco de dados.' });
+    };
+
 
 })
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
-
+const json = express.json()
 const { Op } = require("sequelize");
 const steamgames = require('../models/steamgames');
 
@@ -23,18 +23,16 @@ router.get('/', async (req, res) => {
   var resultado 
   var fav
   var listaids = []
+  const id = parseInt(req.session.ContaUsuario.id)
+  fav = await favorito.findAll({where: {UsuarioID: id}})
+
   
+  
+  fav.forEach(element => {
+      listaids.push(parseInt(element.GameID))
+  })
+
   if(req.session.favorito){ 
-
-      const id = parseInt(req.session.ContaUsuario.id)
-      fav = await favorito.findAll({where: {UsuarioID: id}})
-
-      fav.forEach(element => {
-          listaids.push(parseInt(element.GameID))
-      });
-  }
-
-  if(listaids.length >= 1){ 
       resultado = await steamgames.findAll({
           where: {
           [Op.and]: [
@@ -60,8 +58,12 @@ router.get('/', async (req, res) => {
           attributes: ['appid', 'name', 'header_image']
         });
   }
+
+
+
+
     if (resultado) {
-      res.json({ resultado: resultado });
+      res.json({ resultado: resultado, favoritos: listaids });
     } else {
 
       res.json({ resultado: 'Nenhum valor correspondente encontrado no banco de dados.' });

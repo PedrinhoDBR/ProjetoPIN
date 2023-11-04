@@ -9,14 +9,29 @@ function fecharDialog() {
 }
 
 function TrocarEstrela(param){
-  console.log(document.getElementById(param).src)
+  console.log(param)
   if (document.getElementById(param).src.includes("Images/icones/estrelacheia.png")){
       document.getElementById(param).src = "Images/icones/estrelavazia.png"
+
+      SETFav(param,false)
   }else {
       document.getElementById(param).src = "Images/icones/estrelacheia.png"
+      SETFav(param,true)
+
   }
-  HasEstrelaChanged = !HasEstrelaChanged
+
 }
+function SETFav(idgame,isdelete){
+  console.log(idgame+" A "+isdelete)
+  fetch('/favorito', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({idgame:idgame,flag:isdelete}) // Se você precisa enviar dados no corpo da solicitação, coloque-os aqui
+  })
+}
+
 
 const campoDeTexto = document.getElementById("search-input");
 
@@ -44,9 +59,7 @@ fetch(`/consultar?texto=${textoInserido}`)
 .then(response => response.json())
 .then(data => {
 
-    console.log("Data: "+data.resultado)
-
-    atualizarJogos(data.resultado)
+    atualizarJogos(data.resultado,data.favoritos)
 })
 .catch(error => {
    console.log("Erro na solicitação ao servidor: " + error.message)
@@ -54,7 +67,7 @@ fetch(`/consultar?texto=${textoInserido}`)
 }
 
 
-function atualizarJogos(novosJogos) {
+function atualizarJogos(novosJogos,listafavoritos) {
   const jogosContainer = document.getElementById("jogoslita");
 
   // Limpa o conteúdo atual
@@ -101,15 +114,21 @@ function atualizarJogos(novosJogos) {
     
     usuarioIDInput.value = usuario.id;
     usuarioIDInput.style.display = "none";
+    
+    var isFav =  listafavoritos.includes(jogo.appid)
 
     const botaoEstrela = document.createElement("input");
-    botaoEstrela.id = `estrela-${jogo.name}`;
+    botaoEstrela.id = `${jogo.appid}`;
     botaoEstrela.type = "image";
     botaoEstrela.className = "botao favorito";
+    if (isFav){
+      botaoEstrela.src = "Images/icones/estrelacheia.png";
+    }else{
     botaoEstrela.src = "Images/icones/estrelavazia.png";
+  }
     botaoEstrela.title = "favoritar";
     botaoEstrela.addEventListener("click", () => {
-      TrocarEstrela(estrelaid.id);
+      TrocarEstrela(botaoEstrela.id);
     });
 
     estrelaid.appendChild(appidInput);
