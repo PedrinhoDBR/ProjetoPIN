@@ -15,10 +15,10 @@ router.post("/", async(req,res)=>{
         [{email:email}]
     })
     if(!user){
-        console.log("Usuario não encontrado")
+        req.session.msgerro = "Usuário não existe."
         res.render("esqueciasenha")
     }else if (novaSenha != confirmarNovaSenha){
-        console.log("Senhas não batem")
+        req.session.msgerro = "Senhas não coincidem."
         res.render("esqueciasenha")
     }else{
         await User.update(
@@ -29,7 +29,7 @@ router.post("/", async(req,res)=>{
                 where: {email:email},
             }
         )
-        console.log("Senha alterada")
+        // console.log("Senha alterada") MSG de sucesso??
         res.redirect('login')
     }
     

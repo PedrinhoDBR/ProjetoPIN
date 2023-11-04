@@ -23,7 +23,6 @@ const campoDeTexto = document.getElementById("search-input");
 fetch(`/getusuario`)
 .then(response => response.json())
 .then(data => {
-  console.log("AAA: "+ data.resultado)
   usuario = data.resultado
   
 })
@@ -45,7 +44,7 @@ fetch(`/consultar?texto=${textoInserido}`)
 .then(response => response.json())
 .then(data => {
 
-    console.log(data.resultado)
+    console.log("Data: "+data.resultado)
 
     atualizarJogos(data.resultado)
 })

@@ -17,10 +17,10 @@ router.post('/', async(req,res)=>{
     const user = await User.findOne({where: {
         [Op.or]: [{ email: email }, { nome: email }]}})
     if(!user){
-        console.log("Usuario nao existe")
+        req.session.msgerro = "Usuário não existe."
         res.redirect('login')
     }else if(senha != user.senha){
-        console.log("Wrong pass");
+        req.session.msgerro = "Senha incorreta."
         res.redirect('login')
     }else{
         req.session.ContaUsuario = user

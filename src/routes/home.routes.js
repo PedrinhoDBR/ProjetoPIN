@@ -16,7 +16,7 @@ router.get('/', async (req,res)=>{
     // })
     // req.session.ContaUsuario = user
     if (req.session.ContaUsuario){
-
+        req.session.favorito = false
         //pegar idade do usuario
         let date = new Date().toJSON().slice(0, 10);
         let dateuser =  req.session.ContaUsuario.idade
@@ -57,8 +57,6 @@ router.post('/',async(req,res)=>{
     const ComputadorUsuario = await Computer.findOne({where: {
         UsuarioID: req.session.ContaUsuario.id
     }})
-
-    console.log(`CPU: ${cpu_input} --- GPU: ${gpu_input}`)
 
     await ComputadorUsuario.update({
         UsuarioID:   req.session.ContaUsuario.id,
