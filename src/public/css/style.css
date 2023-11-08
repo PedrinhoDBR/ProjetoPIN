@@ -368,17 +368,28 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-left: 125px;
+}
+
+.abacate {
+    /* display: flex;
+    flex-direction: inherit; */
+    width: 100px;
+    position: relative;
+    /* top: 150px; */
+    /* left: 0px; */
+    padding: 5px;
+
 }
 
 .enviarEfechar {
-    display: flex;
-    flex-direction: inherit;
-    /* padding: 50px; */
+    /* display: flex;
+    flex-direction: inherit; */
 }
 
-.botao {
-    width: 50px;
-}
+/* .botao {
+    width: 100px;
+} */
 
 /* cadastro pc */
 
@@ -824,6 +835,11 @@ input:checked + .slider:before {
         width: 100%;
     }
 
+    
+    .cadastroDoPc {
+        padding-left: 0px;
+    }
+
 }
 
 
@@ -858,8 +874,9 @@ input[type=number], select {
     margin: 8px 0;
     display: inline-block;
     color: white;
-    background-color: var(--cor_botao);
-    border-radius: 10px;
+    background-color: rgba(93, 70, 194, 0.526);
+    border-radius: 50px;
+    border: none;
     box-sizing: border-box;
 
     appearance: none; /* Remove default appearance */
