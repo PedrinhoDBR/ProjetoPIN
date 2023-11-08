@@ -1,7 +1,7 @@
 const database = require('../db/db')
 const Sequelize = require('sequelize')
 
-const favorito = database.define('Favorito',{
+const favorito = database.define('favoritos',{
     id:{
         type: Sequelize.INTEGER,
         autoIncrement: true,

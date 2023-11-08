@@ -30,7 +30,7 @@ router.post('/', async(req, res)=>{
 
     const {idgame,flag} = req.body;
     console.log(idgame+"  "+flag)
-    try {
+    try { //auto increment no banco
         // const idgame = req.query.gameid
         if (!flag){
             await Favorito.destroy(

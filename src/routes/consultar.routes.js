@@ -58,14 +58,9 @@ router.get('/', async (req, res) => {
           attributes: ['appid', 'name', 'header_image']
         });
   }
-
-
-
-
     if (resultado) {
       res.json({ resultado: resultado, favoritos: listaids });
     } else {
-
       res.json({ resultado: 'Nenhum valor correspondente encontrado no banco de dados.' });
     }
   } catch (error) {
