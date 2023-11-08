@@ -208,10 +208,6 @@ app.get('/jogo/:steamID', async (req,res)=>{
 //     });
 // })
 
-app.get('/user',async(req,res)=>{
-    res.render('user')
-})
-
 app.post('/home',async(req,res)=>{
     const {cpu_input, gpu_input, ram_input, armazenamento_input} = req.body
 
