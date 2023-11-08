@@ -1,0 +1,82 @@
+.navbar {
+    /* background-color: #a200ff; */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.73), rgba(0, 0, 0, 0.000));
+    color: #ffffff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 25px;
+    padding-left: 0px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 100;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.navbar button{
+    background-color: rgba(0, 0, 0, 0);
+    padding-top: 15px;
+    border: 1px solid white;
+}
+
+.navbar button:hover{
+    background-color: rgba(0, 0, 0, 0.635);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.search-bar {
+    /* background-color: #333; */
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+#search-input {
+    padding: 10px;
+    width: 300px;
+    border: none;
+    border-radius: 5px;
+}
+
+#search-button {
+    background-color: #0070d2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.search-results {
+    margin: 20px;
+}
+
+
+#mensagemErro {
+    position: fixed;
+    top: 20px;
+    right: 20px; 
+    background-color: rgba(221, 24, 50, 0.336);
+    color: white;
+    padding: 10px;
+    font-size: 18px; /* Tamanho da fonte aumentado */
+    border-radius: 10px; /* Bordas arredondadas */
+    display: none;
+}

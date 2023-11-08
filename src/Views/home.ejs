@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/CssHome.css">
+    <title>Home</title>
+</head>
+<body>
+
+    <header>
+        <!-- <img class="logo" src="../imagens/africa.png" alt=""> -->
+        <!-- <nav>
+            <ul class="navlinks">
+                <li class="voltar"><a href=""><img id="headicon" src="Images/icones/voltar.png" alt=""></a></li>
+                <li class="home1"><a href="home"><img id="headicon" src="Images/icones/home.png" alt=""></a></li>
+                <li class="login"><a href="login"><img id="headicon" src="Images/icones/user.png" alt=""></a></li>
+                <input type="search" id="hearicon-pesquisa" class="search">
+                <a class="eta" href="#"><button>contact</button></a>
+            </ul>
+        </nav> -->
+
+    </header>
+
+
+
+    <%- include('header.ejs') %>
+
+
+    <div class="caixa1" id ='Geral'>
+
+
+        <!-- <div id="caixa2">
+             <div class="caixa3"> 
+
+                <div >
+                    <picture><img id="icon" src="Images/icon.png" alt=""></picture>
+                </div>
+                
+                <label class="switch">
+                    <input type="checkbox" onclick="flip()">
+                    <span class="slider round"></span>
+                </label>
+                <div id="MenuID">
+                    <ul id="nav">
+                        <button class = "fundo1" onclick="red('/home')"><img class="icones" src="Images/icones/home.png" alt="">home</button>
+                        <button class = "fundo1" onclick="openDialog()"><img class="icones" src="Images/icones/computador.png" alt="">jogos</button>
+                        <button class = "fundo1" onclick="red('/login')" ><img class="icones" src="Images/icones/fav.png" alt="">favoritos</button>
+                    </ul>
+                </div>
+
+           </div> 
+        </div> -->
+        <div class="search-bar">
+            <!-- <img src="Imagem/icones/lupa.png" alt=""> -->
+            <input type="text" id="search-input" placeholder="Pesquisar jogos...">
+            <!-- <button id="search-button">Pesquisar</button> -->
+        </div>
+        
+        <%- include('listajogos.ejs') %>
+    </div>
+    <!-- <script src="/scripts/swiper-bundle.min.js"></script>
+    <script src="/scripts/carrosel.js"></script> -->
+    <script src="../scripts/TelaHome.js" defer ></script>
+    <script>
+
+        const overlay = document.getElementById('Geral');
+
+        function chamartela(idjogo){
+            window.location.href = "/jogo/"+ idjogo
+        }
+        function red(tela){
+            window.location.href = tela
+        }
+        // function flip(){
+
+        //     if (hasFLip){
+        //         document.getElementById('FormID').style = 'display: block;'
+        //         document.getElementById('MenuID').style = 'display: none;'
+        //     }else{
+        //         document.getElementById('FormID').style = 'display: none;'
+        //         document.getElementById('MenuID').style = 'display: block;'
+        //     }
+
+        //     hasFLip = !hasFLip
+        // }
+
+
+    </script>
+</body>
+</html>

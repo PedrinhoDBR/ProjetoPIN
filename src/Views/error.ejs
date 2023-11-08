@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="/css/CssHome.css">
+
+<div id="mensagemErro" class="esconder"></div>
+
+<body onload="validaerro()"></body>
+
+<script>
+
+const mensagemErroDiv = document.getElementById("mensagemErro");
+
+function validaerro(){
+    fetch(`/errors`)
+    .then(response => response.json())
+    .then(data => {
+        if (!data.erro == ''){
+            mostrarMensagemDeErro(data.erro)
+        }
+    })
+    .catch(error => {
+        console.log("Erro na solicitação ao servidor: " + error.message)
+    })
+
+}
+
+
+function mostrarMensagemDeErro(mensagem) {
+    mensagemErroDiv.textContent = mensagem;
+    mensagemErroDiv.style.display = "block";
+
+    setTimeout(() => {
+        mensagemErroDiv.style.display = "none";
+    }, 5000); 
+}
+
+</script>

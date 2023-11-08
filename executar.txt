@@ -1,0 +1,5 @@
+insert into projetopin.favoritos (id,UsuarioID,GameId) values 
+(1, 1, 10),
+('2', '1', '570'),
+('3', '1', '578080'),
+('4', '1', '440')
