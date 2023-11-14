@@ -22,13 +22,12 @@ function TrocarEstrela(param){
 
 }
 function SETFav(idgame,isdelete){
-  console.log(idgame+" A "+isdelete)
   fetch('/favorito', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({idgame:idgame,flag:isdelete}) // Se você precisa enviar dados no corpo da solicitação, coloque-os aqui
+    body: JSON.stringify({idgame:idgame,flag:isdelete})
   })
 }
 

@@ -26,25 +26,16 @@ router.get('/', async (req,res)=>{
         const idadeUsuario = Math.floor(diferencaEmMilissegundos / (1000 * 60 * 60 * 24 * 365.25));
 
         
-        const jogos = await steamgames.findAll({
-            attributes:['appid','name','header_image'],
-            limit: 50 ,
-            order:[['positive_ratings','DESC']], //ordena por ordem alfabetica
-            where: {required_age:{[Op.lte]: idadeUsuario}}
-            
-        })
-
         const GPUs          = await Lista.findAll(
             {where:{PecaTipo:'GPU'},order:[['PecaDescricao','DESC']]})
         const processadores = await Lista.findAll(
             {where:{PecaTipo:'CPU'},order:[['PecaDescricao','DESC']]})
 
-
         const pc_usuario = await Computer.findOne({where: {
             UsuarioID: req.session.ContaUsuario.id
         }})
 
-        res.render("home",{jogos,pc_usuario, GPUs, processadores});
+        res.render("home",{pc_usuario, GPUs, processadores});
 
     }else{
         res.redirect('/login')

@@ -6,37 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="Images/logo/logobrancocirculo.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/stylelogin.css">
-    <title>Registro</title>
+    <title>Conta</title>
 </head>
+
+
 <body>
+
+    <%- include('header.ejs') %>
+
     <section class= "registro">
         <div class="caixa__login">
-            <h2>Cadastro</h2>
-            <form action="/registro" method="post">
+            <h2>Informações</h2>
+
+                <input id="idid" name="id" type="text" autocomplete="off" hidden />
                 <div class="caixa__login-input">
-                    <input name="nome" type="text" autocomplete="off" required />
+                    <input id="idnome" name="nome" type="text" autocomplete="off" required  />
                     <label>Nome</label>
                 </div>
                 <div class="caixa__login-input">
-                    <input name = "email"type="email" autocomplete="off" required />
+                    <input id="idemail" name = "email"type="email" autocomplete="off" required />
                     <label>Email</label>
                 </div>
                 <div class="caixa__login-input">
-                    <input name= "idade" type="date" autocomplete="off" required />
+                    <input id="ididade" name= "idade" type="date" autocomplete="off" required />
                     <label>Nascimento </label>
                 </div>
                 <div class="caixa__login-input">
-                    <input name="senha" type="password" autocomplete="off" required />
+                    <input id="idsenha" name="senha" type="password" autocomplete="off" required />
                     <label>Senha</label>
                 </div>
                 <div class="caixa__login-input">
                     <input name="Confirmasenha" type="password" required />
-                    <label>Confirmar senha</label>
+                    <label>Nova senha</label>
                 </div>
-                <a id="esqueciasenha" href="login">Já possui uma conta?</a>
-                <input id="acesso" class="p-button" type="submit">
-            </form>
+                <button class = 'acesso' id="acesso" class="p-button"> Enviar </button>
         </div>
     </section>
+    <script src="../scripts/TelaHome.js" defer ></script>
+    <script defer>
+        document.getElementById('idid').value    = '<%= user.id %>'
+        document.getElementById('idnome').value    = '<%= user.nome %>'
+        document.getElementById('idemail').value   = '<%= user.email %>'
+        const DataCompleta = '<%= user.idade %>'
+        var Data = DataCompleta.substring(0,DataCompleta.indexOf('T'))
+        document.getElementById('ididade').value   = Data
+        document.getElementById('idsenha').value    = '<%= user.senha %>'
+
+    </script>
 </body>
 </html>

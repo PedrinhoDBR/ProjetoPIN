@@ -1,28 +1,29 @@
 const express = require('express');
+const app = express();
 const { Op } = require("sequelize");
 const User = require('../models/Usuario');
 const Computer = require('../models/Computer');
-
+app.use(express.json())
 
 
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  const { nome, email, idade, senha, Confirmasenha } = req.body;
+  const { id, nome, email, idade, senha, senha2 } = req.body;
+  
+  console.log(nome);
 
-  console.log("registro");
   const user = await User.findOne({
     where: {
       [Op.or]: [{ email: email }, { nome: nome }]
     }
   });
-
   if (user) {
-    console.log("usuario/email ja usado");
-    res.redirect("registro");
-  } else if (senha != Confirmasenha) {
-    console.log("Senhas não coincidem");
-    res.redirect("registro");
+    req.session.msgerro = "Usuario/email ja usado."
+    res.redirect('registro')
+  } else if (senha != senha2) {
+    req.session.msgerro = "Senhas não coincidem."
+    res.redirect('registro')
   } else {
     console.log("teste");
     const newuser = await User.create({
@@ -41,8 +42,11 @@ router.post('/', async (req, res) => {
       Armazenamento: 0
     });
 
-    res.redirect('login');
+    res.redirect('/login');
   }
+
+
+
 });
 
 router.get('/', (req, res) => {
