@@ -83,7 +83,7 @@ body {
     color: #000000;
     text-align: center;
     border-radius: 50px;
-    /* width: 100%; */
+    width: 20%;
     /* height: 50%; */
     position: relative;
     display: flex;
@@ -91,6 +91,9 @@ body {
     /* position: fixed; */
 }
 
+.informacao-jogos{
+    width: 80%;
+}
 
 #textdiv {
     width: 80%;
@@ -382,10 +385,10 @@ body {
 
 }
 
-.enviarEfechar {
+/* .enviarEfechar { */
     /* display: flex;
     flex-direction: inherit; */
-}
+/* } */
 
 /* .botao {
     width: 100px;
@@ -867,6 +870,8 @@ input:checked + .slider:before {
 
     
 }
+
+
 
 input[type=number], select {
     width: 80%;
