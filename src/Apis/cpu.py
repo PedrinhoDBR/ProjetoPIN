@@ -19,7 +19,7 @@ db_config = {
 }
 
 # Nome do arquivo TXT
-csv_file_path  = r'C:\Users\pedri\Downloads\!programação\!PIN_BANCO\steam_requirements_data.csv'
+csv_file_path  = r'C:\Users\pedri\Downloads\!programação\!PIN_BANCO\!auxiliar\output.csv'
 
 # Estabeleça a conexão com o banco de dados
 conn = pymysql.connect(**db_config)

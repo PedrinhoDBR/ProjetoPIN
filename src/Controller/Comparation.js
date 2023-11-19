@@ -1,4 +1,5 @@
-//tem que separar o minimun do recomended
+const translate = require('translate-google');
+
 var canplaymin = true
 var canplaymax = true
 var requisitomin;
@@ -7,189 +8,286 @@ var index;
 var isvalido = true;
 var mensagem;
 var type;
-const comparar = {
-    comparar(arquivo,pcuser) {
-        mensagem = ''
-        isvalido = true
-        validapc(pcuser)
-        canplaymax = true
-        canplaymin = true
-        //remover caracteres especiais
-        var requisito = JSON.stringify(arquivo['pc_requirements'])
-        
-        requisito = requisito.substring(14)
-        requisito = requisito.replace("', 'recommended': '","")
-        requisito = requisito.replace("\'}\"","")
-        requisito = requisito.replaceAll("\\\\t","")
-        index = requisito.search('Recomendados:')
-        if (index == -1){
-            index = requisito.search('Recommended:')
-        }
-        if (index != -1){
-            requisitomin = requisito.substring(0,index)
-            requisitomax = '<Strong>'+requisito.substring(index,requisito.length)
-        }else{
-            requisitomin = requisito
-            requisitomax = ''
-        }
-        canplaymax = false
-        // if (isvalido){   
-        //     mensagem += '<strong>Mínimos:</strong><br>'
-        //     linguagem(1,requisitomin,pcuser)
-        //     if (requisitomax != ''){
-        //         mensagem += ' <strong>Recomendados:</strong><br>'
-        //     }
-        //     linguagem(2,requisitomax,pcuser)    
-        // }
+var txtmax;
+var txtmin;
+var textoOriginal;
+var procuser;
+var procgame;
+var videouser;
+var videogame;
 
-        return {requisitomin,canplaymin,requisitomax,canplaymax,isvalido,mensagem};
+const sourceLanguage = 'auto'; 
+var targetLanguage = 'en';
+var teste= '';
+
+async function comparar(arquivo, pcuser, cpu, gpu, gamespec) {
+    // console.log('START:' + gamespec.cpu)
+
+    mensagem = ''
+    isvalido = true
+    validapc(pcuser)
+    canplaymax = true
+    canplaymin = true
+
+    var requisito = JSON.stringify(arquivo['pc_requirements'])
+
+    requisito = requisito.substring(14)
+    requisito = requisito.replace("', 'recommended': '", "")
+    requisito = requisito.replace("\'}\"", "")
+    requisito = requisito.replaceAll("\\\\t", "")
+    index = requisito.search('Recomendados:')
+    if (index == -1) {
+        index = requisito.search('Recommended:')
     }
+    if (index != -1) {
+        requisitomin = requisito.substring(0, index)
+        requisitomax = '<Strong>' + requisito.substring(index, requisito.length)
+
+        await traduzir(requisitomin)
+        txtmin = teste
+        await traduzir(requisitomax)
+        txtmax = teste
+    } else {
+        requisitomin = requisito
+        requisitomax = ''
+        await traduzir(requisitomin)
+        txtmin = teste
+        txtmax = ''
+    }
+    requisitomin = txtmin
+    requisitomax = txtmax
+
+    if (isvalido) {
+        mensagem += '<strong>Mínimos:</strong><br>'
+        await linguagem(1, requisitomin, pcuser, cpu, gpu, gamespec)
+        if (requisitomax != '') {
+            mensagem += ' <strong>Recomendados:</strong><br>'
+            await linguagem(2, requisitomax, pcuser, cpu, gpu, gamespec)
+        }
+    }   
+
+    console.log('requisitomin: ' + canplaymin)
+    console.log('requisitomax: ' + canplaymax)
+    return { requisitomin, canplaymin, requisitomax, canplaymax, isvalido, mensagem };
 }
 
-function validapc(pcuser){
+function validapc(pcuser) {
     console.log(pcuser)
-    if (pcuser.CPUID == null){
-        isvalido = false
-        return
-    }else if(pcuser.GPUID == null){
-        isvalido = false
-        return
-    }else if(pcuser.RAM == null){
-        isvalido = false
-        return
-    }else if(pcuser.Armazenamento == null){
-        isvalido = false
-        return
-    }else{
-        return
-    }
-    return
-}
-
-function checar(canplay){
-
-}
-
-function linguagem(ind,req,pcuser){
-    const a = req.search('Processador')
-
-    if (a == -1){
-        memoriaEN(ind,req,pcuser)
-        armazenamentoEN(ind,req,pcuser)
-        procEN(req)
-    }else{
-        memoriaBR(ind,req,pcuser)
-        armazenamentoBR(ind,req,pcuser)
-        procBR(req)
+    if (pcuser.CPUID == null || pcuser.GPUID == null || pcuser.RAM == null || pcuser.Armazenamento == null) {
+        isvalido = false;
     }
 }
 
-function armazenamentoEN(ind,req,pcuser){
-    var indexaux = req.indexOf("Hard Disk Space")
+async function traduzir(textoo) {
+    const resultado = await translate(textoo, { from: sourceLanguage, to: targetLanguage });
+    console.log('resultado: ' + resultado);
+    teste = resultado;
+}
 
-    if (indexaux == -1){
-        indexaux = req.indexOf("Hard Drive")
-    } 
+async function linguagem(ind, req, pcuser, cpu, gpu, gamespec) {
+    await memoriaEN(ind, req, pcuser);
+    await armazenamentoEN(ind, req, pcuser);
+    await CpuGpu(ind, req, cpu, gpu, gamespec);
+}
+
+function armazenamentoEN(ind, req, pcuser) {
+    const palavrasChaveArmazenamento = ['storage', 'storage space', 'hard disk space', 'disk space', 'hard drive'];
+    const textoLowerCase = req.toLowerCase();
+    var indexaux = -1;
+
+    palavrasChaveArmazenamento.forEach(element => {
+        if (indexaux == -1) {
+            indexaux = textoLowerCase.indexOf(element);
+        }
+    });
+
     var str = req.substring(indexaux);
-    armazenamentoMatch(ind,str,pcuser)
+    armazenamentoMatch(ind, str, pcuser);
 }
 
-function armazenamentoBR(ind,req,pcuser){
-    var str = req.substring(req.indexOf("Armazenamento"));
-    armazenamentoMatch(ind,str,pcuser)
-}
+function armazenamentoMatch(ind, str, pcuser) {
+    str = str.split('<br>')[0];
 
-function armazenamentoMatch(ind,str,pcuser){
-    str  = str.split('<br>')[0]
-    
-    var indexstr = str.search('GB')
-    if (indexstr == -1){
-        indexstr = str.search('MB')
-        if (indexstr != -1){
-            type = 'MB'
+    var indexstr = str.search('GB');
+    if (indexstr == -1) {
+        indexstr = str.search('MB');
+        if (indexstr != -1) {
+            type = 'MB';
         }
-    }else{
-        type = 'GB'
+    } else {
+        type = 'GB';
     }
-    var aux = str.substring(0,indexstr)
-    // let matches = aux.match(/(\d+)/);
+    var aux = str.substring(0, indexstr);
     let matches = aux.replace(/[^0-9]/g, "");
-    // [int(s) for s in txt.split() if s.isdigit()]
-    
-    
-    if (pcuser.Armazenamento >= matches[0]){
-        valida(ind,true)
-        return
-    }else{
-        mensagem += 'Armazenamento insuficiente' + '<br>'
-        valida(ind,false)
-        return
+
+    if (pcuser.Armazenamento >= matches.trim()) {
+        valida(ind, true);
+    } else {
+        mensagem += 'Armazenamento insuficiente' + '<br>';
+        valida(ind, false);
     }
 }
 
-function valida(ind,tipo){
-    if (!tipo){
-        if (ind == 1){
-            canplaymin = false
-            return
-        }else{
-            canplaymax = false
-            return
-        }
-    }else{
-        if (ind == 1 && canplaymin){
-            canplaymin = true
-            return
-        }
-        if (ind == 2 && canplaymax){
-            canplaymax = true
-            return
+function valida(ind, tipo) {
+    if (!tipo) {
+        if (ind == 1) {
+            canplaymin = false;
+        } else {
+            canplaymax = false;
         }
     }
 }
 
-function memoriaEN(ind,req,pcuser){
+async function memoriaEN(ind, req, pcuser) {
     var str = req.substring(req.indexOf("Memory"));
-    const valor = memoriaMatch(str)
-    if (pcuser.RAM >= valor){
-        valida(ind,true)
-        return
-    }else{
-        mensagem += 'Memória RAM insuficiente' + '<br>'
-        valida(ind,false)
-        return
+    const valor = memoriaMatch(str);
+
+    if (pcuser.RAM >= valor) {
+        valida(ind, true);
+    } else {
+        mensagem += 'Memória RAM insuficiente' + '<br>';
+        valida(ind, false);
     }
 }
 
-function memoriaBR(ind,req,pcuser){
-    var str = req.substring(req.indexOf("Memória"));
-    const valor = memoriaMatch(str)
-    if (pcuser.RAM >= valor){
-        valida(ind,true)
-        return
-    }else{
-        mensagem += 'Memória RAM insuficiente' + '<br>'
-        valida(ind,false)
-        return
-    }
-}
-
-// function 
-
-function memoriaMatch(str){
-    str  = str.split('<br>')[0]
+function memoriaMatch(str) {
+    str = str.split('<br>')[0];
     let matches = str.match(/(\d+)/);
-    // Display output if number extracted
+
     if (matches) {
         return matches[0];
     }
 }
 
-function procBR(req){
-    const processador = req.search('Processador')
+async function CpuGpu(ind, req, cpu, gpu, gamespec){
+    await getpython(req, cpu, gpu, gamespec);
+    console.log('procgame: '+procgame)
+    console.log('procuser: '+procgame)
+    console.log('videogame: '+videogame)
+    console.log('videouser: '+videouser)
+    await procEN(ind, req, cpu, gpu, gamespec)
+    await VideoCardEN(ind, req, cpu, gpu, gamespec)
 }
 
-function procEN(req){
+async function VideoCardEN(ind, req, cpu, gpu, gamespec) {
+    // var CoresGame = videogame[0]['GPU clock'].split('/')[0].trim();
+    // var CoresUser = videouser[0].Cores.split('/')[0].trim();
+}
+async function procEN(ind, req, cpu, gpu, gamespec) {
+    
+    var CoresGame = procgame[0].Cores.split('/')[0].trim();
+    var CoresUser = procuser[0].Cores.split('/')[0].trim();
+    console.log('CoresGame:' + CoresGame);
+    console.log('CoresUser:' + CoresUser);
+
+    if (CoresGame != '' && CoresUser != '') {
+        if (parseInt(CoresUser) >= parseInt(CoresGame)) {
+            var AuxClockGame = procgame[0].Clock.split(' ')[0].trim();
+            var AuxClockUser = procuser[0].Clock.split(' ')[0].trim();
+
+            var ClockGame = manipulaclock(AuxClockGame);
+            var ClockUser = manipulaclock(AuxClockUser);
+
+            console.log('ClockGame:' + ClockGame);
+            console.log('ClockUser:' + ClockUser);
+
+            if (parseInt(ClockUser) >= parseInt(ClockGame)) {
+                valida(ind, true);
+            } else {
+                mensagem += 'Processador fraco' + '<br>';
+                valida(ind, false);
+            }
+        } else {
+            console.log('aaaa');
+            mensagem += 'Processador fraco' + '<br>';
+            valida(ind, false);
+        }
+    } else {
+        mensagem += 'Erro na API de peças de computador' + '<br>';
+        valida(ind, false);
+    }
+}
+
+function manipulaclock(txt) {
+    if (txt.length == 4) {
+        return txt;
+    } else if (txt.includes('.')) {
+        var aux = txt.replace('.', '');
+        while (aux.length != 4) {
+            aux += 0;
+        }
+        return aux;
+    } else {
+        while (txt.length != 4) {
+            txt += 0;
+        }
+        return txt;
+    }
+}
+
+async function getpython(req, cpu, gpu, gamespec) {
+    const { spawn } = require("child_process");
+
+    const childGame = spawn("python", ['request.py']);
+
+    const onData = new Promise((resolve) => {
+        childGame.stdout.once("data", (buffer) => {
+            const response = JSON.parse(buffer);
+            console.log("22222222222222:", response);
+            procuser = response;
+            resolve(response);
+        });
+    });
+
+    childGame.stdin.write(JSON.stringify({ args: [cpu.PecaDescricao, 'cpu-specs'] }) + "\n");
+
+    const childGame2 = spawn("python", ['request.py']);
+    const onData2 = new Promise((resolve) => {
+        childGame2.stdout.once("data", (buffer) => {
+            const response = JSON.parse(buffer);
+            console.log("22222222222222:", response);
+            procgame = response;
+            resolve(response);
+        });
+    });
+
+    childGame2.stdin.write(JSON.stringify({ args: [gamespec.CPU, 'cpu-specs'] }) + "\n");
+
+    const childGame3 = spawn("python", ['request.py']);
+
+    const onData3 = new Promise((resolve) => {
+        childGame3.stdout.once("data", (buffer) => {
+            const response = JSON.parse(buffer);
+            console.log("3333333333333333:", response);
+            videouser = response;
+            resolve(response);
+        });
+    });
+
+    childGame3.stdin.write(JSON.stringify({ args: [gpu.PecaDescricao, 'gpu-specs'] }) + "\n");
+
+    const childGame4 = spawn("python", ['request.py']);
+
+    const onData4 = new Promise((resolve) => {
+        childGame4.stdout.once("data", (buffer) => {
+            const response = JSON.parse(buffer);
+            console.log("3333333333333333:", response);
+            videogame = response;
+            resolve(response);
+        });
+    });
+    var graph = gamespec.GraphicsCard.split('/')[0].trim();
+    childGame4.stdin.write(JSON.stringify({ args: [graph,'gpu-specs'] }) + "\n");
+
+    childGame.on("exit", (code) => console.log("exitCode1:", code));
+   
+    childGame2.on("exit", (code) => console.log("exitCode2:", code));
+
+    childGame3.on("exit", (code) => console.log("exitCode3:", code));
+
+    childGame4.on("exit", (code) => console.log("exitCode4:", code));
+    const [response4, response, response2, response3] = await Promise.all([onData4, onData, onData2, onData3]);
+
 
 }
 

@@ -16,15 +16,16 @@
 
     <section class= "registro">
         <div class="caixa__login">
-            <h2>Informações</h2>
+            <form action="/registro" method="post">
+                <h2>Informações</h2>
 
                 <input id="idid" name="id" type="text" autocomplete="off" hidden />
                 <div class="caixa__login-input">
-                    <input id="idnome" name="nome" type="text" autocomplete="off" required  />
+                    <input id="idnome" name="nome" type="text" autocomplete="off" required  disabled/>
                     <label>Nome</label>
                 </div>
                 <div class="caixa__login-input">
-                    <input id="idemail" name = "email"type="email" autocomplete="off" required />
+                    <input id="idemail" name = "email"type="email" autocomplete="off" required disabled/>
                     <label>Email</label>
                 </div>
                 <div class="caixa__login-input">
@@ -32,18 +33,35 @@
                     <label>Nascimento </label>
                 </div>
                 <div class="caixa__login-input">
-                    <input id="idsenha" name="senha" type="password" autocomplete="off" required />
+                    <div>
+                        <input id="idsenha" name="senha" type="password" autocomplete="off" required disabled/>
+                        <img class="imgolho" onclick="togglePassword()" src="Images/icones/eye.png">
+                    </div>
                     <label>Senha</label>
                 </div>
+
                 <div class="caixa__login-input">
-                    <input name="Confirmasenha" type="password" required />
+                    <input name="Confirmasenha" type="password" autocomplete="off" />
                     <label>Nova senha</label>
                 </div>
-                <button class = 'acesso' id="acesso" class="p-button"> Enviar </button>
+                <input id="acesso" class="p-button" type="submit">
+            </form>
         </div>
     </section>
     <script src="../scripts/TelaHome.js" defer ></script>
     <script defer>
+        function togglePassword() {
+            var senhaInput = document.getElementById("idsenha");
+            
+            // Verifica se o tipo da senha é "password"
+            if (senhaInput.type === "password") {
+                senhaInput.type = "text"; // Se sim, altera para "text" (mostra a senha)
+            } else {
+                senhaInput.type = "password"; // Se não, altera para "password" (esconde a senha)
+            }
+        }
+
+
         document.getElementById('idid').value    = '<%= user.id %>'
         document.getElementById('idnome').value    = '<%= user.nome %>'
         document.getElementById('idemail').value   = '<%= user.email %>'

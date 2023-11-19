@@ -80,6 +80,12 @@ h2 {
   font-size: 12px;
 }
 
+.imgolho{
+  position: absolute;
+  width: 10%;
+  right: 1px;
+}
+
 .acesso{
   display: flex;
 

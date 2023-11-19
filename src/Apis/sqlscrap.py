@@ -1,81 +1,52 @@
-# import requests
-# from sqlalchemy import insert
-# from sqlalchemy.orm import declarative_base
-# from sqlalchemy import Column, Integer, String, create_engine
-
-# URL="mysql+mysqlconnector://root:1234@localhost/teste"
-# engine = create_engine(url=URL)
-
-# Base = declarative_base()
-
 import pymysql
 import csv
+
 # Configurações do banco de dados
 db_config = {
-    'host': 'localhost', #3306
+    'host': 'localhost',
     'user': 'root',
     'password': '1234',
     'db': 'newimports',
 }
 
-# Nome do arquivo TXT
-csv_file_path  = r'C:\Users\pedri\Downloads\!programação\!PIN_BANCO\steam_media_data.csv'
+# Nome do arquivo CSV
+csv_file_path = r'C:\Users\pedri\Downloads\!programação\!PIN_BANCO\auxiliar\output.csv'
 
 # Estabeleça a conexão com o banco de dados
 conn = pymysql.connect(**db_config)
 cursor = conn.cursor()
 
 # Abra o arquivo CSV e leia as linhas
-# with open(csv_file_path, 'r', newline='', encoding='utf-8') as csv_file:
-#     csv_reader = csv.reader(csv_file)
-    
-#     # As colunas estão na primeira linha
-#     columns = next(csv_reader)
-    
-#     # Prepare o comando SQL de inserção
-#     placeholders = ', '.join(['%s' for _ in columns])
-#     insert_query = f"INSERT INTO steamgames ({', '.join(columns)}) VALUES ({placeholders})"
-    
-#     # Itere sobre as linhas do arquivo CSV e insira-as no banco de dados
-#     for row in csv_reader:
-#         cursor.execute(insert_query, row)
-
-# # Commit as alterações e feche a conexão
-# conn.commit()
-# conn.close()
-
-# print("Importação concluída com sucesso!")
-batch_size = 100
-c = 0
 with open(csv_file_path, 'r', newline='', encoding='utf-8') as csv_file:
     csv_reader = csv.reader(csv_file)
-    batch = []
-    # Itere sobre as linhas do arquivo CSV
+    
+    # As colunas estão na primeira linha
+    columns = next(csv_reader)
+    
+    # Mapeamento de colunas do CSV para colunas do banco de dados
+    column_mapping = {
+        'Memory:': 'Memory',
+        'Graphics Card:': 'GraphicsCard',
+        'CPU:': 'CPU',
+        'File Size:': 'FileSize',
+        'OS:': 'OS',
+        'name': 'name',
+        # Adicione mais mapeamentos conforme necessário
+    }
+    
+    # Prepare o comando SQL de inserção
+    placeholders = ', '.join(['%s' for _ in columns])
+    insert_query = f"INSERT INTO auxiliargames ({', '.join(column_mapping.values())}) VALUES ({placeholders})"
+    
+    # Itere sobre as linhas do arquivo CSV e insira-as no banco de dados
     for row in csv_reader:
-        steam_appid, header_image, screenshots, background, movies = row
-        c += 1
-        if c >= 10:
-            if int(float(steam_appid)) > 995660:
-                # Consulta para encontrar o valor de 'appid' com base em 'steam_appid'
-                # query = "SELECT appid FROM steamgames WHERE appid = %s"
-                # cursor.execute(query, steam_appid)
+        # Mapeie as colunas do CSV para as colunas correspondentes do banco de dados
+        mapped_row = [row[columns.index(column)] if column in columns else '' for column in column_mapping.keys()]
+        cursor.execute(insert_query, mapped_row)
 
-                # result = cursor.fetchone()  # Recupere o valor correspondente de 'appid'
+# Commit as
 
-                # if result:
-                appid = steam_appid
-                batch.append((header_image, screenshots, background, movies, appid))
-                if len(batch) >= batch_size:
-                    # Insira as informações adicionais na linha correspondente
-                    update_query = "UPDATE steamgames SET header_image = %s, screenshots = %s, background = %s, movies = %s WHERE appid = %s"
-                    cursor.executemany(update_query, batch)
-                    conn.commit()
-                    batch = []
-    if batch:
-        update_query = "UPDATE sua_tabela SET pc_requirements = %s, mac_requirements = %s, linux_requirements = %s, minimum = %s, recommended = %s WHERE appid = %s"
-        cursor.executemany(update_query, batch)
-        conn.commit()
-
+conn.commit()
 conn.close()
 
-print("Atualização concluída com sucesso!")
+print("Importação concluída com sucesso!")

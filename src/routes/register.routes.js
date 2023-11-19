@@ -9,40 +9,60 @@ app.use(express.json())
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  const { id, nome, email, idade, senha, senha2 } = req.body;
+  var { id, nome, email, idade, senha, Confirmasenha } = req.body;
   
-  console.log(nome);
+  if (!id){
+    const user = await User.findOne({
+      where: {
+        [Op.or]: [{ email: email }, { nome: nome }]
+      }
+    });
+    if (user) {
+      req.session.msgerro = "Usuario/email ja usado."
+      res.redirect('registro')
+    } else if (senha != Confirmasenha) {
+      req.session.msgerro = "Senhas não coincidem."
+      res.redirect('registro')
+    } else {
+      console.log("teste");
+      const newuser = await User.create({
+        nome: nome,
+        email: email,
+        idade: idade,
+        senha: senha,
+        tipo: 'user'
+      });
 
-  const user = await User.findOne({
-    where: {
-      [Op.or]: [{ email: email }, { nome: nome }]
+      const newuserid = newuser.id;
+
+      const newcomputer = await Computer.create({
+        UsuarioID: newuser.id,
+        RAM: 0,
+        Armazenamento: 0
+      });
+
+      res.redirect('/login');
     }
-  });
-  if (user) {
-    req.session.msgerro = "Usuario/email ja usado."
-    res.redirect('registro')
-  } else if (senha != senha2) {
-    req.session.msgerro = "Senhas não coincidem."
-    res.redirect('registro')
-  } else {
-    console.log("teste");
-    const newuser = await User.create({
-      nome: nome,
-      email: email,
-      idade: idade,
-      senha: senha,
-      tipo: 'user'
+  }else{
+    const user = await User.findOne({
+      where: {id: id}
     });
-
-    const newuserid = newuser.id;
-
-    const newcomputer = await Computer.create({
-      UsuarioID: newuser.id,
-      RAM: 0,
-      Armazenamento: 0
-    });
-
-    res.redirect('/login');
+    if (Confirmasenha == ''){
+      Confirmasenha = senha
+    }
+    await User.update(
+      {
+          senha:Confirmasenha,
+          idade:idade
+      },
+      {
+          where: {id:id},
+      })
+      const user2 = await User.findOne({
+        where: {id: id}
+      });
+    req.session.ContaUsuario = user2
+    res.redirect('usuario')
   }
 
 
