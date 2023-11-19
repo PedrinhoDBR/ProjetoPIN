@@ -355,7 +355,7 @@ body {
 #CadastroPC {
     background-color: #0000004a;
     backdrop-filter: blur(25px);
-    width: 70%;
+    width: 40%;
     height: 70%;
     border-radius: 50px;
     border: 1px solid white;
@@ -377,7 +377,8 @@ body {
 .abacate {
     /* display: flex;
     flex-direction: inherit; */
-    width: 100px;
+    width: 39%;
+    margin-right: 2%;
     position: relative;
     /* top: 150px; */
     /* left: 0px; */
@@ -385,10 +386,16 @@ body {
 
 }
 
-/* .enviarEfechar { */
-    /* display: flex;
-    flex-direction: inherit; */
-/* } */
+#computadorsubmit {
+    color: #8b80f9;
+    background-color: rgb(255, 255, 255);
+  }
+
+.enviarEfechar {
+    display: flex;
+    width:100%;
+    flex-direction: inherit;
+}
 
 /* .botao {
     width: 100px;
@@ -400,7 +407,7 @@ body {
 
 
 /* navegação */
-li, a, button {
+li, a, button, .enviarEfechar input {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 16px;
     font-weight: bold;
@@ -437,7 +444,7 @@ header {
     color: rgb(167, 0, 0);
 }
 
-button {
+button, .enviarEfechar > input {
     padding: 9px 25px;
     background-color: var(--cor_botao);
     font-size: 70%;
@@ -448,7 +455,7 @@ button {
     display: inline-block;
 }
 
-button:hover {
+button,input:hover {
     background-color: var(--cor_botao);
     color: rgb(255, 255, 255);
 }
@@ -843,6 +850,10 @@ input:checked + .slider:before {
         padding-left: 0px;
     }
 
+    #CadastroPC {
+        width:70%;
+    }
+
 }
 
 
@@ -895,18 +906,6 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-#computadorsubmit {
-    width: 80%;
-    padding: 10px 20px;
-    color: #8b80f9;
-    background-color: rgb(255, 255, 255);
-    border: none;
-    border-radius: 20px;
-    font-size: 13px;
-    text-transform: uppercase;
-    text-align: center;
-  }
-
   .botao-foda {
     display: flex;
     align-items: center;
@@ -922,3 +921,8 @@ input[type=number]::-webkit-outer-spin-button {
     position: relative;
     left: 15px;
   }
+
+  /* iframe {
+    margin: 2%;
+    width:96%;
+  } */

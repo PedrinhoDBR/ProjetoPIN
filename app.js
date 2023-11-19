@@ -32,6 +32,7 @@ const login         = require('./src/routes/login.routes')
 const registro      = require('./src/routes/register.routes')
 const usuario       = require('./src/routes/user.routes')
 const errors        = require('./src/routes/erros.routes')
+const help          = require('./src/routes/help.routes')
 
 //use routes
 app.use('/computer', computer)
@@ -46,6 +47,7 @@ app.use('/login', login)
 app.use('/registro', registro)
 app.use('/usuario', usuario)
 app.use('/errors',errors)
+app.use('/help',help)
 
 
 app.listen(3000, function () {
