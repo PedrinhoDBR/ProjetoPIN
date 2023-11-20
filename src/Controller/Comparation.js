@@ -20,7 +20,7 @@ const sourceLanguage = 'auto';
 var targetLanguage = 'en';
 var teste= '';
 
-async function comparar(arquivo, pcuser, cpu, gpu, gamespec) {
+async function comparar(arquivo, pcuser, cpu, gpu, gamespec,Jogo) {
     // console.log('START:' + gamespec.cpu)
 
     mensagem = ''
@@ -65,9 +65,20 @@ async function comparar(arquivo, pcuser, cpu, gpu, gamespec) {
             await linguagem(2, requisitomax, pcuser, cpu, gpu, gamespec)
         }
     }   
+    targetLanguage = 'pt'
+    await traduzir(requisitomin)
+    requisitomin = teste
+    if (requisitomax != ''){
+        await traduzir(requisitomax)
+        requisitomax = teste
+    }
+
 
     console.log('requisitomin: ' + canplaymin)
     console.log('requisitomax: ' + canplaymax)
+    // await traduzir(Jogo)
+    // var retornojogo = teste
+
     return { requisitomin, canplaymin, requisitomax, canplaymax, isvalido, mensagem };
 }
 
@@ -165,38 +176,86 @@ async function CpuGpu(ind, req, cpu, gpu, gamespec){
     console.log('procuser: '+procgame)
     console.log('videogame: '+videogame)
     console.log('videouser: '+videouser)
-    await procEN(ind, req, cpu, gpu, gamespec)
-    await VideoCardEN(ind, req, cpu, gpu, gamespec)
+    await procEN(ind)
+    await VideoCardEN(ind)
 }
 
-async function VideoCardEN(ind, req, cpu, gpu, gamespec) {
-    // var CoresGame = videogame[0]['GPU clock'].split('/')[0].trim();
-    // var CoresUser = videouser[0].Cores.split('/')[0].trim();
+async function VideoCardEN(ind) {
+    var GPUClockGame = videogame[0]['GPU clock'].replace(/[^0-9]/g, "").trim()
+    var GPUClockUser = videouser[0]['GPU clock'].replace(/[^0-9]/g, "").trim()
+    var MemoryClockGame = videogame[0]['Memory clock'].replace(/[^0-9]/g, "").trim()
+    var MemoryClockUser = videouser[0]['Memory clock'].replace(/[^0-9]/g, "").trim()
+    console.log('GPUClockGame: '+GPUClockGame)
+    console.log('GPUClockUser: '+GPUClockUser)    
+    console.log('MemoryClockGame: '+MemoryClockGame)
+    console.log('MemoryClockUser: '+MemoryClockUser)
+    if (parseInt(GPUClockUser) >= parseInt(GPUClockGame) & parseInt(MemoryClockUser) >= parseInt(MemoryClockGame)){
+        var MemoryGame = videogame[0]['Memory'].split(',').trim()
+        var MemoryUser = videouser[0]['Memory'].split(',').trim()
+        var ddrGame = MemoryGame[1].replace(/[^0-9]/g, "").trim()
+        var ddrUser = MemoryUser[1].replace(/[^0-9]/g, "").trim()
+        if (ddrUser == ddrGame){
+            var typeA;
+            var typeB;
+            var indexstr = MemoryGame[0].search('GB');
+            if (indexstr == -1) {indexstr = MemoryGame[0].search('MB'); if (indexstr != -1) {typeA = 'MB';}} else {typeA = 'GB';}
+            var indexstr2 = MemoryUser[0].search('GB');
+            if (indexstr2 == -1) {indexstr2 = MemoryUser[0].search('MB'); if (indexstr2 != -1) {typeB = 'MB';}} else {typeB = 'GB';}
+            if (TypeB == 'GB'){
+                if (TypeA == 'GB'){
+                    // Compara
+                }else{
+                    valida(ind, true);
+                }
+            }else{
+                if (TypeA == 'GB'){
+                    console.log('aaaa');
+                    mensagem += 'Placa de vídeo fraco' + '<br>';
+                    valida(ind, false);
+                }else{
+                    // Compara
+                }
+            }
+        }else if(ddrUser > ddrGame){
+            valida(ind, true);
+        }else{
+            console.log('aaaa');
+            mensagem += 'Placa de vídeo fraco' + '<br>';
+            valida(ind, false);
+        }
+    }else{
+        console.log('aaaa');
+        mensagem += 'Placa de vídeo fraco' + '<br>';
+        valida(ind, false);
+    }
+
+
 }
-async function procEN(ind, req, cpu, gpu, gamespec) {
-    
-    var CoresGame = procgame[0].Cores.split('/')[0].trim();
-    var CoresUser = procuser[0].Cores.split('/')[0].trim();
+async function procEN(ind) {
+    if (procgame[0].Cores.includes('/')){
+        var CoresGame = procgame[0].Cores.split('/')[1].trim();
+    }else{
+        var CoresGame = procgame[0].Cores.split('/')[0].trim();
+    }
+    if (procuser[0].Cores.includes('/')){
+        var CoresUser = procuser[0].Cores.split('/')[1].trim();
+    }else{
+        var CoresUser = procuser[0].Cores.split('/')[0].trim();
+    }
+
+    var AuxClockGame = procgame[0].Clock.split(' ')[0].trim();
+    var AuxClockUser = procuser[0].Clock.split(' ')[0].trim();
+
+    var ClockGame = manipulaclock(AuxClockGame);
+    var ClockUser = manipulaclock(AuxClockUser);
+
     console.log('CoresGame:' + CoresGame);
     console.log('CoresUser:' + CoresUser);
 
     if (CoresGame != '' && CoresUser != '') {
-        if (parseInt(CoresUser) >= parseInt(CoresGame)) {
-            var AuxClockGame = procgame[0].Clock.split(' ')[0].trim();
-            var AuxClockUser = procuser[0].Clock.split(' ')[0].trim();
+        if (parseInt(CoresUser)*parseInt(ClockUser) >= parseInt(CoresGame)*parseInt(ClockGame)) {
+            valida(ind, true);
 
-            var ClockGame = manipulaclock(AuxClockGame);
-            var ClockUser = manipulaclock(AuxClockUser);
-
-            console.log('ClockGame:' + ClockGame);
-            console.log('ClockUser:' + ClockUser);
-
-            if (parseInt(ClockUser) >= parseInt(ClockGame)) {
-                valida(ind, true);
-            } else {
-                mensagem += 'Processador fraco' + '<br>';
-                valida(ind, false);
-            }
         } else {
             console.log('aaaa');
             mensagem += 'Processador fraco' + '<br>';

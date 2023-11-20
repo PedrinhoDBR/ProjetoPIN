@@ -30,13 +30,11 @@ if response.status_code == 200:
         if len(columns) == len(column_names):
             cpu_info = {column_names[i]: columns[i].text.strip() for i in range(len(column_names))}
             cpus.append(cpu_info)
-        else:
-            print("Número incorreto de colunas!")
+
 
 
     response_json = json.dumps(cpus)
     stdout.write(response_json)
     stdout.flush()
 
-else:
-    print('Falha ao acessar a página:', response.status_code)
+
