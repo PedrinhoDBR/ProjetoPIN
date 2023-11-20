@@ -15,13 +15,13 @@ var procuser;
 var procgame;
 var videouser;
 var videogame;
-
+var type2;
 const sourceLanguage = 'auto'; 
 var targetLanguage = 'en';
 var teste= '';
 
 async function comparar(arquivo, pcuser, cpu, gpu, gamespec,Jogo) {
-    // console.log('START:' + gamespec.cpu)
+    console.log('START:' + gamespec.cpu)
 
     mensagem = ''
     isvalido = true
@@ -65,17 +65,15 @@ async function comparar(arquivo, pcuser, cpu, gpu, gamespec,Jogo) {
             await linguagem(2, requisitomax, pcuser, cpu, gpu, gamespec)
         }
     }   
-    targetLanguage = 'pt'
-    await traduzir(requisitomin)
-    requisitomin = teste
-    if (requisitomax != ''){
-        await traduzir(requisitomax)
-        requisitomax = teste
-    }
+    // targetLanguage = 'pt'
+    // await traduzir(requisitomin)
+    // requisitomin = teste
+    // if (requisitomax != ''){
+    //     await traduzir(requisitomax)
+    //     requisitomax = teste
+    // }
 
 
-    console.log('requisitomin: ' + canplaymin)
-    console.log('requisitomax: ' + canplaymax)
     // await traduzir(Jogo)
     // var retornojogo = teste
 
@@ -151,9 +149,16 @@ function valida(ind, tipo) {
 
 async function memoriaEN(ind, req, pcuser) {
     var str = req.substring(req.indexOf("Memory"));
-    const valor = memoriaMatch(str);
 
-    if (pcuser.RAM >= valor) {
+
+    const valor = await memoriaMatch(str);
+    if (type2 == 'MB'){
+        var valormemoria  = '0,'+valor
+    }else{
+        var valormemoria  = valor
+    }
+
+    if (pcuser.RAM >= parseInt(valormemoria)) {
         valida(ind, true);
     } else {
         mensagem += 'Memória RAM insuficiente' + '<br>';
@@ -163,6 +168,16 @@ async function memoriaEN(ind, req, pcuser) {
 
 function memoriaMatch(str) {
     str = str.split('<br>')[0];
+
+    var indexstr2 = str.search('GB');
+    if (indexstr2 == -1) {
+        indexstr2 = str.search('MB');
+        if (indexstr2 != -1) {
+            type2 = 'MB';
+        }
+    }else{
+        type2 = 'GB'
+    }
     let matches = str.match(/(\d+)/);
 
     if (matches) {
@@ -172,65 +187,81 @@ function memoriaMatch(str) {
 
 async function CpuGpu(ind, req, cpu, gpu, gamespec){
     await getpython(req, cpu, gpu, gamespec);
-    console.log('procgame: '+procgame)
-    console.log('procuser: '+procgame)
-    console.log('videogame: '+videogame)
-    console.log('videouser: '+videouser)
     await procEN(ind)
     await VideoCardEN(ind)
 }
 
 async function VideoCardEN(ind) {
-    var GPUClockGame = videogame[0]['GPU clock'].replace(/[^0-9]/g, "").trim()
-    var GPUClockUser = videouser[0]['GPU clock'].replace(/[^0-9]/g, "").trim()
-    var MemoryClockGame = videogame[0]['Memory clock'].replace(/[^0-9]/g, "").trim()
-    var MemoryClockUser = videouser[0]['Memory clock'].replace(/[^0-9]/g, "").trim()
-    console.log('GPUClockGame: '+GPUClockGame)
-    console.log('GPUClockUser: '+GPUClockUser)    
-    console.log('MemoryClockGame: '+MemoryClockGame)
-    console.log('MemoryClockUser: '+MemoryClockUser)
-    if (parseInt(GPUClockUser) >= parseInt(GPUClockGame) & parseInt(MemoryClockUser) >= parseInt(MemoryClockGame)){
-        var MemoryGame = videogame[0]['Memory'].split(',').trim()
-        var MemoryUser = videouser[0]['Memory'].split(',').trim()
-        var ddrGame = MemoryGame[1].replace(/[^0-9]/g, "").trim()
-        var ddrUser = MemoryUser[1].replace(/[^0-9]/g, "").trim()
-        if (ddrUser == ddrGame){
-            var typeA;
-            var typeB;
-            var indexstr = MemoryGame[0].search('GB');
-            if (indexstr == -1) {indexstr = MemoryGame[0].search('MB'); if (indexstr != -1) {typeA = 'MB';}} else {typeA = 'GB';}
-            var indexstr2 = MemoryUser[0].search('GB');
-            if (indexstr2 == -1) {indexstr2 = MemoryUser[0].search('MB'); if (indexstr2 != -1) {typeB = 'MB';}} else {typeB = 'GB';}
-            if (TypeB == 'GB'){
-                if (TypeA == 'GB'){
-                    // Compara
+    var typeA;
+    var typeB;
+    var auxmemory1 = videogame[0]['Memory']
+    var auxmemory2 = videouser[0]['Memory']
+    if (auxmemory1.includes(',')){
+        var MemoryGame = auxmemory1.split(',')
+    }else{
+        var MemoryGame = ['0','0','0']
+    }
+    if (auxmemory2.includes(',')){
+        var MemoryUser = auxmemory2.split(',')
+    }else{
+        var MemoryUser = ['0','0','0']
+    }
+
+    
+    var ddrGame = MemoryGame[1].replace(/[^0-9]/g, "").trim()
+    var ddrUser = MemoryUser[1].replace(/[^0-9]/g, "").trim()
+    var ValorMemoriaGame = MemoryGame[0].replace(/[^0-9]/g, "").trim()
+    var ValorMemoriaUser = MemoryUser[0].replace(/[^0-9]/g, "").trim()
+    var indexstr = MemoryGame[0].search('GB');
+    if (indexstr == -1) {indexstr = MemoryGame[0].search('MB'); if (indexstr != -1) {typeA = 'MB';}} else {typeA = 'GB';}
+    var indexstr2 = MemoryUser[0].search('GB');
+    if (indexstr2 == -1) {indexstr2 = MemoryUser[0].search('MB'); if (indexstr2 != -1) {typeB = 'MB';}} else {typeB = 'GB';}
+
+    if (parseInt(ddrUser) == parseInt(ddrGame)){
+        if (parseInt(ValorMemoriaUser) == parseInt(ValorMemoriaGame)){
+            if (typeB == 'GB'){
+                if (typeA == 'GB'){
+                    validaclock(ind)
                 }else{
                     valida(ind, true);
                 }
             }else{
-                if (TypeA == 'GB'){
-                    console.log('aaaa');
+                if (typeA == 'GB'){
                     mensagem += 'Placa de vídeo fraco' + '<br>';
                     valida(ind, false);
                 }else{
-                    // Compara
+                    validaclock(ind)
                 }
             }
-        }else if(ddrUser > ddrGame){
+        }else if(parseInt(ValorMemoriaUser) > parseInt(ValorMemoriaGame)){
             valida(ind, true);
         }else{
-            console.log('aaaa');
             mensagem += 'Placa de vídeo fraco' + '<br>';
             valida(ind, false);
         }
+    }else if(ddrUser > ddrGame){
+        valida(ind, true);
     }else{
-        console.log('aaaa');
         mensagem += 'Placa de vídeo fraco' + '<br>';
         valida(ind, false);
     }
 
-
 }
+
+function validaclock(ind){
+    var GPUClockGame = videogame[0]['GPU clock'].replace(/[^0-9]/g, "").trim()
+    var GPUClockUser = videouser[0]['GPU clock'].replace(/[^0-9]/g, "").trim()
+    var MemoryClockGame = videogame[0]['Memory clock'].replace(/[^0-9]/g, "").trim()
+    var MemoryClockUser = videouser[0]['Memory clock'].replace(/[^0-9]/g, "").trim()
+
+    if (parseInt(GPUClockUser) >= parseInt(GPUClockGame) & parseInt(MemoryClockUser) >= parseInt(MemoryClockGame)){
+        valida(ind, true);
+    }else{
+        mensagem += 'Placa de vídeo fraco' + '<br>';
+        valida(ind, false);
+    }
+}
+
 async function procEN(ind) {
     if (procgame[0].Cores.includes('/')){
         var CoresGame = procgame[0].Cores.split('/')[1].trim();
@@ -249,15 +280,12 @@ async function procEN(ind) {
     var ClockGame = manipulaclock(AuxClockGame);
     var ClockUser = manipulaclock(AuxClockUser);
 
-    console.log('CoresGame:' + CoresGame);
-    console.log('CoresUser:' + CoresUser);
 
     if (CoresGame != '' && CoresUser != '') {
         if (parseInt(CoresUser)*parseInt(ClockUser) >= parseInt(CoresGame)*parseInt(ClockGame)) {
             valida(ind, true);
 
         } else {
-            console.log('aaaa');
             mensagem += 'Processador fraco' + '<br>';
             valida(ind, false);
         }
@@ -310,18 +338,28 @@ async function getpython(req, cpu, gpu, gamespec) {
         });
     });
 
-    childGame2.stdin.write(JSON.stringify({ args: [gamespec.CPU, 'cpu-specs'] }) + "\n");
+    if (gamespec.CPU.includes('GHz')){
+        var spec = gamespec.CPU.substring(0,(gamespec.CPU.length-7))
+    }else{
+        var spec = gamespec.CPU
+    }
+    if (spec == 'Intel Core 2 Duo T5750'){
+        spec = 'Intel Core 2 Duo'
+    }
+    console.log('spec: '+spec)
+    childGame2.stdin.write(JSON.stringify({ args: [spec, 'cpu-specs'] }) + "\n");
 
     const childGame3 = spawn("python", ['request.py']);
 
     const onData3 = new Promise((resolve) => {
         childGame3.stdout.once("data", (buffer) => {
             const response = JSON.parse(buffer);
-            console.log("3333333333333333:", response);
             videouser = response;
+            console.log("3333333333333333:", response);
             resolve(response);
         });
     });
+    
 
     childGame3.stdin.write(JSON.stringify({ args: [gpu.PecaDescricao, 'gpu-specs'] }) + "\n");
 
@@ -330,12 +368,13 @@ async function getpython(req, cpu, gpu, gamespec) {
     const onData4 = new Promise((resolve) => {
         childGame4.stdout.once("data", (buffer) => {
             const response = JSON.parse(buffer);
-            console.log("3333333333333333:", response);
             videogame = response;
+            console.log("3333333333333333:", response);
             resolve(response);
         });
     });
     var graph = gamespec.GraphicsCard.split('/')[0].trim();
+   
     childGame4.stdin.write(JSON.stringify({ args: [graph,'gpu-specs'] }) + "\n");
 
     childGame.on("exit", (code) => console.log("exitCode1:", code));
